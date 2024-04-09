@@ -48,6 +48,7 @@ public class HelloController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Победил " + clickedButton.getText(), ButtonType.OK);
 
 
+
             alert.showAndWait();
 
             gameOver = true;
