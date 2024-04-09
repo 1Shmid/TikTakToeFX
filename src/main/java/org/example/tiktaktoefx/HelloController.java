@@ -46,6 +46,7 @@ public class HelloController {
                 gameField[0][0] == 'O')) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Победил " + clickedButton.getText(), ButtonType.OK);
+
             alert.showAndWait();
 
             gameOver = true;
