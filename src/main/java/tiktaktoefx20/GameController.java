@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import java.util.logging.*;
 
 import static javafx.application.Application.launch;
 
@@ -24,7 +25,9 @@ public class GameController {
     private char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // создание массива для хранения получаемых в процессе игры значений от кнопки
     private boolean gameOver = false;
     private Random random = new Random();
-    private GridPane gridPane; // Объявление переменной gridPane
+    private final GridPane gridPane = new GridPane();
+    ; // Объявление переменной gridPane
+
 
     private boolean checkForWin() {
         // Проверка победы по строкам
@@ -57,19 +60,15 @@ public class GameController {
     }
 
 
-
-
-
-
-
-    private javafx.scene.Node getNodeFromGridPane(int row, int col) {
-        for (javafx.scene.Node node : gridPane.getChildren()) {
+    private Node getNodeFromGridPane(int row, int col) {
+        for (Node node : gridPane.getChildren()) {
             if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col) {
                 return node;
             }
         }
         return null;
     }
+
     private void startNewGame() {
         // Очищаем игровое поле и включаем все кнопки
         for (Node node : gridPane.getChildren()) {
@@ -93,7 +92,6 @@ public class GameController {
         // Сбрасываем флаг окончания игры
         gameOver = false;
     }
-
 
 
     @FXML
@@ -124,12 +122,17 @@ public class GameController {
 
         // Если пользователь выбрал "Новая игра", начинаем новую игру
         if (resultButton.isPresent() && resultButton.get() == newGameButton) {
-            startNewGame();
+
+            System.out.println(" Go to resetGame for Reset Buttons");
+            resetGame(); // Метод для сброса игры в исходное состояние
+
+
         } else {
             // Иначе закрываем приложение
             Platform.exit();
         }
     }
+
 
 //    private void computerMove() {
 //        int row, col;
@@ -164,6 +167,69 @@ public class GameController {
         return true; // Все ячейки заполнены, ничья
     }
 
+    // private final GridPane gridPane = new GridPane();; // Объявление переменной gridPane
+
+
+    private static final Logger logger = Logger.getLogger(GameController.class.getName());
+
+    private void resetGame() {
+
+//        if (gridPane != null) {
+//            // Ваш код для сброса игры
+//            System.out.println("Cброс игры");
+//
+//
+//            // Очищаем текст на кнопках и делаем их активными
+//            for (Node node : gridPane.getChildren()) {
+//                System.out.println(node.getClass().getName()); // Печать класса каждого элемента
+//                if (node instanceof Button) { // Проверяем, является ли элемент кнопкой
+//                    Button button = (Button) node;
+//                    button.setText(""); // Очищаем текст кнопки
+//                    button.setDisable(false); // Делаем кнопку активной
+//                }
+//            }
+//        } else {
+//            System.out.println("GridPane не инициализирован!");
+//        }
+
+        //initialize();
+
+
+// Ваш класс GameController
+
+
+        //logger.info("Resetting the game...");
+        if (gridPane != null) {
+            //logger.info("GridPane is not null. Resetting buttons...");
+            // Очищаем текст на кнопках и делаем их активными
+            for (Node node : gridPane.getChildren()) {
+
+                System.out.println("Fuck1");
+
+                if (node instanceof Button) {
+                    Button button = (Button) node;
+                    System.out.println(button);
+                    System.out.println("Fuck2");
+                    button.setText("");
+                    button.setDisable(false);
+                }
+            }
+            // Остальной код resetGame()
+        } else {
+           // logger.warning("GridPane is null. Cannot reset buttons.");
+        }
+       // logger.info("Reset completed.");
+
+
+        // Очищаем игровое поле
+        for (int i = 0; i < Constants.FIELD_SIZE; i++) {
+            for (int j = 0; j < Constants.FIELD_SIZE; j++) {
+                gameField[i][j] = '5'; // Constants.EMPTY_CELL;
+                // System.out.println(gameField[i][j]);
+            }
+        }
+    }
+
     @FXML
     void btnClick(ActionEvent event) {
 
@@ -180,6 +246,10 @@ public class GameController {
         // Выполняем ход игрока (устанавливаем X на кнопку)
         clickedButton.setText(String.valueOf(CurrentSymbol));
         clickedButton.setDisable(true);
+        // System.out.println(CurrentSymbol);
+
+
+
 
         // Получаем индексы кнопки
         int row = GridPane.getRowIndex(clickedButton) == null ? 0 : GridPane.getRowIndex(clickedButton);
@@ -310,7 +380,7 @@ public class GameController {
 
     @FXML
     void initialize() {
-        gridPane = new GridPane();
+        // gridPane = new GridPane();
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
             for (int j = 0; j < Constants.FIELD_SIZE; j++) {
                 gameField[i][j] = Constants.EMPTY_CELL;
