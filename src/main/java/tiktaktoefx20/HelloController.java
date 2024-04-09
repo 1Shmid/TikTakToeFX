@@ -1,4 +1,4 @@
-package org.example.tiktaktoefx;
+package tiktaktoefx20;
 
 import java.net.URL;
 import java.util.*;
