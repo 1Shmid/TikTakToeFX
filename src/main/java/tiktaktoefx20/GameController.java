@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-public class HelloController {
+public class GameController {
 
     @FXML
     private ResourceBundle resources;
