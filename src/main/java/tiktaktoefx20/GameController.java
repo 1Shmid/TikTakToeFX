@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.*;
 
 import javafx.application.*;
+import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.*;
@@ -21,8 +22,9 @@ public class GameController {
 
     private char CurrentSymbol = Constants.DEFAULT_SYMBOL;
     private char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // создание массива для хранения получаемых в процессе игры значений от кнопки
-    private boolean gameOver = false;
-    private Random random = new Random();
+    private String winnerSymbol;
+
+
 
     @FXML
     private GridPane gridPane;
@@ -58,23 +60,12 @@ public class GameController {
         return false;
     }
 
-
-    private Node getNodeFromGridPane(int row, int col) {
-        for (Node node : gridPane.getChildren()) {
-            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col) {
-                return node;
-            }
-        }
-        return null;
-    }
-
-
     @FXML
     void endGame() {
         // Проверяем условия победы или ничьи
         String result = "";
         if (checkForWin()) {
-            result = "Победил игрок!";
+            result = "Победил " + winnerSymbol + "!";
         } else if (checkForDraw()) {
             result = "Ничья!";
         }
@@ -109,43 +100,17 @@ public class GameController {
             System.out.println("Окно закрыто без выбора");
         }
 
-
         // Если пользователь выбрал "Новая игра", начинаем новую игру
         if (resultButton.isPresent() && resultButton.get() == newGameButton) {
 
             System.out.println(" Go to startNewGame");
             startNewGame();
 
-
         } else {
             // Иначе закрываем приложение
             Platform.exit();
         }
-
-
     }
-
-
-    private void computerMove() {
-        int row, col;
-        do {
-            row = random.nextInt(3);
-            col = random.nextInt(3);
-        } while (gameField[row][col] != Constants.EMPTY_CELL || gameField[row][col] != Constants.DEFAULT_SYMBOL);
-
-        javafx.scene.Node node = getNodeFromGridPane(row, col);
-        if (node != null && node instanceof Button) {
-            Button button = (Button) node;
-            button.setText("O");
-        } else {
-            System.err.println("Ошибка: не удалось найти кнопку для установки хода компьютера.");
-            // Или выполните другие действия в зависимости от вашего приложения
-        }
-
-        gameField[row][col] = 'O';
-        CurrentSymbol = Constants.DEFAULT_SYMBOL;
-    }
-
 
     private boolean checkForDraw() {
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
@@ -176,14 +141,49 @@ public class GameController {
         }
 
         // Обнуляем символ текущего игрока
-        //CurrentSymbol = Constants.DEFAULT_SYMBOL;
-
-        // Сбрасываем флаг окончания игры
-        // gameOver = false;
+        CurrentSymbol = Constants.DEFAULT_SYMBOL;
+        System.out.println("CurrentSymbol: " + CurrentSymbol);
     }
 
-
-
+    private Button getButtonByIndexes(int row, int col) {
+        ObservableList<Node> children = gridPane.getChildren(); // Получаем список детей GridPane
+        for (Node node : children) {
+            if (node instanceof Button) { // Проверяем, является ли дочерний элемент кнопкой
+                Button button = (Button) node;
+                // Получаем индексы кнопки
+                int rowIndex = GridPane.getRowIndex(button) == null ? 0 : GridPane.getRowIndex(button);
+                int colIndex = GridPane.getColumnIndex(button) == null ? 0 : GridPane.getColumnIndex(button);
+                // Если индексы совпадают с переданными, возвращаем кнопку
+                if (rowIndex == row && colIndex == col) {
+                    return button;
+                }
+            }
+        }
+        return null; // Возвращаем null, если кнопка не найдена
+    }
+    private void computerMove() {
+        // Реализация хода компьютера через логику для выбора случайной свободной ячейки
+        Random random = new Random();
+        int row, col;
+        do {
+            row = random.nextInt(gameField.length);
+            col = random.nextInt(gameField[0].length);
+        } while (gameField[row][col] != ' '); // Проверяем, что выбранная ячейка свободна
+        // Находим кнопку по индексам и делаем ход компьютера
+        Button computerButton = getButtonByIndexes(row, col);
+        computerButton.setText(String.valueOf(CurrentSymbol));
+        computerButton.setDisable(true);
+        gameField[row][col] = CurrentSymbol;
+        // Проверяем условия победы или ничьи
+        if (checkForWin() || checkForDraw()) {
+            // Если условие победы или ничьи выполнено, игра заканчивается
+            winnerSymbol = "компьютер";
+            System.out.println("Победил: " + winnerSymbol);
+            endGame();
+        }
+        // Переключаем символ текущего игрока
+        CurrentSymbol = Constants.DEFAULT_SYMBOL;
+    }
     @FXML
     void btnClick(ActionEvent event) {
 
@@ -191,15 +191,6 @@ public class GameController {
 
         clickedButton.setText(String.valueOf(CurrentSymbol));
         clickedButton.setDisable(true);
-
-/*
-        // Проверяем, что кнопка еще не была использована
-        if (!clickedButton.getText().isEmpty()) {
-            // Если кнопка уже содержит текст (X или O), игнорируем нажатие
-            return;
-        }
-
- */
 
         // Получаем индексы кнопки
         int row = GridPane.getRowIndex(clickedButton) == null ? 0 : GridPane.getRowIndex(clickedButton);
@@ -211,124 +202,15 @@ public class GameController {
         // Проверяем условия победы или ничьи
         if (checkForWin() || checkForDraw()) {
             // Если условие победы или ничьи выполнено, игра заканчивается
+            winnerSymbol = "игрок";
+            System.out.println("Победил: " + winnerSymbol);
             endGame();
         } else {
-            // Если условие победы или ничьи не выполнено, передаем ход компьютеру
-            //computerMove();
-            //Alert alert = new Alert(Alert.AlertType.INFORMATION, "Ход О" + clickedButton.getText(), ButtonType.OK);
+            // Если условие победы или ничьи не выполнено, передаем ход компьютеру и переключаем символ текущего игрока
+            CurrentSymbol = CurrentSymbol == 'X' ? 'O' : 'X';
+            computerMove();
         }
-
-        // Переключаем символ текущего игрока
-
-        System.out.println("Текущий cимвол: " + CurrentSymbol);
-
-        CurrentSymbol = CurrentSymbol == 'X' ? 'O' : 'X';
-
-        System.out.println("Следующий cимвол: " + CurrentSymbol);
     }
-    // Переключаем символ текущего игрока
-    // CurrentSymbol = (CurrentSymbol == 'X') ? 'O' : 'X';
-
-
-    // if (gameOver || clickedButton.getText() != "") return; // если игра окончена - выходим и на нажатие больше не реагируем
-
-    // получаем координаты кнопки  - индекс ячейки,
-    // и если возвращает null присваиваем 0 - здесь это глюк метода get и таким образом мы это исправляем
-
-        /*
-
-        int rowIndex = GridPane.getRowIndex(clickedButton) == null ? 0 : GridPane.getRowIndex(clickedButton);
-        int colIndex = GridPane.getColumnIndex(clickedButton) == null ? 0 : GridPane.getColumnIndex(clickedButton);
-
-        gameField[rowIndex][colIndex] = CurrentSymbol; // записываем в массив кликнутую кнопку и символ на ней
-
-        // Проверяем победителя в строке
-        if (gameField[0][0] == gameField[0][1] &&
-                gameField[0][0] == gameField[0][2] &&
-                (gameField[0][0] == 'X' ||
-                gameField[0][0] == 'O')) {
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Победил " + clickedButton.getText(), ButtonType.OK);
-
-
-
-            alert.showAndWait();
-
-            gameOver = true;
-        }
-        else if (gameField[1][0] == gameField[1][1] &&
-                gameField[1][0] == gameField[1][2] &&
-                (gameField[1][0] == 'X' ||
-                gameField[1][0] == 'O')) {
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Победил " + clickedButton.getText(), ButtonType.OK);
-            alert.showAndWait();
-
-            gameOver = true;
-        }
-        else if (gameField[2][0] == gameField[2][1] &&
-                gameField[2][0] == gameField[2][2] &&
-                (gameField[2][0] == 'X' ||
-                gameField[2][0] == 'O')) {
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Победил " + clickedButton.getText(), ButtonType.OK);
-            alert.showAndWait();
-
-            gameOver = true;
-        }
-        // Проверяем победителя в строке
-        else if (gameField[0][0] == gameField[1][0] &&
-                gameField[0][0] == gameField[2][0] &&
-                (gameField[0][0] == 'X' ||
-                gameField[0][0] == 'O')) {
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Победил " + clickedButton.getText(), ButtonType.OK);
-            alert.showAndWait();
-
-            gameOver = true;
-        }
-        else if (gameField[0][1] == gameField[1][1] &&
-                gameField[0][1] == gameField[2][1] &&
-                (gameField[0][1] == 'X' ||
-                gameField[0][1] == 'O')) {
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Победил " + clickedButton.getText(), ButtonType.OK);
-            alert.showAndWait();
-
-            gameOver = true;
-        }
-        else if (gameField[0][2] == gameField[1][2] &&
-                gameField[0][2] == gameField[2][2] &&
-                (gameField[0][2] == 'X' ||
-                gameField[0][2] == 'O')) {
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Победил " + clickedButton.getText(), ButtonType.OK);
-            alert.showAndWait();
-
-            gameOver = true;
-        }
-        // Проверяем победителя в диагоналях
-        else if (gameField[0][0] == gameField[1][1] &&
-                gameField[0][0] == gameField[2][2] &&
-                (gameField[0][0] == 'X' ||
-                gameField[0][0] == 'O')) {
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Победил " + clickedButton.getText(), ButtonType.OK);
-            alert.showAndWait();
-
-            gameOver = true;
-        }
-        else if (gameField[2][2] == gameField[1][1] &&
-                gameField[2][2] == gameField[0][2] &&
-                (gameField[2][2] == 'X' ||
-                gameField[2][2] == 'O')) {
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Победил " + clickedButton.getText(), ButtonType.OK);
-            alert.showAndWait();
-
-            gameOver = true;
-        }
-*/
 
 
     @FXML
