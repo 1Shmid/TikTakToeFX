@@ -20,9 +20,8 @@ public class GameController {
     @FXML
     private URL location;
 
-    private final char computerSymbol = Constants.O_SYMBOL; // Символ компьютера всегда 'O'
     private final char playerSymbol = Constants.X_SYMBOL; // Символ игрока всегда 'X'
-    private char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // создание массива для хранения получаемых в процессе игры значений от кнопки
+    private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // создание массива для хранения получаемых в процессе игры значений от кнопки
     private String winnerSymbol;
 
 
@@ -31,6 +30,7 @@ public class GameController {
     private GridPane gridPane;
 
 
+    // Проверка на победителя
     private boolean checkForWin() {
         // Проверка победы по строкам
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
@@ -61,6 +61,19 @@ public class GameController {
         return false;
     }
 
+    // Проверка на ничью
+    private boolean checkForDraw() {
+        for (int i = 0; i < Constants.FIELD_SIZE; i++) {
+            for (int j = 0; j < Constants.FIELD_SIZE; j++) {
+                if (gameField[i][j] == Constants.EMPTY_SYMBOL) {
+                    // Найдена пустая ячейка, игра не закончилась вничью
+                    return false;
+                }
+            }
+        }
+        return true; // Все ячейки заполнены, ничья
+    }
+
     @FXML
     void endGame() {
         // Проверяем условия победы или ничьи
@@ -86,20 +99,6 @@ public class GameController {
 
         // Ожидаем действия пользователя
         Optional<ButtonType> resultButton = alert.showAndWait();
-//
-//        // Проверяем, какую кнопку выбрал пользователь
-//        if (resultButton.isPresent()) {
-//            if (resultButton.get() == newGameButton) {
-//                // Пользователь выбрал "Новая игра"
-//                System.out.println("Нажата кнопка 'Новая игра'");
-//            } else {
-//                // Пользователь выбрал другую кнопку
-//                System.out.println("Пользователь выбрал другую кнопку");
-//            }
-//        } else {
-//            // Окно закрыто без выбора
-//            System.out.println("Окно закрыто без выбора");
-//        }
 
         // Если пользователь выбрал "Новая игра", начинаем новую игру
         if (resultButton.isPresent() && resultButton.get() == newGameButton) {
@@ -112,17 +111,7 @@ public class GameController {
         }
     }
 
-    private boolean checkForDraw() {
-        for (int i = 0; i < Constants.FIELD_SIZE; i++) {
-            for (int j = 0; j < Constants.FIELD_SIZE; j++) {
-                if (gameField[i][j] == Constants.EMPTY_SYMBOL) {
-                    // Найдена пустая ячейка, игра не закончилась вничью
-                    return false;
-                }
-            }
-        }
-        return true; // Все ячейки заполнены, ничья
-    }
+
     private void startNewGame() {
         // Очищаем игровое поле и включаем все кнопки
         for (Node node : gridPane.getChildren()) {
@@ -192,6 +181,8 @@ public class GameController {
         // Ищем выигрышную ячейку
 
         // Пробегаем по каждой ячейке поля
+        // Символ компьютера всегда 'O'
+        char computerSymbol = Constants.O_SYMBOL;
         for (int row = 0; row < gameField.length; row++) {
             for (int col = 0; col < gameField[0].length; col++) {
                 // Если ячейка свободна, пытаемся сделать ход компьютера и проверяем, выиграет ли он
@@ -225,11 +216,6 @@ public class GameController {
                         computerButton.setText(String.valueOf(computerSymbol));
                         computerButton.setDisable(true);
                         gameField[row][col] = computerSymbol; // Фиксируем ход компьютера
-//
-//
-//                        winnerSymbol = "компьютер"; // Устанавливаем символ победителя
-//                        System.out.println("Победил: " + winnerSymbol);
-
 
                         // Проверяем условия победы
                         if (checkForWin()) {
@@ -245,44 +231,39 @@ public class GameController {
                             endGame();
                         }
 
-
                         return;
 
-
-                        // Если не выигрывает, отменим этот ход и попробуем следующую ячейку
-
                     }
+                    // Если не выигрывает, отменим этот ход и попробуем следующую ячейку
+
                     gameField[row][col] = Constants.EMPTY_SYMBOL; // Возвращаем ячейку в исходное состояние
                 }
             }
         }
 
 
-            // Если ни компьютер, ни игрок не может выиграть на следующем ходе, делаем случайный ход
-            Random random = new Random();
-            int row, col;
-            do {
-                row = random.nextInt(gameField.length);
-                col = random.nextInt(gameField[0].length);
-            } while (gameField[row][col] != Constants.EMPTY_SYMBOL); // Проверяем, что выбранная ячейка свободна
-            // Находим кнопку по индексам и делаем ход компьютера
-            Button computerButton = getButtonByIndexes(row, col);
-            computerButton.setText(String.valueOf(computerSymbol));
-            computerButton.setDisable(true);
-            gameField[row][col] = computerSymbol;
-            // Проверяем условия победы или ничьи
-            if (checkForWin() || checkForDraw()) {
-                // Если условие победы или ничьи выполнено, игра заканчивается
-                winnerSymbol = "компьютер";
-                System.out.println("Победил: " + winnerSymbol);
-                endGame();
-            }
+        // Если ни компьютер, ни игрок не может выиграть на следующем ходе, делаем случайный ход
+        Random random = new Random();
+        int row, col;
+        do {
+            row = random.nextInt(gameField.length);
+            col = random.nextInt(gameField[0].length);
+        } while (gameField[row][col] != Constants.EMPTY_SYMBOL); // Проверяем, что выбранная ячейка свободна
 
+        // Находим кнопку по индексам и делаем ход компьютера
+        Button computerButton = getButtonByIndexes(row, col);
+        computerButton.setText(String.valueOf(computerSymbol));
+        computerButton.setDisable(true);
+        gameField[row][col] = computerSymbol;
+
+        // Проверяем условия победы или ничьи
+        if (checkForWin() || checkForDraw()) {
+            // Если условие победы или ничьи выполнено, игра заканчивается
+            winnerSymbol = "компьютер";
+            System.out.println("Победил: " + winnerSymbol);
+            endGame();
+        }
     }
-
-
-
-
 
     @FXML
     void btnClick(ActionEvent event) {
@@ -306,8 +287,6 @@ public class GameController {
             System.out.println("Победил: " + winnerSymbol);
             endGame();
         } else {
-            // Если условие победы или ничьи не выполнено, передаем ход компьютеру и переключаем символ текущего игрока
-            //CurrentSymbol = CurrentSymbol == 'X' ? 'O' : 'X';
             computerMove();
         }
     }
