@@ -25,7 +25,6 @@ public class GameController {
     private String winnerSymbol;
 
 
-
     @FXML
     private GridPane gridPane;
 
@@ -79,20 +78,20 @@ public class GameController {
         // Проверяем условия победы или ничьи
         String result = "";
         if (checkForWin()) {
-            result = "Победил " + winnerSymbol + "!";
+            result = winnerSymbol + " wins!";
         } else if (checkForDraw()) {
-            result = "Ничья!";
+            result = "It's a draw!!";
         }
 
         // Создаем новое диалоговое окно
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Результат игры");
+        alert.setTitle("Game result");
         alert.setHeaderText(null);
         alert.setContentText(result);
 
         // Создаем кнопки для новой игры и выхода
-        ButtonType newGameButton = new ButtonType("Новая игра", ButtonBar.ButtonData.YES);
-        ButtonType exitButton = new ButtonType("Выход", ButtonBar.ButtonData.NO);
+        ButtonType newGameButton = new ButtonType("New Game", ButtonBar.ButtonData.YES);
+        ButtonType exitButton = new ButtonType("Exit", ButtonBar.ButtonData.NO);
 
         // Устанавливаем кнопки в диалоговом окне
         alert.getButtonTypes().setAll(newGameButton, exitButton);
@@ -113,6 +112,7 @@ public class GameController {
 
 
     private void startNewGame() {
+
         // Очищаем игровое поле и включаем все кнопки
         for (Node node : gridPane.getChildren()) {
             if (node instanceof Button) {
@@ -178,11 +178,11 @@ public class GameController {
 
     void computerMove() {
 
-        // Ищем выигрышную ячейку
-
-        // Пробегаем по каждой ячейке поля
         // Символ компьютера всегда 'O'
         char computerSymbol = Constants.O_SYMBOL;
+
+        // Ищем выигрышную ячейку
+
         for (int row = 0; row < gameField.length; row++) {
             for (int col = 0; col < gameField[0].length; col++) {
                 // Если ячейка свободна, пытаемся сделать ход компьютера и проверяем, выиграет ли он
@@ -193,8 +193,8 @@ public class GameController {
                         Button computerButton = getButtonByIndexes(row, col);
                         computerButton.setText(String.valueOf(computerSymbol));
                         computerButton.setDisable(true);
-                        winnerSymbol = "компьютер"; // Устанавливаем символ победителя
-                        System.out.println("Победил: " + winnerSymbol);
+                        winnerSymbol = "The computer"; // Устанавливаем символ победителя
+                        //System.out.println(winnerSymbol + " wins!");
                         endGame();
                         return;
                     }
@@ -220,8 +220,8 @@ public class GameController {
                         // Проверяем условия победы
                         if (checkForWin()) {
                             // Если условие победы или ничьи выполнено, игра заканчивается
-                            winnerSymbol = "компьютер";
-                            System.out.println("Победил: " + winnerSymbol);
+                            winnerSymbol = "The computer"; // Устанавливаем символ победителя
+                            System.out.println(winnerSymbol + " wins!");
                             endGame();
                             //return;
                         }
@@ -259,8 +259,8 @@ public class GameController {
         // Проверяем условия победы или ничьи
         if (checkForWin() || checkForDraw()) {
             // Если условие победы или ничьи выполнено, игра заканчивается
-            winnerSymbol = "компьютер";
-            System.out.println("Победил: " + winnerSymbol);
+            winnerSymbol = "The computer"; // Устанавливаем символ победителя
+            System.out.println(winnerSymbol + " wins!");
             endGame();
         }
     }
@@ -283,8 +283,8 @@ public class GameController {
         // Проверяем условия победы или ничьи
         if (checkForWin() || checkForDraw()) {
             // Если условие победы или ничьи выполнено, игра заканчивается
-            winnerSymbol = "игрок";
-            System.out.println("Победил: " + winnerSymbol);
+            winnerSymbol = "The player"; // Устанавливаем символ победителя
+            System.out.println(winnerSymbol + " wins!");
             endGame();
         } else {
             computerMove();
