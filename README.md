@@ -26,11 +26,10 @@ TikTakToeFX 2.0 is an enhanced version of the classic Tic-Tac-Toe game developed
 
 ## How to Play
 
-1. Start the application and select the game mode: against the computer.
-2. If you choose to play against the computer, select the difficulty level.
-3. To make a move, click on a cell on the game board.
-4. The game continues until one player wins or there is a draw.
-5. To start a new game, select the corresponding option in the menu or click the "New Game" button in the game result dialog.
+1. Start the application and select the game mode: EASY or HARD.
+2. To make a move, click on a cell on the game board.
+3. The game continues until one of the players wins or a draw is recorded.
+4. To start a new game, click the "New Game" button in the game results dialog box.
 
 ## Screenshots
 
