@@ -4,11 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="" />
+    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="Main improved">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Screenshot_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Screenshot_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTTFX 2.0.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tst/tiktaktoefx20/GameControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/HelloApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+        <option value="JUnit4 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -17,16 +47,104 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2eqPj3FhfbbZdBk2Yja0YWRfxjc" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Mappings&quot;
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GameControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GameControllerTest.testComputerMove.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;TestNG.GameControllerTest.testComputerMove.executor&quot;: &quot;Run&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;version-2.0&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Asus/IdeaProjects/tetris&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.folding&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="tiktaktoefx20" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="GameControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TikTakToeFX" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tiktaktoefx20.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tiktaktoefx20" />
+      <option name="MAIN_CLASS_NAME" value="tiktaktoefx20.GameControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameControllerTest.testComputerMove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TikTakToeFX" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tiktaktoefx20.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tiktaktoefx20" />
+      <option name="MAIN_CLASS_NAME" value="tiktaktoefx20.GameControllerTest" />
+      <option name="METHOD_NAME" value="testComputerMove" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameControllerTest.testComputerMove" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="TikTakToeFX" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tiktaktoefx20.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tiktaktoefx20" />
+      <option name="MAIN_CLASS_NAME" value="tiktaktoefx20.GameControllerTest" />
+      <option name="METHOD_NAME" value="testComputerMove" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.GameControllerTest" />
+        <item itemvalue="TestNG.GameControllerTest.testComputerMove" />
+        <item itemvalue="JUnit.GameControllerTest.testComputerMove" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -43,6 +161,163 @@
       <option name="presentableId" value="Default" />
       <updated>1712580090347</updated>
     </task>
+    <task id="LOCAL-00001" summary="HelloController start improving">
+      <option name="closed" value="true" />
+      <created>1712629408609</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712629408609</updated>
+    </task>
+    <task id="LOCAL-00002" summary="HelloController start improving">
+      <option name="closed" value="true" />
+      <created>1712630537832</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712630537832</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Package renamed">
+      <option name="closed" value="true" />
+      <created>1712630782084</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712630782084</updated>
+    </task>
+    <task id="LOCAL-00004" summary=" GameController renamed from HelloController">
+      <option name="closed" value="true" />
+      <created>1712632412294</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712632412294</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Constants created">
+      <option name="closed" value="true" />
+      <created>1712639837050</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712639837050</updated>
+    </task>
+    <task id="LOCAL-00006" summary="GameController  - checkForWin() and checkForDraw() implemented">
+      <option name="closed" value="true" />
+      <created>1712648516767</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1712648516767</updated>
+    </task>
+    <task id="LOCAL-00007" summary="GameController  - resetGame fix intention 1.0">
+      <option name="closed" value="true" />
+      <created>1712661873762</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1712661873762</updated>
+    </task>
+    <task id="LOCAL-00008" summary="GameController  - resetGame fix  intention 2.0.&#10; resetGame renamed to startNewGame">
+      <option name="closed" value="true" />
+      <created>1712749992738</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1712749992738</updated>
+    </task>
+    <task id="LOCAL-00009" summary="hello-view.fxml - gridPane added">
+      <option name="closed" value="true" />
+      <created>1712754276384</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1712754276384</updated>
+    </task>
+    <task id="LOCAL-00010" summary="GameController - computerMove added">
+      <option name="closed" value="true" />
+      <created>1712754359297</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1712754359297</updated>
+    </task>
+    <task id="LOCAL-00011" summary="GameController - computerMove boosted by checking a potentially winning move">
+      <option name="closed" value="true" />
+      <created>1712757451840</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1712757451840</updated>
+    </task>
+    <task id="LOCAL-00012" summary="GameController - computerMove enhanced with a best move search function">
+      <option name="closed" value="true" />
+      <created>1712791877941</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1712791877941</updated>
+    </task>
+    <task id="LOCAL-00013" summary="GameController - code cleaning">
+      <option name="closed" value="true" />
+      <created>1712792483882</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1712792483882</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Constants code cleaning">
+      <option name="closed" value="true" />
+      <created>1712792633955</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1712792633955</updated>
+    </task>
+    <task id="LOCAL-00015" summary="GameController messages translated">
+      <option name="closed" value="true" />
+      <created>1712793483772</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1712793483772</updated>
+    </task>
+    <task id="LOCAL-00016" summary="GameController ComboBox added; Game mode choosing realized">
+      <option name="closed" value="true" />
+      <created>1712806796381</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1712806796381</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Main improved">
+      <option name="closed" value="true" />
+      <created>1712833049328</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1712833049328</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="HelloController start improving" />
+    <MESSAGE value="Package renamed" />
+    <MESSAGE value=" GameController renamed from HelloController" />
+    <MESSAGE value="Constants created" />
+    <MESSAGE value="GameController  - checkForWin() and checkForDraw() implemented" />
+    <MESSAGE value="GameController  - resetGame fix intention 1.0" />
+    <MESSAGE value="GameController  - resetGame fix  intention 2.0.&#10; resetGame renamed to startNewGame" />
+    <MESSAGE value="hello-view.fxml - gridPane added" />
+    <MESSAGE value="GameController - computerMove added" />
+    <MESSAGE value="GameController - computerMove boosted by checking a potentially winning move" />
+    <MESSAGE value="GameController - computerMove enhanced with a best move search function" />
+    <MESSAGE value="GameController - code cleaning" />
+    <MESSAGE value="Constants code cleaning" />
+    <MESSAGE value="GameController messages translated" />
+    <MESSAGE value="GameController ComboBox added; Game mode choosing realized" />
+    <MESSAGE value="Main improved" />
+    <option name="LAST_COMMIT_MESSAGE" value="Main improved" />
   </component>
 </project>

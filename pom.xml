@@ -46,7 +46,20 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>  </dependencies>
+    </dependency>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>RELEASE</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.testng</groupId>
+          <artifactId>testng</artifactId>
+          <version>RELEASE</version>
+          <scope>test</scope>
+      </dependency>
+  </dependencies>
 
   <build>
     <plugins>
@@ -68,7 +81,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>org.example.tiktaktoefx/org.example.tiktaktoefx.HelloApplication</mainClass>
+              <mainClass>org.example.tiktaktoefx/tiktaktoefx20.Main</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

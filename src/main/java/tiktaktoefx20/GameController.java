@@ -8,9 +8,11 @@ import javafx.application.*;
 import javafx.collections.*;
 import javafx.event.*;
 import javafx.fxml.FXML;
+import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.*;
 import javafx.util.*;
 
 import javafx.collections.ObservableList;
@@ -40,6 +42,12 @@ public class GameController {
     private final char computerSymbol = Constants.O_SYMBOL;   // Символ компьютера всегда 'O'
     private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // создание массива для хранения получаемых в процессе игры значений от кнопки
     private String winnerSymbol;
+
+    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
 
     @FXML
@@ -87,7 +95,7 @@ public class GameController {
     }
 
     @FXML
-    void endGame() {
+    void endGame(Parent root) {
         // Проверяем условия победы или ничьи
         String result = "";
         if (checkForWin()) {
@@ -97,7 +105,9 @@ public class GameController {
         }
 
         // Создаем новое диалоговое окно
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
         alert.setTitle("Game result");
         alert.setHeaderText(null);
         alert.setContentText(result);
@@ -108,6 +118,7 @@ public class GameController {
 
         // Устанавливаем кнопки в диалоговом окне
         alert.getButtonTypes().setAll(newGameButton, exitButton);
+
 
         // Ожидаем действия пользователя
         Optional<ButtonType> resultButton = alert.showAndWait();
@@ -179,10 +190,8 @@ public class GameController {
             // Если условие победы или ничьи выполнено, игра заканчивается
             winnerSymbol = "The computer"; // Устанавливаем символ победителя
             System.out.println(winnerSymbol + " wins!");
-            endGame();
+            endGame(computerButton.getScene().getRoot());
         }
-        // Переключаем символ текущего игрока
-        // CurrentSymbol = Constants.DEFAULT_SYMBOL;
     }
 
 
@@ -208,7 +217,7 @@ public class GameController {
                         computerButton.setDisable(true);
 
                         winnerSymbol = "The computer"; // Устанавливаем символ победителя
-                        endGame();
+                        endGame(computerButton.getScene().getRoot());
 
                         return;
                     }
@@ -238,13 +247,13 @@ public class GameController {
                             // Если условие победы или ничьи выполнено, игра заканчивается
                             winnerSymbol = "The computer"; // Устанавливаем символ победителя
                             System.out.println(winnerSymbol + " wins!");
-                            endGame();
+                            endGame(computerButton.getScene().getRoot());
                             //return;
                         }
 
                         if (checkForDraw()) {
 
-                            endGame();
+                            endGame(computerButton.getScene().getRoot());
                         }
 
                         return;
@@ -279,7 +288,7 @@ public class GameController {
             // Если условие победы или ничьи выполнено, игра заканчивается
             winnerSymbol = "The computer"; // Устанавливаем символ победителя
             System.out.println(winnerSymbol + " wins!");
-            endGame();
+            endGame(computerButton.getScene().getRoot());
         }
     }
 
@@ -303,7 +312,7 @@ public class GameController {
             // Если условие победы или ничьи выполнено, игра заканчивается
             winnerSymbol = "The player"; // Устанавливаем символ победителя
             System.out.println(winnerSymbol + " wins!");
-            endGame();
+            endGame(clickedButton.getScene().getRoot());
         } else {
             // computerMove();
 
@@ -320,6 +329,8 @@ public class GameController {
 
     @FXML
     void initialize() {
+
+
         ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD");
         comb.setItems(list);
 
