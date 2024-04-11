@@ -34,7 +34,8 @@ TikTakToeFX 2.0 is an enhanced version of the classic Tic-Tac-Toe game developed
 
 ## Screenshots
 
-![Screenshot 1](screenshots/screenshot1.png)
+![Screenshot 1](Screenshot_1.jpg)
+![Screenshot 2](Screenshot_2.jpg)
 
 ## License
 
