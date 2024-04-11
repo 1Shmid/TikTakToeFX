@@ -3,16 +3,32 @@ package tiktaktoefx20;
 import java.net.URL;
 import java.util.*;
 
+import javafx.animation.*;
 import javafx.application.*;
 import javafx.collections.*;
-import javafx.event.ActionEvent;
+import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.util.*;
+
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+import javafx.scene.control.ComboBox;
+
 
 
 public class GameController {
+
+    @FXML
+    private ComboBox comb;
+
+    @FXML
+    void Select(ActionEvent event) {
+        String s = comb.getSelectionModel().getSelectedItem().toString();
+    }
+
 
     @FXML
     private ResourceBundle resources;
@@ -21,6 +37,7 @@ public class GameController {
     private URL location;
 
     private final char playerSymbol = Constants.X_SYMBOL; // Символ игрока всегда 'X'
+    private final char computerSymbol = Constants.O_SYMBOL;   // Символ компьютера всегда 'O'
     private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // создание массива для хранения получаемых в процессе игры значений от кнопки
     private String winnerSymbol;
 
@@ -50,14 +67,10 @@ public class GameController {
         }
 
         // Проверка победы по диагоналям
-        if ((gameField[0][0] == gameField[1][1] && gameField[0][0] == gameField[2][2] &&
+        return (gameField[0][0] == gameField[1][1] && gameField[0][0] == gameField[2][2] &&
                 (gameField[0][0] == 'X' || gameField[0][0] == 'O')) ||
                 (gameField[0][2] == gameField[1][1] && gameField[0][2] == gameField[2][0]) &&
-                        (gameField[0][2] == 'X' || gameField[0][2] == 'O')) {
-            return true;
-        }
-
-        return false;
+                        (gameField[0][2] == 'X' || gameField[0][2] == 'O');
     }
 
     // Проверка на ничью
@@ -115,8 +128,7 @@ public class GameController {
 
         // Очищаем игровое поле и включаем все кнопки
         for (Node node : gridPane.getChildren()) {
-            if (node instanceof Button) {
-                Button button = (Button) node;
+            if (node instanceof Button button) {
                 button.setText("");
                 button.setDisable(false);
             }
@@ -133,8 +145,7 @@ public class GameController {
     private Button getButtonByIndexes(int row, int col) {
         ObservableList<Node> children = gridPane.getChildren(); // Получаем список детей GridPane
         for (Node node : children) {
-            if (node instanceof Button) { // Проверяем, является ли дочерний элемент кнопкой
-                Button button = (Button) node;
+            if (node instanceof Button button) { // Проверяем, является ли дочерний элемент кнопкой
                 // Получаем индексы кнопки
                 int rowIndex = GridPane.getRowIndex(button) == null ? 0 : GridPane.getRowIndex(button);
                 int colIndex = GridPane.getColumnIndex(button) == null ? 0 : GridPane.getColumnIndex(button);
@@ -149,37 +160,38 @@ public class GameController {
 
     // Реализация хода компьютера случайным образом
 
-//    private void computerMove() {
-//
-//        Random random = new Random();
-//        int row, col;
-//        do {
-//            row = random.nextInt(gameField.length);
-//            col = random.nextInt(gameField[0].length);
-//        } while (gameField[row][col] != ' '); // Проверяем, что выбранная ячейка свободна
-//        // Находим кнопку по индексам и делаем ход компьютера
-//        Button computerButton = getButtonByIndexes(row, col);
-//        computerButton.setText(String.valueOf(CurrentSymbol));
-//        computerButton.setDisable(true);
-//        gameField[row][col] = CurrentSymbol;
-//        // Проверяем условия победы или ничьи
-//        if (checkForWin() || checkForDraw()) {
-//            // Если условие победы или ничьи выполнено, игра заканчивается
-//            winnerSymbol = "компьютер";
-//            System.out.println("Победил: " + winnerSymbol);
-//            endGame();
-//        }
-//        // Переключаем символ текущего игрока
-//        CurrentSymbol = Constants.DEFAULT_SYMBOL;
-//    }
+    private void computerMoveRandom() {
+
+        Random random = new Random();
+        int row, col;
+        do {
+            row = random.nextInt(gameField.length);
+            col = random.nextInt(gameField[0].length);
+        } while (gameField[row][col] != Constants.EMPTY_SYMBOL); // Проверяем, что выбранная ячейка свободна
+        // Находим кнопку по индексам и делаем ход компьютера
+        Button computerButton = getButtonByIndexes(row, col);
+        computerButton.setText(String.valueOf(computerSymbol));
+        computerButton.setDisable(true);
+        gameField[row][col] = computerSymbol;
+
+        // Проверяем условия победы или ничьи
+        if (checkForWin() || checkForDraw()) {
+            // Если условие победы или ничьи выполнено, игра заканчивается
+            winnerSymbol = "The computer"; // Устанавливаем символ победителя
+            System.out.println(winnerSymbol + " wins!");
+            endGame();
+        }
+        // Переключаем символ текущего игрока
+        // CurrentSymbol = Constants.DEFAULT_SYMBOL;
+    }
 
 
     // Реализация хода компьютера через логику для выбора случайной свободной ячейки
 
-    void computerMove() {
+    void computerMoveSmart() {
 
-        // Символ компьютера всегда 'O'
-        char computerSymbol = Constants.O_SYMBOL;
+//        // Создаем паузу на 1 секунду перед ходом компьютера
+//        PauseTransition pause = new PauseTransition(Duration.millis(500)); // Пауза в 0.5 секунды
 
         // Ищем выигрышную ячейку
 
@@ -191,11 +203,13 @@ public class GameController {
                     if (checkForWin()) {
                         // Если ход компьютера выигрывает игру, делаем этот ход
                         Button computerButton = getButtonByIndexes(row, col);
+
                         computerButton.setText(String.valueOf(computerSymbol));
                         computerButton.setDisable(true);
+
                         winnerSymbol = "The computer"; // Устанавливаем символ победителя
-                        //System.out.println(winnerSymbol + " wins!");
                         endGame();
+
                         return;
                     }
                     // Если не выигрывает, отменим этот ход и попробуем следующую ячейку
@@ -213,8 +227,10 @@ public class GameController {
                     if (checkForWin()) {
                         // Если игрок может выиграть, блокируем его ход
                         Button computerButton = getButtonByIndexes(row, col);
+
                         computerButton.setText(String.valueOf(computerSymbol));
                         computerButton.setDisable(true);
+
                         gameField[row][col] = computerSymbol; // Фиксируем ход компьютера
 
                         // Проверяем условия победы
@@ -252,8 +268,10 @@ public class GameController {
 
         // Находим кнопку по индексам и делаем ход компьютера
         Button computerButton = getButtonByIndexes(row, col);
+
         computerButton.setText(String.valueOf(computerSymbol));
         computerButton.setDisable(true);
+
         gameField[row][col] = computerSymbol;
 
         // Проверяем условия победы или ничьи
@@ -287,19 +305,42 @@ public class GameController {
             System.out.println(winnerSymbol + " wins!");
             endGame();
         } else {
-            computerMove();
+            // computerMove();
+
+            // Вызываем соответствующий метод для хода компьютера в зависимости от выбранного уровня сложности
+            String selectedLevel = comb.getSelectionModel().getSelectedItem().toString();
+            if ("EASY".equals(selectedLevel)) {
+                computerMoveRandom();
+            } else if ("HARD".equals(selectedLevel)) {
+                computerMoveSmart();
+            }
         }
     }
 
 
     @FXML
     void initialize() {
+        ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD");
+        comb.setItems(list);
+
+        // Установка "EASY" по умолчанию
+        comb.setValue("EASY");
+
+        // Добавление обработчика событий для ComboBox
+        comb.setOnAction(this::handleComboBoxAction);
+
     // Объявляем состояние игры
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
             for (int j = 0; j < Constants.FIELD_SIZE; j++) {
                 gameField[i][j] = Constants.EMPTY_SYMBOL;
             }
         }
+    }
+
+    // Метод для обработки изменения выбора в ComboBox
+    private void handleComboBoxAction(Event event) {
+        // Здесь вы можете вызвать метод начала новой игры
+        startNewGame();
     }
 
     public char[][] getGameField() {
