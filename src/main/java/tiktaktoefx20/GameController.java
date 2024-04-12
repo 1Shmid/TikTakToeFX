@@ -247,12 +247,21 @@ public class GameController {
         if (moveMade) {
             return;
         }
+        occupyCenter(); // Попробовать занять центральную клетку
 
         System.out.println("косяк");
         // Если ни компьютер, ни игрок не может выиграть на следующем ходе, делаем случайный ход
         computerMoveRandom();
     }
 
+    void occupyCenter() {
+        int centerRow = 1; // Индекс строки центральной клетки
+        int centerCol = 1; // Индекс столбца центральной клетки
+
+        if (gameField[centerRow][centerCol] == Constants.EMPTY_SYMBOL) {
+            makeMove(centerRow, centerCol);
+        }
+    }
 
     boolean occupyCorners() {
         List<int[]> freeCorners = new ArrayList<>();
