@@ -205,6 +205,53 @@ public class GameController {
 
         // Ищем выигрышную ячейку
 
+        // makeWinMove ();
+
+        for (int row = 0; row < gameField.length; row++) {
+            for (int col = 0; col < gameField[0].length; col++) {
+                // Если ячейка свободна, пытаемся сделать ход компьютера и проверяем, выиграет ли он
+                if (gameField[row][col] == Constants.EMPTY_SYMBOL) {
+                    gameField[row][col] = computerSymbol;
+                    if (checkForWin()) {
+                        // Если ход компьютера выигрывает игру, делаем этот ход
+
+                        makeMove(row, col);
+
+                        return;
+                    }
+                    // Если не выигрывает, отменим этот ход и попробуем следующую ячейку
+                    gameField[row][col] = Constants.EMPTY_SYMBOL;
+                }
+            }
+        }
+
+        // Если компьютер не нашел выигрышного хода, пытаемся блокировать выигрыш игрока
+        for (int row = 0; row < gameField.length; row++) {
+            for (int col = 0; col < gameField[0].length; col++) {
+                // Если ячейка свободна, пытаемся сделать ход игрока и проверяем, выиграет ли он
+                if (gameField[row][col] == Constants.EMPTY_SYMBOL) {
+                    gameField[row][col] = playerSymbol; // Пытаемся сделать ход игрока
+                    if (checkForWin()) {
+
+                        makeMove(row, col);
+
+                        return;
+                    }
+                    // Если не выигрывает, отменим этот ход и попробуем следующую ячейку
+                    gameField[row][col] = Constants.EMPTY_SYMBOL; // Возвращаем ячейку в исходное состояние
+                }
+            }
+        }
+
+        // Если ни компьютер, ни игрок не может выиграть на следующем ходе, делаем случайный ход
+        computerMoveRandom();
+    }
+
+    void computerMoveGenius() {
+        // Ищем выигрышную ячейку
+
+        // makeWinMove ();
+
         for (int row = 0; row < gameField.length; row++) {
             for (int col = 0; col < gameField[0].length; col++) {
                 // Если ячейка свободна, пытаемся сделать ход компьютера и проверяем, выиграет ли он
@@ -249,10 +296,49 @@ public class GameController {
         }
         occupyCenter(); // Попробовать занять центральную клетку
 
-        System.out.println("косяк");
         // Если ни компьютер, ни игрок не может выиграть на следующем ходе, делаем случайный ход
         computerMoveRandom();
+
     }
+
+    void makeWinMove () {
+        for (int row = 0; row < gameField.length; row++) {
+            for (int col = 0; col < gameField[0].length; col++) {
+                // Если ячейка свободна, пытаемся сделать ход компьютера и проверяем, выиграет ли он
+                if (gameField[row][col] == Constants.EMPTY_SYMBOL) {
+                    gameField[row][col] = computerSymbol;
+                    if (checkForWin()) {
+                        // Если ход компьютера выигрывает игру, делаем этот ход
+
+                        makeMove(row, col);
+
+                        return;
+                    }
+                    // Если не выигрывает, отменим этот ход и попробуем следующую ячейку
+                    gameField[row][col] = Constants.EMPTY_SYMBOL;
+                }
+            }
+        }
+
+        // Если компьютер не нашел выигрышного хода, пытаемся блокировать выигрыш игрока
+        for (int row = 0; row < gameField.length; row++) {
+            for (int col = 0; col < gameField[0].length; col++) {
+                // Если ячейка свободна, пытаемся сделать ход игрока и проверяем, выиграет ли он
+                if (gameField[row][col] == Constants.EMPTY_SYMBOL) {
+                    gameField[row][col] = playerSymbol; // Пытаемся сделать ход игрока
+                    if (checkForWin()) {
+
+                        makeMove(row, col);
+
+                        return;
+                    }
+                    // Если не выигрывает, отменим этот ход и попробуем следующую ячейку
+                    gameField[row][col] = Constants.EMPTY_SYMBOL; // Возвращаем ячейку в исходное состояние
+                }
+            }
+        }
+    }
+
 
     void occupyCenter() {
         int centerRow = 1; // Индекс строки центральной клетки
@@ -332,10 +418,8 @@ public class GameController {
         if (checkForWin() || checkForDraw()) {
             // Если условие победы или ничьи выполнено, игра заканчивается
             winnerSymbol = "The player"; // Устанавливаем символ победителя
-            System.out.println(winnerSymbol + " wins!");
             endGame(clickedButton.getScene().getRoot());
         } else {
-            // computerMove();
 
             // Вызываем соответствующий метод для хода компьютера в зависимости от выбранного уровня сложности
             String selectedLevel = comb.getSelectionModel().getSelectedItem().toString();
@@ -343,6 +427,8 @@ public class GameController {
                 computerMoveRandom();
             } else if ("HARD".equals(selectedLevel)) {
                 computerMoveSmart();
+            } else if ("IMPOSSIBLE".equals(selectedLevel)) {
+                computerMoveGenius();
             }
         }
     }
@@ -351,8 +437,7 @@ public class GameController {
     @FXML
     void initialize() {
 
-
-        ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD");
+        ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "IMPOSSIBLE");
         comb.setItems(list);
 
         // Установка "EASY" по умолчанию
