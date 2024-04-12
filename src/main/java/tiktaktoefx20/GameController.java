@@ -202,6 +202,7 @@ public class GameController {
 //        // Создаем паузу на 1 секунду перед ходом компьютера
 //        PauseTransition pause = new PauseTransition(Duration.millis(500)); // Пауза в 0.5 секунды
 
+
         // Ищем выигрышную ячейку
 
         for (int row = 0; row < gameField.length; row++) {
@@ -211,13 +212,8 @@ public class GameController {
                     gameField[row][col] = computerSymbol;
                     if (checkForWin()) {
                         // Если ход компьютера выигрывает игру, делаем этот ход
-                        Button computerButton = getButtonByIndexes(row, col);
 
-                        computerButton.setText(String.valueOf(computerSymbol));
-                        computerButton.setDisable(true);
-
-                        winnerSymbol = "The computer"; // Устанавливаем символ победителя
-                        endGame(computerButton.getScene().getRoot());
+                        makeMove(row, col);
 
                         return;
                     }
@@ -234,61 +230,77 @@ public class GameController {
                 if (gameField[row][col] == Constants.EMPTY_SYMBOL) {
                     gameField[row][col] = playerSymbol; // Пытаемся сделать ход игрока
                     if (checkForWin()) {
-                        // Если игрок может выиграть, блокируем его ход
-                        Button computerButton = getButtonByIndexes(row, col);
 
-                        computerButton.setText(String.valueOf(computerSymbol));
-                        computerButton.setDisable(true);
-
-                        gameField[row][col] = computerSymbol; // Фиксируем ход компьютера
-
-                        // Проверяем условия победы
-                        if (checkForWin()) {
-                            // Если условие победы или ничьи выполнено, игра заканчивается
-                            winnerSymbol = "The computer"; // Устанавливаем символ победителя
-                            System.out.println(winnerSymbol + " wins!");
-                            endGame(computerButton.getScene().getRoot());
-                            //return;
-                        }
-
-                        if (checkForDraw()) {
-
-                            endGame(computerButton.getScene().getRoot());
-                        }
+                        makeMove(row, col);
 
                         return;
-
                     }
                     // Если не выигрывает, отменим этот ход и попробуем следующую ячейку
-
                     gameField[row][col] = Constants.EMPTY_SYMBOL; // Возвращаем ячейку в исходное состояние
                 }
             }
         }
 
+        boolean moveMade = false; // Флаг для отслеживания сделанного хода
+        // Если ни компьютер, ни игрок не может выиграть на следующем ходе, пытаемся занять углы
+        moveMade = occupyCorners();
+        if (moveMade) {
+            return;
+        }
 
+        System.out.println("косяк");
         // Если ни компьютер, ни игрок не может выиграть на следующем ходе, делаем случайный ход
-        Random random = new Random();
-        int row, col;
-        do {
-            row = random.nextInt(gameField.length);
-            col = random.nextInt(gameField[0].length);
-        } while (gameField[row][col] != Constants.EMPTY_SYMBOL); // Проверяем, что выбранная ячейка свободна
+        computerMoveRandom();
+    }
 
-        // Находим кнопку по индексам и делаем ход компьютера
+
+    boolean occupyCorners() {
+        List<int[]> freeCorners = new ArrayList<>();
+
+        // Проверяем каждый угол
+        if (gameField[0][0] == Constants.EMPTY_SYMBOL) {
+            freeCorners.add(new int[]{0, 0});
+        }
+        if (gameField[0][2] == Constants.EMPTY_SYMBOL) {
+            freeCorners.add(new int[]{0, 2});
+        }
+        if (gameField[2][0] == Constants.EMPTY_SYMBOL) {
+            freeCorners.add(new int[]{2, 0});
+        }
+        if (gameField[2][2] == Constants.EMPTY_SYMBOL) {
+            freeCorners.add(new int[]{2, 2});
+        }
+
+        // Если есть свободные углы, выбираем случайный и занимаем его
+        if (!freeCorners.isEmpty()) {
+            Random random = new Random();
+            int[] selectedCorner = freeCorners.get(random.nextInt(freeCorners.size()));
+            int row = selectedCorner[0];
+            int col = selectedCorner[1];
+            makeMove(row, col);
+            return true; // Возвращаем true, чтобы указать, что ход был сделан
+        }
+
+        return false; // Если ход не был сделан, возвращаем false
+    }
+    void makeMove(int row, int col) {
+
         Button computerButton = getButtonByIndexes(row, col);
-
         computerButton.setText(String.valueOf(computerSymbol));
         computerButton.setDisable(true);
+        gameField[row][col] = computerSymbol; // Фиксируем ход компьютера
 
-        gameField[row][col] = computerSymbol;
-
-        // Проверяем условия победы или ничьи
-        if (checkForWin() || checkForDraw()) {
-            // Если условие победы или ничьи выполнено, игра заканчивается
+        // Проверяем условия победы
+        if (checkForWin()) {
             winnerSymbol = "The computer"; // Устанавливаем символ победителя
-            System.out.println(winnerSymbol + " wins!");
             endGame(computerButton.getScene().getRoot());
+            return;
+        }
+
+        // Проверяем наличие ничьи
+        if (checkForDraw()) {
+            endGame(computerButton.getScene().getRoot());
+            return;
         }
     }
 
