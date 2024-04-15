@@ -1,3 +1,13 @@
+# TikTakToeFX 2.2
+
+Implementing a strategy of computer moves in a game using a combination of interfaces and pattern Strategy. Still in the works.
+
+
+-------------------------
+
+
+
+
 # TikTakToeFX 2.01
 
 ![TikTakToeFX](TTTFX%202.0.jpg)
