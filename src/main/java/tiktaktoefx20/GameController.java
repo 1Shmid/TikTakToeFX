@@ -75,20 +75,20 @@ public class GameController extends ComputerMoveHandler {
         }
     }
 
-
     @FXML
     void initialize() {
+        initializeComboBox();
+        initializeGameField();
+    }
 
+    private void initializeComboBox() {
         ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "IMPOSSIBLE");
         comb.setItems(list);
-
-        // Установка "EASY" по умолчанию
         comb.setValue("EASY");
+        comb.setOnAction(event -> startNewGame());
+    }
 
-        // Добавление обработчика событий для ComboBox
-        comb.setOnAction(this::handleComboBoxAction);
-
-    // Объявляем состояние игры
+    private void initializeGameField() {
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
             for (int j = 0; j < Constants.FIELD_SIZE; j++) {
                 gameField[i][j] = Constants.EMPTY_SYMBOL;
@@ -96,14 +96,39 @@ public class GameController extends ComputerMoveHandler {
         }
     }
 
-    // Метод для обработки изменения выбора в ComboBox
-    private void handleComboBoxAction(Event event) {
-        // Здесь вы можете вызвать метод начала новой игры
-        startNewGame();
-    }
 
-    public char[][] getGameField() {
-        return gameField;
-    }
+
+
+
+//    @FXML
+//    void initialize() {
+//
+//        ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "IMPOSSIBLE");
+//        comb.setItems(list);
+//
+//        // Установка "EASY" по умолчанию
+//        comb.setValue("EASY");
+//
+//        // Добавление обработчика событий для ComboBox
+//        comb.setOnAction(this::handleComboBoxAction);
+//
+//    // Объявляем состояние игры
+//        for (int i = 0; i < Constants.FIELD_SIZE; i++) {
+//            for (int j = 0; j < Constants.FIELD_SIZE; j++) {
+//                gameField[i][j] = Constants.EMPTY_SYMBOL;
+//            }
+//        }
+//    }
+//
+//    // Метод для обработки изменения выбора в ComboBox
+//    private void handleComboBoxAction(Event event) {
+//        // Здесь вы можете вызвать метод начала новой игры
+//        startNewGame();
+//    }
+
+//    public char[][] getGameField() {
+//        return gameField;
+//    }
+
 }
 
