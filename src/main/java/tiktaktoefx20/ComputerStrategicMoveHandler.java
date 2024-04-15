@@ -1,6 +1,6 @@
 package tiktaktoefx20;
 
-import javafx.scene.control.*;
+import tiktaktoefx20.strategies.*;
 
 
 public class ComputerStrategicMoveHandler {
