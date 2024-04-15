@@ -48,7 +48,7 @@ public class ComputerMoveHandler extends GameHandler {
         if (checkForWin() || checkForDraw()) {
             // Если условие победы или ничьи выполнено, игра заканчивается
             winnerSymbol = "The computer"; // Устанавливаем символ победителя
-            endGame(computerButton.getScene().getRoot());
+            endGame();
         }
     }
 
@@ -174,13 +174,13 @@ public class ComputerMoveHandler extends GameHandler {
         // Проверяем условия победы
         if (checkForWin()) {
             winnerSymbol = "The computer"; // Устанавливаем символ победителя
-            endGame(computerButton.getScene().getRoot());
+            endGame();
             return;
         }
 
         // Проверяем наличие ничьи
         if (checkForDraw()) {
-            endGame(computerButton.getScene().getRoot());
+            endGame();
             return;
         }
     }
