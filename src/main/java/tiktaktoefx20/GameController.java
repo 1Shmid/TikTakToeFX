@@ -19,7 +19,8 @@ import javafx.scene.control.ComboBox;
 public class GameController extends ComputerMoveHandler {
 
     @FXML
-    private ComboBox comb;
+    private ComboBox<String> comb;
+
 
     @FXML
     void Select(ActionEvent event) {
@@ -82,6 +83,7 @@ public class GameController extends ComputerMoveHandler {
     }
 
     private void initializeComboBox() {
+
         ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "IMPOSSIBLE");
         comb.setItems(list);
         comb.setValue("EASY");
