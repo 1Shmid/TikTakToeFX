@@ -1,6 +1,6 @@
 # TikTakToeFX 2.01
 
-![TikTakToeFX](TTTFX%202.01.jpg)
+![TikTakToeFX](TTTFX%2.01.jpg)
 
 ## About the Project
 TikTakToeFX 2.01 is a refined version of the classic Tic-Tac-Toe game developed using JavaFX platform. This version introduces a more modular and organized code structure by separating the game logic into multiple classes.
