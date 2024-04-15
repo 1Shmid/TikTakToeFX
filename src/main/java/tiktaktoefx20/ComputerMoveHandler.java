@@ -56,7 +56,7 @@ public class ComputerMoveHandler extends GameHandler {
 
         // Ищем выигрышную ячейку и если ячейка свободна, пытаемся сделать ход компьютера и проверяем, выиграет ли он
 
-        if (MakeWinMove()) return;
+        if (makeWinMove()) return;
 
         // Если ни компьютер, ни игрок не может выиграть на следующем ходе, делаем случайный ход
         computerMoveRandom();
@@ -67,7 +67,7 @@ public class ComputerMoveHandler extends GameHandler {
 
         // Ищем выигрышную ячейку и если ячейка свободна, пытаемся сделать ход компьютера и проверяем, выиграет ли он
 
-        if (MakeWinMove()) return;
+        if (makeWinMove()) return;
 
         boolean moveMade; // Флаг для отслеживания сделанного хода
         // Если ни компьютер, ни игрок не может выиграть на следующем ходе, пытаемся занять углы
@@ -82,7 +82,7 @@ public class ComputerMoveHandler extends GameHandler {
 
     }
 
-    private boolean MakeWinMove() {
+    private boolean makeWinMove() {
         // Ищем выигрышную ячейку
         for (int row = 0; row < gameField.length; row++) {
             for (int col = 0; col < gameField[0].length; col++) {
