@@ -6,6 +6,7 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import tiktaktoefx20.strategies.*;
+import tiktaktoefx20.TTTGameLogic;
 
 
 public class GameController extends ComputerMoveHandler {
@@ -74,11 +75,17 @@ public class GameController extends ComputerMoveHandler {
         int row = GridPane.getRowIndex(clickedButton) == null ? 0 : GridPane.getRowIndex(clickedButton);
         int col = GridPane.getColumnIndex(clickedButton) == null ? 0 : GridPane.getColumnIndex(clickedButton);
 
+        // Создаем копию игрового поля
+        char[][] tempGameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE];
+        for (int i = 0; i < Constants.FIELD_SIZE; i++) {
+            System.arraycopy(gameField[i], 0, tempGameField[i], 0, Constants.FIELD_SIZE);
+        }
+
         // Обновляем состояние игры
-        gameField[row][col] = playerSymbol;
+        tempGameField[row][col] = playerSymbol;
 
         // Проверяем условия победы или ничьи
-        if (checkForWin() || checkForDraw()) {
+        if (TTTGameLogic.checkForWinS(tempGameField) || TTTGameLogic.checkForDrawS(tempGameField)) {
             // Если условие победы или ничьи выполнено, игра заканчивается
             winnerSymbol = "The player"; // Устанавливаем символ победителя
             endGame();
@@ -88,7 +95,7 @@ public class GameController extends ComputerMoveHandler {
 
             // Вызываем метод makeMove() у экземпляра ComputerStrategicMoveHandler
             String selectedLevel = comb.getSelectionModel().getSelectedItem();
-            int[] computerMove = computerStrategicMoveHandler.makeMove(gameField, computerSymbol);
+            int[] computerMove = computerStrategicMoveHandler.makeMove(tempGameField, computerSymbol);
 
             // Обновляем интерфейс и проверяем условия победы или ничьи
             int computerRow = computerMove[0];
@@ -96,9 +103,9 @@ public class GameController extends ComputerMoveHandler {
             Button computerButton = getButtonByIndexes(computerRow, computerCol);
             computerButton.setText(String.valueOf(computerSymbol));
             computerButton.setDisable(true);
-            gameField[computerRow][computerCol] = computerSymbol;
+            tempGameField[computerRow][computerCol] = computerSymbol;
 
-            if (checkForWin() || checkForDraw()) {
+            if (TTTGameLogic.checkForWinS(tempGameField) || TTTGameLogic.checkForDrawS(tempGameField)) {
                 winnerSymbol = "The computer"; // Устанавливаем символ победителя
                 endGame();
             }
