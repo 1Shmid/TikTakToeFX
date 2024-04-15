@@ -34,8 +34,9 @@ This version represents a significant evolution from TikTakToeFX 2.0:
 4. To start a new game, click the "New Game" button in the game results dialog box.
 
 ## Screenshots
-- *Screenshot 1*
-- *Screenshot 2*
+![Screenshot 1](Screenshot_1.jpg)
+![Screenshot 2](Screenshot_2.jpg)
+![Screenshot 2](Screenshot_3.jpg)
 
 ## License
 This project is licensed under the MIT License.
