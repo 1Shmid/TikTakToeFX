@@ -1,4 +1,6 @@
-package tiktaktoefx20;
+package tiktaktoefx20.strategies;
+
+import tiktaktoefx20.*;
 
 public class AttackMoveStrategy implements MoveStrategy {
 
