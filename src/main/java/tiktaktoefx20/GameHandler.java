@@ -55,7 +55,7 @@ public class GameHandler {
     }
 
     @FXML
-    void endGame(Parent root) {
+    void endGame() {
         // Проверяем условия победы или ничьи
         String result = "";
         if (checkForWin()) {
