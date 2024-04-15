@@ -15,7 +15,15 @@ public class ComputerStrategicMoveHandler {
     }
 
     public void makeMove(int[][] gameField, char computerSymbol) {
-        int[] move = moveStrategy.makeMove(gameField, computerSymbol);
+        int[] move;
+        // Если текущая стратегия - блокировка ходов игрока, используем ее
+        if (moveStrategy instanceof BlockOpponentMoveStrategy) {
+            move = ((BlockOpponentMoveStrategy) moveStrategy).makeMove(gameField, computerSymbol);
+        } else {
+            // В противном случае используем текущую стратегию
+            move = moveStrategy.makeMove(gameField, computerSymbol);
+        }
+
         if (move != null) {
             int row = move[0];
             int col = move[1];
