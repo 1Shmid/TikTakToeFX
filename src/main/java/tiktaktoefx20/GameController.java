@@ -60,7 +60,7 @@ public class GameController extends ComputerMoveHandler {
         if (checkForWin() || checkForDraw()) {
             // Если условие победы или ничьи выполнено, игра заканчивается
             winnerSymbol = "The player"; // Устанавливаем символ победителя
-            endGame(clickedButton.getScene().getRoot());
+            endGame();
         } else {
 
             // Вызываем соответствующий метод для хода компьютера в зависимости от выбранного уровня сложности
