@@ -1,8 +1,6 @@
 package tiktaktoefx20;
 
-import javafx.application.*;
 import javafx.collections.*;
-import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -40,6 +38,7 @@ public class ComputerMoveHandler extends GameHandler {
         } while (gameField[row][col] != Constants.EMPTY_SYMBOL); // Проверяем, что выбранная ячейка свободна
         // Находим кнопку по индексам и делаем ход компьютера
         Button computerButton = getButtonByIndexes(row, col);
+        assert computerButton != null;
         computerButton.setText(String.valueOf(computerSymbol));
         computerButton.setDisable(true);
         gameField[row][col] = computerSymbol;
@@ -70,7 +69,7 @@ public class ComputerMoveHandler extends GameHandler {
 
         if (MakeWinMove()) return;
 
-        boolean moveMade = false; // Флаг для отслеживания сделанного хода
+        boolean moveMade; // Флаг для отслеживания сделанного хода
         // Если ни компьютер, ни игрок не может выиграть на следующем ходе, пытаемся занять углы
         moveMade = occupyCorners();
         if (moveMade) {
@@ -167,6 +166,7 @@ public class ComputerMoveHandler extends GameHandler {
     void makeMove(int row, int col) {
 
         Button computerButton = getButtonByIndexes(row, col);
+        assert computerButton != null;
         computerButton.setText(String.valueOf(computerSymbol));
         computerButton.setDisable(true);
         gameField[row][col] = computerSymbol; // Фиксируем ход компьютера
@@ -181,7 +181,6 @@ public class ComputerMoveHandler extends GameHandler {
         // Проверяем наличие ничьи
         if (checkForDraw()) {
             endGame();
-            return;
         }
     }
 
