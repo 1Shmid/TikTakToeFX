@@ -9,7 +9,7 @@ TikTakToeFX 2.0 is an enhanced version of the classic Tic-Tac-Toe game developed
 ## Features
 
 - **Play against the computer:** Now you can challenge the computer in Tic-Tac-Toe.
-- **Two difficulty levels:** Choose the difficulty level that matches your skill level: easy or hard.
+-**Three difficulty levels:** Choose the difficulty level that matches your skill level: easy, difficult, or impossible.
 - **Difficulty selection menu:** A convenient menu allows easy selection of the difficulty level before starting the game.
 - **Start a new game:** Begin a new game at any time without closing the current window.
 
@@ -35,6 +35,7 @@ TikTakToeFX 2.0 is an enhanced version of the classic Tic-Tac-Toe game developed
 
 ![Screenshot 1](Screenshot_1.jpg)
 ![Screenshot 2](Screenshot_2.jpg)
+![Screenshot 2](Screenshot_3.jpg)
 
 ## License
 
