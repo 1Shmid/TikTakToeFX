@@ -1,18 +1,10 @@
 package tiktaktoefx20;
 
-import java.net.URL;
-import java.util.*;
-
+import javafx.collections.*;
 import javafx.event.*;
-import javafx.fxml.FXML;
-
+import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.*;
-
-import javafx.collections.ObservableList;
-import javafx.collections.FXCollections;
-import javafx.scene.control.ComboBox;
 
 
 
@@ -23,23 +15,11 @@ public class GameController extends ComputerMoveHandler {
 
 
     @FXML
-    void Select(ActionEvent event) {
-        String s = comb.getSelectionModel().getSelectedItem().toString();
+    void Select() {
     }
 
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    private Stage stage;
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setStage() {
     }
-
 
 
     @FXML
@@ -65,7 +45,7 @@ public class GameController extends ComputerMoveHandler {
         } else {
 
             // Вызываем соответствующий метод для хода компьютера в зависимости от выбранного уровня сложности
-            String selectedLevel = comb.getSelectionModel().getSelectedItem().toString();
+            String selectedLevel = comb.getSelectionModel().getSelectedItem();
             if ("EASY".equals(selectedLevel)) {
                 computerMoveRandom();
             } else if ("HARD".equals(selectedLevel)) {
@@ -97,40 +77,5 @@ public class GameController extends ComputerMoveHandler {
             }
         }
     }
-
-
-
-
-
-//    @FXML
-//    void initialize() {
-//
-//        ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "IMPOSSIBLE");
-//        comb.setItems(list);
-//
-//        // Установка "EASY" по умолчанию
-//        comb.setValue("EASY");
-//
-//        // Добавление обработчика событий для ComboBox
-//        comb.setOnAction(this::handleComboBoxAction);
-//
-//    // Объявляем состояние игры
-//        for (int i = 0; i < Constants.FIELD_SIZE; i++) {
-//            for (int j = 0; j < Constants.FIELD_SIZE; j++) {
-//                gameField[i][j] = Constants.EMPTY_SYMBOL;
-//            }
-//        }
-//    }
-//
-//    // Метод для обработки изменения выбора в ComboBox
-//    private void handleComboBoxAction(Event event) {
-//        // Здесь вы можете вызвать метод начала новой игры
-//        startNewGame();
-//    }
-
-//    public char[][] getGameField() {
-//        return gameField;
-//    }
-
 }
 
