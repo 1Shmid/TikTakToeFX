@@ -7,21 +7,16 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import tiktaktoefx20.strategies.*;
 
-import java.util.*;
 
-
-public class GameController extends TTTGameLogic {
+public class GameController extends GameLogic {
 
     // Создаем объекты стратегий
-    MoveStrategy randomStrategy = new RandomMoveStrategy();
-    MoveStrategy attackStrategy = new AttackMoveStrategy();
+    MoveStrategy easyStrategy = new EasyStrategy();
+    MoveStrategy hardStrategy = new HardStrategy();
 
     // Создаем объекты обработчиков хода с разными стратегиями
-    Context randomMoveHandler = new Context(randomStrategy);
-    Context attackMoveHandler = new Context(attackStrategy);
-
-
-
+    Context easyMoveHandler = new Context(easyStrategy);
+    Context hardMoveHandler = new Context(hardStrategy);
 
     private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
 
@@ -65,9 +60,9 @@ public class GameController extends TTTGameLogic {
 
             // Делаем ход компьютера с выбранной стратегией
             int[] computerMove = switch (selectedLevel) {
-                case "EASY" -> randomMoveHandler.makeMove(gameField ,selectedLevel);
-                case "HARD" -> attackMoveHandler.makeMove(gameField ,selectedLevel);
-                default -> randomMoveHandler.makeMove(gameField,selectedLevel); // По умолчанию используем случайную стратегию
+                case "EASY" -> easyMoveHandler.makeMove(gameField ,selectedLevel);
+                case "HARD" -> hardMoveHandler.makeMove(gameField ,selectedLevel);
+                default -> easyMoveHandler.makeMove(gameField,selectedLevel); // По умолчанию используем случайную стратегию
             };
 
             // По полученным координатам обновляем графический интерфейс от имени компьютера
@@ -78,7 +73,6 @@ public class GameController extends TTTGameLogic {
             computerButton.setDisable(true);
 
             gameField[computerRow][computerCol] = Constants.COMPUTER_SYMBOL;
-
 
             if (checkForDrawS(gameField) || checkForWinS(gameField)) {
 
@@ -92,7 +86,7 @@ public class GameController extends TTTGameLogic {
     void initialize() {
         initializeComboBox();
         initializeGameField();
-        computerStrategicMoveHandler = new Context(new RandomMoveStrategy());
+        computerStrategicMoveHandler = new Context(new EasyStrategy());
     }
     private void initializeComboBox() {
 

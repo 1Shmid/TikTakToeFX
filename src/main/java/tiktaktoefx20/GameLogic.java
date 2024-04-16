@@ -7,7 +7,7 @@ import javafx.scene.layout.*;
 
 import java.util.*;
 
-public class TTTGameLogic extends GameHandler {
+public class GameLogic extends GameHandler {
 
     Button getButtonByIndexes(int row, int col) {
         ObservableList<Node> children = gridPane.getChildren(); // Получаем список детей GridPane

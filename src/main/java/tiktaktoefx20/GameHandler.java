@@ -18,9 +18,9 @@ public class GameHandler {
     void endGame(char[][] gameField) {
         // Проверяем условия победы или ничьи
         String result = "";
-        if (TTTGameLogic.checkForWinS(gameField)) {
+        if (GameLogic.checkForWinS(gameField)) {
             result = winnerSymbol + " wins!";
-        } else if (TTTGameLogic.checkForDrawS(gameField)) {
+        } else if (GameLogic.checkForDrawS(gameField)) {
             result = "It's a draw!!";
         }
 
