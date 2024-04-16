@@ -8,7 +8,7 @@ import javafx.scene.layout.*;
 
 import java.util.*;
 
-public class GameHandler {
+public class GameResultHandler {
 
     @FXML
     protected GridPane gridPane;
