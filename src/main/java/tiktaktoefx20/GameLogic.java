@@ -15,7 +15,6 @@ public class GameLogic extends GameHandler {
         return checkRowsForWin(gameField) || checkColumnsForWin(gameField) || checkDiagonalsForWin(gameField);
     }
 
-
     // Проверка на ничью
     public static boolean checkForDraw(char[][] gameField) {
 
