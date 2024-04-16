@@ -1,8 +1,29 @@
 package tiktaktoefx20;
 
+import javafx.collections.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+
 import java.util.*;
 
-public class TTTGameLogic {
+public class TTTGameLogic extends GameHandler {
+
+    Button getButtonByIndexes(int row, int col) {
+        ObservableList<Node> children = gridPane.getChildren(); // Получаем список детей GridPane
+        for (Node node : children) {
+            if (node instanceof Button button) { // Проверяем, является ли дочерний элемент кнопкой
+                // Получаем индексы кнопки
+                int rowIndex = GridPane.getRowIndex(button) == null ? 0 : GridPane.getRowIndex(button);
+                int colIndex = GridPane.getColumnIndex(button) == null ? 0 : GridPane.getColumnIndex(button);
+                // Если индексы совпадают с переданными, возвращаем кнопку
+                if (rowIndex == row && colIndex == col) {
+                    return button;
+                }
+            }
+        }
+        return null; // Возвращаем null, если кнопка не найдена
+    }
 
     // Проверка на победу
     public static boolean checkForWinS(char[][] gameField) {
