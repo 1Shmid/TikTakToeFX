@@ -9,23 +9,22 @@ import javafx.scene.layout.*;
 import java.util.*;
 
 public class GameHandler {
-    protected String winnerSymbol;
+
     @FXML
     protected GridPane gridPane;
 
-
     @FXML
-    void endGame(char[][] gameField) {
+    public void endGame(char[][] gameField, String winnerSymbol) {
+
         // Проверяем условия победы или ничьи
         String result = "";
-        if (GameLogic.checkForWinS(gameField)) {
+        if (GameLogic.checkForWin(gameField)) {
             result = winnerSymbol + " wins!";
-        } else if (GameLogic.checkForDrawS(gameField)) {
+        } else if (GameLogic.checkForDraw(gameField)) {
             result = "It's a draw!!";
         }
 
         // Создаем новое диалоговое окно
-
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         alert.setTitle("Game result");
