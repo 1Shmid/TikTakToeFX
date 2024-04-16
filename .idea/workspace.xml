@@ -4,19 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="Main improved">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Screenshot_1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Screenshot_2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTTFX 2.0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tst/tiktaktoefx20/GameControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="GameController code refactored">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/HelloApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/ComputerMoveHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/FirstAvailableMoveStrategy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameDataStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameDataStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AttackMoveStrategy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/BlockOpponentMoveStrategy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/CenterAndCornersMoveStrategy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tst/tiktaktoefx20/AttackMoveStrategyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tst/tiktaktoefx20/AttackMoveStrategyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tst/tiktaktoefx20/CenterAndCornersMoveStrategyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tst/tiktaktoefx20/CenterAndCornersMoveStrategyTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,27 +55,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameControllerTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameControllerTest.testComputerMove.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;TestNG.GameControllerTest.testComputerMove.executor&quot;: &quot;Run&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;version-2.0&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Asus/IdeaProjects/tetris&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.folding&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.HelloApplication.executor": "Run",
+    "Application.Main.executor": "Run",
+    "JUnit.GameControllerTest.executor": "Run",
+    "JUnit.GameControllerTest.testComputerMove.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TestNG.GameControllerTest.testComputerMove.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "version-2.2",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Asus/IdeaProjects/tetris",
+    "settings.editor.selected.configurable": "editor.preferences.folding"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -297,8 +294,81 @@
       <option name="project" value="LOCAL" />
       <updated>1712833049328</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Code cleaning done. EasyStrategy working correctly now">
+      <option name="closed" value="true" />
+      <created>1713273275330</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1713273275330</updated>
+    </task>
+    <task id="LOCAL-00019" summary="GameHandler working well with hard strategy">
+      <option name="closed" value="true" />
+      <created>1713279823570</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1713279823570</updated>
+    </task>
+    <task id="LOCAL-00020" summary="GameLogic working well with hard strategy">
+      <option name="closed" value="true" />
+      <created>1713281072318</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1713281072318</updated>
+    </task>
+    <task id="LOCAL-00021" summary="GameLogic working well with hard strategy">
+      <option name="closed" value="true" />
+      <created>1713281105358</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1713281105358</updated>
+    </task>
+    <task id="LOCAL-00022" summary="HardStrategy implemented correctly">
+      <option name="closed" value="true" />
+      <created>1713282487286</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1713282487286</updated>
+    </task>
+    <task id="LOCAL-00023" summary="HardStrategy code refactored">
+      <option name="closed" value="true" />
+      <created>1713283107422</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1713283107422</updated>
+    </task>
+    <task id="LOCAL-00024" summary="GameController code refactored">
+      <option name="closed" value="true" />
+      <created>1713284797689</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1713284797689</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -318,6 +388,12 @@
     <MESSAGE value="GameController messages translated" />
     <MESSAGE value="GameController ComboBox added; Game mode choosing realized" />
     <MESSAGE value="Main improved" />
-    <option name="LAST_COMMIT_MESSAGE" value="Main improved" />
+    <MESSAGE value="Code cleaning done. EasyStrategy working correctly now" />
+    <MESSAGE value="GameHandler working well with hard strategy" />
+    <MESSAGE value="GameLogic working well with hard strategy" />
+    <MESSAGE value="HardStrategy implemented correctly" />
+    <MESSAGE value="HardStrategy code refactored" />
+    <MESSAGE value="GameController code refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="GameController code refactored" />
   </component>
 </project>

@@ -14,8 +14,8 @@ public class CenterAndCornersMoveStrategyTest {
                 { ' ', ' ', 'X' }
         };
 
-        // Создаем экземпляр TTTGameLogic
-        TTTGameLogic gameLogic = new TTTGameLogic();
+        // Создаем экземпляр GameLogic
+        GameLogic gameLogic = new GameLogic();
 
         // Создаем экземпляр стратегии для центра и углов
         CenterAndCornersMoveStrategy centerAndCornersStrategy = new CenterAndCornersMoveStrategy(gameLogic);

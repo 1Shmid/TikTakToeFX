@@ -14,8 +14,8 @@ public class AttackMoveStrategyTest {
                 { ' ', ' ', 'X' }
         };
 
-        // Создаем экземпляр TTTGameLogic
-        TTTGameLogic gameLogic = new TTTGameLogic();
+        // Создаем экземпляр GameLogic
+        GameLogic gameLogic = new GameLogic();
 
         // Создаем экземпляр стратегии атаки
         AttackMoveStrategy attackStrategy = new AttackMoveStrategy(gameLogic);
