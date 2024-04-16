@@ -1,10 +1,10 @@
 package tiktaktoefx20;
 
 
-public class ComputerStrategicMoveHandler {
+public class Context {
     private final MoveStrategy moveStrategy;
 
-    public ComputerStrategicMoveHandler(MoveStrategy moveStrategy) {
+    public Context(MoveStrategy moveStrategy) {
         this.moveStrategy = moveStrategy;
     }
 
