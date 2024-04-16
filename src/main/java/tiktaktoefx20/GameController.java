@@ -8,7 +8,7 @@ import javafx.scene.layout.*;
 import tiktaktoefx20.strategies.*;
 
 
-public class GameController extends GameLogic {
+public class GameController extends GameEngine {
 
     // Создаем объекты стратегий
     MoveStrategy easyStrategy = new EasyStrategy();

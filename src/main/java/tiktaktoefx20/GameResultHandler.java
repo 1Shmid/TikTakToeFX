@@ -18,9 +18,9 @@ public class GameResultHandler {
 
         // Проверяем условия победы или ничьи
         String result = "";
-        if (GameLogic.checkForWin(gameField)) {
+        if (GameEngine.checkForWin(gameField)) {
             result = winnerSymbol + " wins!";
-        } else if (GameLogic.checkForDraw(gameField)) {
+        } else if (GameEngine.checkForDraw(gameField)) {
             result = "It's a draw!!";
         }
 

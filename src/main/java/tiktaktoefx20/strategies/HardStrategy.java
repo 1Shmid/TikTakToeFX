@@ -34,7 +34,7 @@ public class HardStrategy implements MoveStrategy {
             for (int col = 0; col < gameField[0].length; col++) {
                 if (gameField[row][col] == Constants.EMPTY_SYMBOL) {
                     gameField[row][col] = Constants.COMPUTER_SYMBOL;
-                    if (GameLogic.checkForWin(gameField)) {
+                    if (GameEngine.checkForWin(gameField)) {
                         gameField[row][col] = Constants.EMPTY_SYMBOL; // Возвращаем ячейку в исходное состояние
                         return new int[]{row, col};
                     }
@@ -51,7 +51,7 @@ public class HardStrategy implements MoveStrategy {
             for (int col = 0; col < gameField[0].length; col++) {
                 if (gameField[row][col] == Constants.EMPTY_SYMBOL) {
                     gameField[row][col] = Constants.PLAYER_SYMBOL; // Пытаемся сделать ход игрока
-                    if (GameLogic.checkForWin(gameField)) {
+                    if (GameEngine.checkForWin(gameField)) {
                         gameField[row][col] = Constants.EMPTY_SYMBOL; // Возвращаем ячейку в исходное состояние
                         return new int[]{row, col};
                     }
