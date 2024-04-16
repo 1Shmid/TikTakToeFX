@@ -45,7 +45,7 @@ public class TTTGameLogic {
 
 
 
-    public boolean isWinningMove(int[][] gameField, int row, int col, char symbol) {
+    public static boolean isWinningMove(char[][] gameField, int row, int col, char symbol) {
         // Проверяем выигрыш по горизонтали
         if (gameField[row][(col + 1) % 3] == symbol && gameField[row][(col + 2) % 3] == symbol) {
             return true;
