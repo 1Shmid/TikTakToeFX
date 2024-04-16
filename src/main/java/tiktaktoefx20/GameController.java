@@ -11,7 +11,7 @@ import tiktaktoefx20.TTTGameLogic;
 import java.util.*;
 
 
-public class GameController extends ComputerMoveHandler {
+public class GameController extends TTTGameLogic {
 
     @FXML
     private ComboBox<String> comb;
@@ -25,14 +25,14 @@ public class GameController extends ComputerMoveHandler {
 
     private ComputerStrategicMoveHandler computerStrategicMoveHandler;
 
-    char computerSymbol = getComputerSymbol();
+    //char computerSymbol = getComputerSymbol();
 
     private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
 
     @FXML
     void btnClick(ActionEvent event) {
         Button clickedButton = (Button) event.getSource(); // Получаем кнопку, на которую было нажато
-        clickedButton.setText(String.valueOf(playerSymbol));
+        clickedButton.setText(String.valueOf(Constants.PLAYER_SYMBOL));
         clickedButton.setDisable(true);
 
         // Получаем индексы кнопки
@@ -40,7 +40,7 @@ public class GameController extends ComputerMoveHandler {
         int col = GridPane.getColumnIndex(clickedButton) == null ? 0 : GridPane.getColumnIndex(clickedButton);
 
         // Обновляем поле игры
-        gameField[row][col] = playerSymbol;
+        gameField[row][col] = Constants.PLAYER_SYMBOL;
 
         System.out.println("Game field after Player's move" + Arrays.deepToString(gameField));
 
@@ -81,10 +81,10 @@ public class GameController extends ComputerMoveHandler {
             int computerRow = computerMove[0];
             int computerCol = computerMove[1];
             Button computerButton = getButtonByIndexes(computerRow, computerCol);
-            computerButton.setText(String.valueOf(computerSymbol));
+            computerButton.setText(String.valueOf(Constants.COMPUTER_SYMBOL));
             computerButton.setDisable(true);
 
-            gameField[computerRow][computerCol] = computerSymbol;
+            gameField[computerRow][computerCol] = Constants.COMPUTER_SYMBOL;
 
             System.out.println("Game field after Computers's move" + Arrays.deepToString(gameField));
 
