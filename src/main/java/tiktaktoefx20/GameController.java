@@ -6,12 +6,25 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import tiktaktoefx20.strategies.*;
-import tiktaktoefx20.TTTGameLogic;
 
 import java.util.*;
 
 
 public class GameController extends TTTGameLogic {
+
+    // Создаем объекты стратегий
+    MoveStrategy randomStrategy = new RandomMoveStrategy();
+    MoveStrategy attackStrategy = new AttackMoveStrategy();
+
+    // Создаем объекты обработчиков хода с разными стратегиями
+    Context randomMoveHandler = new Context(randomStrategy);
+    Context attackMoveHandler = new Context(attackStrategy);
+
+
+
+
+    private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
+
 
     @FXML
     private ComboBox<String> comb;
@@ -23,11 +36,8 @@ public class GameController extends TTTGameLogic {
     public void setStage() {
     }
 
-    private ComputerStrategicMoveHandler computerStrategicMoveHandler;
+    private Context computerStrategicMoveHandler;
 
-    //char computerSymbol = getComputerSymbol();
-
-    private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
 
     @FXML
     void btnClick(ActionEvent event) {
@@ -42,25 +52,14 @@ public class GameController extends TTTGameLogic {
         // Обновляем поле игры
         gameField[row][col] = Constants.PLAYER_SYMBOL;
 
-        System.out.println("Game field after Player's move" + Arrays.deepToString(gameField));
-
         // Проверяем условия победы или ничьи
-        if (TTTGameLogic.checkForDrawS(gameField) || TTTGameLogic.checkForWinS(gameField)) {
+        if (checkForDrawS(gameField) || checkForWinS(gameField)) {
 
             // Если условие победы или ничьи выполнено, игра заканчивается
             winnerSymbol = "The player"; // Устанавливаем символ победителя
             endGame(gameField);
 
         } else {
-
-            // Создаем объекты стратегий
-            MoveStrategy randomStrategy = new RandomMoveStrategy();
-            MoveStrategy attackStrategy = new AttackMoveStrategy();
-
-            // Создаем объекты обработчиков хода с разными стратегиями
-            ComputerStrategicMoveHandler randomMoveHandler = new ComputerStrategicMoveHandler(randomStrategy);
-            ComputerStrategicMoveHandler attackMoveHandler = new ComputerStrategicMoveHandler(attackStrategy);
-
             // Выбираем уровень сложности (стратегию)
             String selectedLevel = comb.getSelectionModel().getSelectedItem();
 
@@ -71,12 +70,6 @@ public class GameController extends TTTGameLogic {
                 default -> randomMoveHandler.makeMove(gameField,selectedLevel); // По умолчанию используем случайную стратегию
             };
 
-            // Выводим ход компьютера
-            // System.out.println("Стратегия - " + selectedLevel);
-            System.out.println(" ");
-            System.out.println("Computer move: row = " + computerMove[0] + ", col = " + computerMove[1]);
-            System.out.println(" ");
-
             // По полученным координатам обновляем графический интерфейс от имени компьютера
             int computerRow = computerMove[0];
             int computerCol = computerMove[1];
@@ -86,16 +79,8 @@ public class GameController extends TTTGameLogic {
 
             gameField[computerRow][computerCol] = Constants.COMPUTER_SYMBOL;
 
-            System.out.println("Game field after Computers's move" + Arrays.deepToString(gameField));
 
-
-            if (TTTGameLogic.checkForDrawS(gameField) || TTTGameLogic.checkForWinS(gameField)) {
-
-                System.out.println(" ");
-
-                System.out.println("checkForDrawS - " + TTTGameLogic.checkForDrawS(gameField));
-
-                System.out.println("checkForWinS - " + TTTGameLogic.checkForWinS(gameField));
+            if (checkForDrawS(gameField) || checkForWinS(gameField)) {
 
                 winnerSymbol = "The computer"; // Устанавливаем символ победителя
                 endGame(gameField);
@@ -103,20 +88,11 @@ public class GameController extends TTTGameLogic {
         }
     }
 
-
-
-//    @FXML
-//    void initialize() {
-//        initializeComboBox();
-//        initializeGameField();
-//    }
-
-
     @FXML
     void initialize() {
         initializeComboBox();
         initializeGameField();
-        computerStrategicMoveHandler = new ComputerStrategicMoveHandler(new RandomMoveStrategy());
+        computerStrategicMoveHandler = new Context(new RandomMoveStrategy());
     }
     private void initializeComboBox() {
 
