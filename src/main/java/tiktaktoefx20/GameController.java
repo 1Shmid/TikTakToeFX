@@ -8,12 +8,13 @@ import javafx.scene.layout.*;
 import tiktaktoefx20.strategies.*;
 import tiktaktoefx20.TTTGameLogic;
 
+import java.util.*;
+
 
 public class GameController extends ComputerMoveHandler {
 
     @FXML
     private ComboBox<String> comb;
-
 
     @FXML
     void Select() {
@@ -22,48 +23,11 @@ public class GameController extends ComputerMoveHandler {
     public void setStage() {
     }
 
-
-
-//    @FXML
-//    void btnClick(ActionEvent event) {
-//
-//        Button clickedButton = (Button) event.getSource(); // Получаем кнопку, на которую было нажато
-//
-//        clickedButton.setText(String.valueOf(playerSymbol));
-//        clickedButton.setDisable(true);
-//
-//        // Получаем индексы кнопки
-//        int row = GridPane.getRowIndex(clickedButton) == null ? 0 : GridPane.getRowIndex(clickedButton);
-//        int col = GridPane.getColumnIndex(clickedButton) == null ? 0 : GridPane.getColumnIndex(clickedButton);
-//
-//        // Обновляем состояние игры
-//        gameField[row][col] = playerSymbol;
-//
-//        // Проверяем условия победы или ничьи
-//        if (checkForWin() || checkForDraw()) {
-//            // Если условие победы или ничьи выполнено, игра заканчивается
-//            winnerSymbol = "The player"; // Устанавливаем символ победителя
-//            endGame();
-//        } else {
-//
-//            // Вызываем соответствующий метод для хода компьютера в зависимости от выбранного уровня сложности
-//            String selectedLevel = comb.getSelectionModel().getSelectedItem();
-//            if ("EASY".equals(selectedLevel)) {
-//                computerMoveRandom();
-//            } else if ("HARD".equals(selectedLevel)) {
-//                computerMoveSmart();
-//            } else if ("IMPOSSIBLE".equals(selectedLevel)) {
-//                computerMoveGenius();
-//            }
-//        }
-//    }
-
-
     private ComputerStrategicMoveHandler computerStrategicMoveHandler;
 
     char computerSymbol = getComputerSymbol();
 
-    private char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
+    private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
 
     @FXML
     void btnClick(ActionEvent event) {
@@ -78,12 +42,14 @@ public class GameController extends ComputerMoveHandler {
         // Обновляем поле игры
         gameField[row][col] = playerSymbol;
 
+        System.out.println("Game field after Player's move" + Arrays.deepToString(gameField));
+
         // Проверяем условия победы или ничьи
-        if (TTTGameLogic.checkForWinS(gameField) || TTTGameLogic.checkForDrawS(gameField)) {
+        if (TTTGameLogic.checkForDrawS(gameField) || TTTGameLogic.checkForWinS(gameField)) {
 
             // Если условие победы или ничьи выполнено, игра заканчивается
             winnerSymbol = "The player"; // Устанавливаем символ победителя
-            endGame();
+            endGame(gameField);
 
         } else {
 
@@ -106,8 +72,10 @@ public class GameController extends ComputerMoveHandler {
             };
 
             // Выводим ход компьютера
-            System.out.println("Стратегия - " + selectedLevel);
+            // System.out.println("Стратегия - " + selectedLevel);
+            System.out.println(" ");
             System.out.println("Computer move: row = " + computerMove[0] + ", col = " + computerMove[1]);
+            System.out.println(" ");
 
             // По полученным координатам обновляем графический интерфейс от имени компьютера
             int computerRow = computerMove[0];
@@ -118,9 +86,19 @@ public class GameController extends ComputerMoveHandler {
 
             gameField[computerRow][computerCol] = computerSymbol;
 
-            if (TTTGameLogic.checkForWinS(gameField) || TTTGameLogic.checkForDrawS(gameField)) {
+            System.out.println("Game field after Computers's move" + Arrays.deepToString(gameField));
+
+
+            if (TTTGameLogic.checkForDrawS(gameField) || TTTGameLogic.checkForWinS(gameField)) {
+
+                System.out.println(" ");
+
+                System.out.println("checkForDrawS - " + TTTGameLogic.checkForDrawS(gameField));
+
+                System.out.println("checkForWinS - " + TTTGameLogic.checkForWinS(gameField));
+
                 winnerSymbol = "The computer"; // Устанавливаем символ победителя
-                endGame();
+                endGame(gameField);
             }
         }
     }
@@ -145,7 +123,7 @@ public class GameController extends ComputerMoveHandler {
         ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "IMPOSSIBLE");
         comb.setItems(list);
         comb.setValue("EASY");
-        comb.setOnAction(event -> startNewGame());
+        comb.setOnAction(event -> startNewGame(gameField));
     }
 
     private void initializeGameField() {
