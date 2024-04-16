@@ -5,9 +5,7 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-import java.util.*;
-
-public class GameLogic extends GameHandler {
+public class GameLogic extends GameResultHandler {
 
     // Проверка на победу
     public static boolean checkForWin(char[][] gameField) {
