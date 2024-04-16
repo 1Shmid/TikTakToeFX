@@ -31,8 +31,6 @@ public class GameController extends GameLogic {
     public void setStage() {
     }
 
-    private Context computerStrategicMoveHandler;
-
 
     @FXML
     void btnClick(ActionEvent event) {
@@ -47,53 +45,52 @@ public class GameController extends GameLogic {
         // Обновляем поле игры
         gameField[row][col] = Constants.PLAYER_SYMBOL;
 
-        // Проверяем условия победы или ничьи
-        if (checkForDrawS(gameField) || checkForWinS(gameField)) {
+        checkAndUpdateGameState();
+    }
 
-            // Если условие победы или ничьи выполнено, игра заканчивается
-            winnerSymbol = "The player"; // Устанавливаем символ победителя
-            endGame(gameField);
-
+    private void checkAndUpdateGameState() {
+        if (checkForWin(gameField) || checkForDraw(gameField)) {
+            String winnerSymbol = checkForWin(gameField) ? "The player" : "It's a draw";
+            endGame(gameField, winnerSymbol);
         } else {
             // Выбираем уровень сложности (стратегию)
             String selectedLevel = comb.getSelectionModel().getSelectedItem();
 
             // Делаем ход компьютера с выбранной стратегией
             int[] computerMove = switch (selectedLevel) {
-                case "EASY" -> easyMoveHandler.makeMove(gameField ,selectedLevel);
-                case "HARD" -> hardMoveHandler.makeMove(gameField ,selectedLevel);
-                default -> easyMoveHandler.makeMove(gameField,selectedLevel); // По умолчанию используем случайную стратегию
+                case "EASY" -> easyMoveHandler.makeMove(gameField, selectedLevel);
+                case "HARD" -> hardMoveHandler.makeMove(gameField, selectedLevel);
+                default -> easyMoveHandler.makeMove(gameField, selectedLevel); // По умолчанию используем случайную стратегию
             };
 
-            // По полученным координатам обновляем графический интерфейс от имени компьютера
-            int computerRow = computerMove[0];
-            int computerCol = computerMove[1];
-            Button computerButton = getButtonByIndexes(computerRow, computerCol);
-            computerButton.setText(String.valueOf(Constants.COMPUTER_SYMBOL));
-            computerButton.setDisable(true);
+            updateGameField(computerMove[0], computerMove[1], Constants.COMPUTER_SYMBOL);
 
-            gameField[computerRow][computerCol] = Constants.COMPUTER_SYMBOL;
-
-            if (checkForDrawS(gameField) || checkForWinS(gameField)) {
-
-                winnerSymbol = "The computer"; // Устанавливаем символ победителя
-                endGame(gameField);
+            if (checkForWin(gameField) || checkForDraw(gameField)) {
+                String winnerSymbol = checkForWin(gameField) ? "The computer" : "It's a draw";
+                endGame(gameField, winnerSymbol);
             }
         }
+    }
+
+    private void updateGameField(int row, int col, char symbol) {
+        Button button = getButtonByIndexes(row, col);
+        button.setText(String.valueOf(symbol));
+        button.setDisable(true);
+        gameField[row][col] = symbol;
     }
 
     @FXML
     void initialize() {
         initializeComboBox();
         initializeGameField();
-        computerStrategicMoveHandler = new Context(new EasyStrategy());
+        initializeComputerStrategicMoveHandler();
     }
-    private void initializeComboBox() {
 
+    private void initializeComboBox() {
         ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "IMPOSSIBLE");
         comb.setItems(list);
         comb.setValue("EASY");
-        comb.setOnAction(event -> startNewGame(gameField));
+        comb.setOnAction(this::handleComboBoxAction);
     }
 
     private void initializeGameField() {
@@ -103,5 +100,14 @@ public class GameController extends GameLogic {
             }
         }
     }
+
+    private void initializeComputerStrategicMoveHandler() {
+        Context computerStrategicMoveHandler = new Context(new EasyStrategy());
+    }
+
+    private void handleComboBoxAction(ActionEvent event) {
+        startNewGame(gameField);
+    }
 }
+
 
