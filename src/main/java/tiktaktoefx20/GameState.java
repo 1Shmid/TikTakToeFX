@@ -1,6 +1,12 @@
 package tiktaktoefx20;
 
+
+
+// класс для представления состояния игры
+
 public class GameState {
+
+
     private char[][] gameField;
     private char currentPlayer;
 
