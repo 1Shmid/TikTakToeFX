@@ -25,7 +25,7 @@ public class HardStrategy implements MoveStrategy {
         if (move != null) return move;
 
         // Если ни одно из условий не выполнено, делаем ход по простой стратегии
-        return easyStrategy.makeMove(gameField, selectedLevel);
+        return makeMove(gameField, selectedLevel);
     }
 
     private int[] findWinningMove(char[][] gameField) {
@@ -74,23 +74,22 @@ public class HardStrategy implements MoveStrategy {
 
     private int[] occupyCorner(char[][] gameField) {
         // Занятие свободного угла
-        List<int[]> freeCorners = new ArrayList<>();
+        List<int[]> emptyCorners = new ArrayList<>();
         if (gameField[0][0] == Constants.EMPTY_SYMBOL) {
-            freeCorners.add(new int[]{0, 0});
+            emptyCorners.add(new int[]{0, 0});
         }
         if (gameField[0][2] == Constants.EMPTY_SYMBOL) {
-            freeCorners.add(new int[]{0, 2});
+            emptyCorners.add(new int[]{0, 2});
         }
         if (gameField[2][0] == Constants.EMPTY_SYMBOL) {
-            freeCorners.add(new int[]{2, 0});
+            emptyCorners.add(new int[]{2, 0});
         }
         if (gameField[2][2] == Constants.EMPTY_SYMBOL) {
-            freeCorners.add(new int[]{2, 2});
+            emptyCorners.add(new int[]{2, 2});
         }
-        if (!freeCorners.isEmpty()) {
+        if (!emptyCorners.isEmpty()) {
             Random random = new Random();
-            int[] selectedCorner = freeCorners.get(random.nextInt(freeCorners.size()));
-            return selectedCorner;
+            return emptyCorners.get(random.nextInt(emptyCorners.size()));
         }
         return null;
     }
