@@ -1,12 +1,14 @@
 package tiktaktoefx20.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.*;
+
+
 
 public class SQLiteDBManager {
-    private Connection connection;
+
+    protected static final String DB_URL = "jdbc:sqlite:tiktaktoe.db";
+    private static Connection connection;
 
     public SQLiteDBManager(String dbName) {
         try {
@@ -55,7 +57,7 @@ public class SQLiteDBManager {
         }
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return connection;
     }
 
@@ -67,5 +69,55 @@ public class SQLiteDBManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void addMove(String player, String coordinates) {
+        // Метод для добавления записи о ходе в таблицу Moves
+        String sql = "INSERT INTO Moves (Player, Coordinates) VALUES (?, ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, player);
+            pstmt.setString(2, coordinates);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addGame(String moves, int totalMoves, int playerMoves, int computerMoves,
+                               String result, int durationSeconds) {
+        // Метод для добавления записи об игре в таблицу Games
+        String sql = "INSERT INTO Games (Moves, TotalMoves, PlayerMoves, ComputerMoves, Result, DurationSeconds) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, moves);
+            pstmt.setInt(2, totalMoves);
+            pstmt.setInt(3, playerMoves);
+            pstmt.setInt(4, computerMoves);
+            pstmt.setString(5, result);
+            pstmt.setInt(6, durationSeconds);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<String> getMoves() {
+        // Метод для чтения всех ходов из таблицы Moves
+        List<String> movesList = new ArrayList<>();
+        String sql = "SELECT Player, Coordinates FROM Moves";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                String player = rs.getString("Player");
+                String coordinates = rs.getString("Coordinates");
+                movesList.add("Player: " + player + ", Coordinates: " + coordinates);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return movesList;
     }
 }
