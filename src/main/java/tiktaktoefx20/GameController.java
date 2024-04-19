@@ -5,6 +5,7 @@ import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import tiktaktoefx20.database.*;
 import tiktaktoefx20.strategies.*;
 
 
@@ -19,6 +20,7 @@ public class GameController extends GameEngine {
     Context hardMoveHandler = new Context(hardStrategy);
 
     private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
+    private int moveCounter = 0; // Переменная для хранения счетчика ходов
 
 
     @FXML
@@ -45,6 +47,12 @@ public class GameController extends GameEngine {
         // Обновляем поле игры
         gameField[row][col] = Constants.PLAYER_SYMBOL;
 
+        // Увеличиваем счетчик ходов
+        moveCounter++;
+
+        // Записываем ход игрока
+        GameMove.recordGameMove(moveCounter, "player", row, col);
+
         checkAndUpdateGameState();
     }
 
@@ -64,6 +72,12 @@ public class GameController extends GameEngine {
             };
 
             updateGameField(computerMove[0], computerMove[1], Constants.COMPUTER_SYMBOL);
+
+            // Увеличиваем счетчик ходов
+            moveCounter++;
+
+            // Записываем ход компьютера
+            GameMove.recordGameMove(moveCounter, "computer", computerMove[0], computerMove[1]); // Записываем ход компьютера
 
             if (checkForWin(gameField) || checkForDraw(gameField)) {
                 String winnerSymbol = checkForWin(gameField) ? "The computer" : "It's a draw";
