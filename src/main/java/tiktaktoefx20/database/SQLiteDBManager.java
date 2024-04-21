@@ -79,4 +79,114 @@ public class SQLiteDBManager {
             LOGGER.log(Level.SEVERE, "Error creating tables", e);
         }
     }
+
+    public static int getTotalGames() {
+        String sql = "SELECT COUNT(*) FROM games";
+        int totalGames = 0;
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                totalGames = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting total games", e);
+        }
+
+        return totalGames;
+    }
+
+    public static int getLongestGameDuration() {
+        String sql = "SELECT MAX(duration) FROM games";
+        int longestDuration = 0;
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                longestDuration = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting longest game duration", e);
+        }
+
+        return longestDuration;
+    }
+
+
+    // Общее игровое время
+    public static int getTotalGameDuration() {
+        String sql = "SELECT SUM(duration) FROM games";
+        int totalDuration = 0;
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                totalDuration = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting total game duration", e);
+        }
+
+        return totalDuration;
+    }
+
+    // Самая короткая игра (в секундах и ходах)
+    public static int[] getShortestGame() {
+        String sql = "SELECT MIN(duration), MIN(total_moves) FROM games";
+        int shortestDuration = 0;
+        int shortestMoves = 0;
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                shortestDuration = rs.getInt(1);
+                shortestMoves = rs.getInt(2);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting shortest game", e);
+        }
+
+        return new int[]{shortestDuration, shortestMoves};
+    }
+
+    // Количество побед всего
+    public static int getTotalWins() {
+        String sql = "SELECT COUNT(*) FROM games WHERE result = 'Win'";
+        int totalWins = 0;
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                totalWins = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting total wins", e);
+        }
+
+        return totalWins;
+    }
+
+    // Количество побед каждого игрока
+    public static int getPlayerWins(String player) {
+        String sql = "SELECT COUNT(*) FROM games WHERE result = 'Win' AND player = ?";
+        int playerWins = 0;
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, player);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                playerWins = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting player wins", e);
+        }
+
+        return playerWins;
+    }
 }
