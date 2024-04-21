@@ -16,6 +16,8 @@ public class Main extends Application {
         GameController controller = fxmlLoader.getController();
         controller.setStage(); // Передача объекта Stage в контроллер
 
+        fxmlLoader.setController(new GameController());
+
         Scene scene = new Scene(root, 862, 400);
         stage.setTitle("TikTakToeFX");
         stage.setScene(scene);

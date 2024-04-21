@@ -8,7 +8,8 @@ public class SQLiteDBManager {
 
     public static final String DB_URL = "jdbc:sqlite:TTTFX 2.0.db";
 
-    public static void addGame(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, String result, int duration) {
+    public static void addGame(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, String result, int duration, String level) {
+
         createGamesTable();
         createGameMovesTable();
 
@@ -16,7 +17,7 @@ public class SQLiteDBManager {
             recordMove(move.getMoveNumber(), move.getPlayer(), move.getRow(), move.getCol());
         }
 
-        String sql = "INSERT INTO games (total_moves, player_moves, computer_moves, result, duration) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO games (total_moves, player_moves, computer_moves, result, duration, level) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -26,6 +27,8 @@ public class SQLiteDBManager {
             pstmt.setInt(3, computerMoves);
             pstmt.setString(4, result);
             pstmt.setInt(5, duration);
+            pstmt.setString(6, level); // Добавляем уровень сложности в запрос
+
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -41,7 +44,8 @@ public class SQLiteDBManager {
                 "player_moves INTEGER," +
                 "computer_moves INTEGER," +
                 "result TEXT," +
-                "duration INTEGER" +
+                "duration INTEGER," +
+                "level TEXT" + // Добавляем столбец для уровня сложности
                 ")";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);

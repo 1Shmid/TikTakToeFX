@@ -42,7 +42,7 @@ public class GameResultHandler {
     }
 
     @FXML
-    public void endGame(char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration) {
+    public void endGame(char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel) {
 
         // Проверяем условия победы или ничьи
         String result = "";
@@ -70,14 +70,14 @@ public class GameResultHandler {
         // Ожидаем действия пользователя
         Optional<ButtonType> resultButton = alert.showAndWait();
 
-        // Создаем объект игры и записываем ее в базу данных
-        Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration);
+        // String selectedLevel = gameController.comb.getSelectionModel().getSelectedItem(); // Получаем выбранный уровень сложности
+        Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration, selectedLevel); // Добавляем уровень сложности в конструктор
         game.recordGame();
         gameNumber++; // Увеличиваем счетчик игр после завершения текущей игры
 
-
         // Если пользователь выбрал "Новая игра", начинаем новую игру
         if (resultButton.isPresent() && resultButton.get() == newGameButton) {
+
             startNewGame(gameField);
         } else {
             // Иначе закрываем приложение
@@ -87,6 +87,7 @@ public class GameResultHandler {
 
 
     protected void startNewGame(char[][] gameField) {
+
         // Очищаем игровое поле и включаем все кнопки
         for (Node node : gridPane.getChildren()) {
             if (node instanceof Button button) {

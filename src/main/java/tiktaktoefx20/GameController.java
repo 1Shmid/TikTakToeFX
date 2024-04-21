@@ -30,10 +30,12 @@ public class GameController extends GameEngine {
     private Game currentGame;
     private static long startTime;
 
+    private String selectedLevel;
+
 
 
     @FXML
-    private ComboBox<String> comb;
+    ComboBox<String> comb;
 
     @FXML
     void Select() {
@@ -68,12 +70,21 @@ public class GameController extends GameEngine {
     }
 
     private void checkAndUpdateGameState() {
+        String selectedLevel = comb.getSelectionModel().getSelectedItem();
+
         if (checkForWin(gameField) || checkForDraw(gameField)) {
             String winnerSymbol = checkForWin(gameField) ? "The player" : "It's a draw";
-            endGame(gameField, winnerSymbol, convertMovesToGameMovesList(), moveCounter, playerMovesCounter, computerMovesCounter, stopGameTimer());
+            endGame(gameField,
+                    winnerSymbol,
+                    convertMovesToGameMovesList(),
+                    moveCounter,
+                    playerMovesCounter,
+                    computerMovesCounter,
+                    stopGameTimer(),
+                    selectedLevel);
         } else {
             // Выбираем уровень сложности (стратегию)
-            String selectedLevel = comb.getSelectionModel().getSelectedItem();
+            //String selectedLevel = comb.getSelectionModel().getSelectedItem();
 
             // Делаем ход компьютера с выбранной стратегией
             int[] computerMove = switch (selectedLevel) {
@@ -93,7 +104,14 @@ public class GameController extends GameEngine {
 
             if (checkForWin(gameField) || checkForDraw(gameField)) {
                 String winnerSymbol = checkForWin(gameField) ? "The computer" : "It's a draw";
-                endGame(gameField, winnerSymbol, convertMovesToGameMovesList(), moveCounter, playerMovesCounter, computerMovesCounter, stopGameTimer());
+                endGame(gameField,
+                        winnerSymbol,
+                        convertMovesToGameMovesList(),
+                        moveCounter,
+                        playerMovesCounter,
+                        computerMovesCounter,
+                        stopGameTimer(),
+                        selectedLevel);
             }
         }
     }
