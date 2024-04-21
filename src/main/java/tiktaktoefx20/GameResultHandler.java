@@ -7,7 +7,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import tiktaktoefx20.database.*;
 
+import java.sql.*;
+
 import java.util.*;
+
+import static tiktaktoefx20.database.SQLiteDBManager.DB_URL;
 
 public class GameResultHandler {
 
@@ -62,7 +66,6 @@ public class GameResultHandler {
     }
 
     protected void startNewGame(char[][] gameField) {
-
         // Очищаем игровое поле и включаем все кнопки
         for (Node node : gridPane.getChildren()) {
             if (node instanceof Button button) {
@@ -76,6 +79,45 @@ public class GameResultHandler {
             for (int j = 0; j < Constants.FIELD_SIZE; j++) {
                 gameField[i][j] = Constants.EMPTY_SYMBOL;
             }
+        }
+
+        // Выводим содержание таблиц
+        printDatabaseContents();
+    }
+
+    private void printDatabaseContents() {
+        // Выводим содержание таблицы game_moves
+        System.out.println("Contents of game_moves table:");
+        printTableContents("game_moves");
+
+        // Выводим содержание таблицы games
+        System.out.println("Contents of games table:");
+        printTableContents("games");
+    }
+
+    private void printTableContents(String tableName) {
+        String sql = "SELECT * FROM " + tableName;
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            // Выводим заголовки столбцов
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            for (int i = 1; i <= columnCount; i++) {
+                System.out.print(rsmd.getColumnName(i) + "\t");
+            }
+            System.out.println();
+
+            // Выводим содержимое таблицы
+            while (rs.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    System.out.print(rs.getString(i) + "\t");
+                }
+                System.out.println();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
