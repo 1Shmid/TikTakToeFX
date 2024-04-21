@@ -3,16 +3,15 @@ package tiktaktoefx20.database;
 import java.util.*;
 
 public class Game {
-    private int gameNumber;
-    private List<GameMove> moves;
-    private int totalMoves;
-    private int playerMoves;
-    private int computerMoves;
-    private String result;
-    private int duration;
 
-    public Game(int gameNumber, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, String result, int duration) {
-        this.gameNumber = gameNumber;
+    private final List<GameMove> moves;
+    private final int totalMoves;
+    private final int playerMoves;
+    private final int computerMoves;
+    private final String result;
+    private final int duration;
+
+    public Game(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, String result, int duration) {
         this.moves = moves;
         this.totalMoves = totalMoves;
         this.playerMoves = playerMoves;
@@ -20,6 +19,24 @@ public class Game {
         this.result = result;
         this.duration = duration;
     }
+
+    public void recordGame() {
+        SQLiteDBManager.addGame(moves, totalMoves, playerMoves, computerMoves, result, duration);
+    }
+
+    private String formatMoves() {
+        StringBuilder formattedMoves = new StringBuilder();
+        for (GameMove move : moves) {
+            formattedMoves.append("Move Number: ").append(move.getMoveNumber()).append("\n");
+            formattedMoves.append("Player: ").append(move.getPlayer()).append("\n");
+            formattedMoves.append("Row: ").append(move.getRow()).append("\n");
+            formattedMoves.append("Column: ").append(move.getCol()).append("\n");
+            formattedMoves.append("-------------------").append("\n");
+        }
+        return formattedMoves.toString();
+    }
+
+
 
     // Геттеры и сеттеры
 }
