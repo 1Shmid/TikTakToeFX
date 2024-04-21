@@ -14,7 +14,7 @@ import static tiktaktoefx20.database.GameMove.*;
 
 public class SQLiteDBManager {
 
-    static final String DB_URL = "jdbc:sqlite:game_database.db";
+    static final String DB_URL = "jdbc:sqlite:TTTFX 2.0.db";
 
     public static void addGame(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, String result, int duration) {
         createGamesTable();
