@@ -5,16 +5,19 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import tiktaktoefx20.database.*;
 
 import java.util.*;
 
 public class GameResultHandler {
 
+    private int gameNumber = 1; // Инициализируем начальное значение счетчика игр
+
     @FXML
     protected GridPane gridPane;
 
     @FXML
-    public void endGame(char[][] gameField, String winnerSymbol) {
+    public void endGame(char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration) {
 
         // Проверяем условия победы или ничьи
         String result = "";
@@ -23,6 +26,11 @@ public class GameResultHandler {
         } else if (GameEngine.checkForDraw(gameField)) {
             result = "It's a draw!!";
         }
+
+        // Создаем объект Game и записываем игру в базу данных
+        Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration);
+        game.recordGame();
+        gameNumber++; // Увеличиваем счетчик игр после завершения текущей игры
 
         // Создаем новое диалоговое окно
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
