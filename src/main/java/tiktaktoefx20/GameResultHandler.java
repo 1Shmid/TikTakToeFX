@@ -13,12 +13,31 @@ import java.util.*;
 
 import static tiktaktoefx20.database.SQLiteDBManager.DB_URL;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.GridPane;
+import javafx.scene.Node;
+import javafx.application.Platform;
+import java.sql.*;
+
 public class GameResultHandler {
 
     private int gameNumber = 1; // Инициализируем начальное значение счетчика игр
 
     @FXML
     protected GridPane gridPane;
+
+    private GameController gameController;
+
+    public GameResultHandler() {
+        // Конструктор по умолчанию
+    }
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
+    }
 
     @FXML
     public void endGame(char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration) {
@@ -30,11 +49,6 @@ public class GameResultHandler {
         } else if (GameEngine.checkForDraw(gameField)) {
             result = "It's a draw!!";
         }
-
-        // Создаем объект Game и записываем игру в базу данных
-        Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration);
-        game.recordGame();
-        gameNumber++; // Увеличиваем счетчик игр после завершения текущей игры
 
         // Создаем новое диалоговое окно
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -54,8 +68,20 @@ public class GameResultHandler {
         // Ожидаем действия пользователя
         Optional<ButtonType> resultButton = alert.showAndWait();
 
+
+        // Обновляем результат и продолжительность игры
+        totalMoves = moves.size();
+        result = winnerSymbol.equals("The player") ? "The player wins!" : "It's a draw";
+
+        // Создаем объект игры и записываем ее в базу данных
+        Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration);
+        game.recordGame();
+        gameNumber++; // Увеличиваем счетчик игр после завершения текущей игры
+
+
         // Если пользователь выбрал "Новая игра", начинаем новую игру
         if (resultButton.isPresent() && resultButton.get() == newGameButton) {
+
 
             startNewGame(gameField);
 
@@ -80,6 +106,9 @@ public class GameResultHandler {
                 gameField[i][j] = Constants.EMPTY_SYMBOL;
             }
         }
+
+        // Включаем таймер игры
+        GameController.startGameTimer();
 
         // Выводим содержание таблиц
         printDatabaseContents();
@@ -121,3 +150,4 @@ public class GameResultHandler {
         }
     }
 }
+
