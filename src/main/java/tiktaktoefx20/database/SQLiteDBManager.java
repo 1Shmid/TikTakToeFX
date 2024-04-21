@@ -3,18 +3,10 @@ package tiktaktoefx20.database;
 import java.sql.*;
 import java.util.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-
-import static tiktaktoefx20.database.GameMove.*;
-
 
 public class SQLiteDBManager {
 
-    static final String DB_URL = "jdbc:sqlite:TTTFX 2.0.db";
+    public static final String DB_URL = "jdbc:sqlite:TTTFX 2.0.db";
 
     public static void addGame(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, String result, int duration) {
         createGamesTable();
