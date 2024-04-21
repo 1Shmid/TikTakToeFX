@@ -1,7 +1,7 @@
 package tiktaktoefx20.database;
 
 import java.sql.*;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -189,4 +189,38 @@ public class SQLiteDBManager {
 
         return playerWins;
     }
+
+    // Получение всех выигрышных состояний из базы данных
+    public static List<char[][]> getWinningGameStates() {
+        List<char[][]> winningStates = new ArrayList<>();
+
+        String sql = "SELECT game_state FROM games WHERE result = 'Win'";
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                String serializedState = rs.getString("game_state");
+                char[][] gameField = deserializeGameState(serializedState);
+                winningStates.add(gameField);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting winning game states", e);
+        }
+
+        return winningStates;
+    }
+
+    // Десериализация игрового состояния из строки в двумерный массив
+    private static char[][] deserializeGameState(String serializedState) {
+        char[][] gameField = new char[3][3];
+        int index = 0;
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                gameField[row][col] = serializedState.charAt(index++);
+            }
+        }
+        return gameField;
+    }
+
 }
