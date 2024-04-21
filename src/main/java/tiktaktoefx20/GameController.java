@@ -8,6 +8,8 @@ import javafx.scene.layout.*;
 import tiktaktoefx20.database.*;
 import tiktaktoefx20.strategies.*;
 
+import java.util.*;
+
 
 public class GameController extends GameEngine {
 
@@ -21,6 +23,13 @@ public class GameController extends GameEngine {
 
     private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
     private int moveCounter = 0; // Переменная для хранения счетчика ходов
+    private int playerMovesCounter = 0; // Переменная для хранения счетчика ходов
+    private int computerMovesCounter = 0; // Переменная для хранения счетчика ходов
+
+    private List<GameMove> moves;
+    private Game currentGame;
+    private long startTime;
+
 
 
     @FXML
@@ -36,6 +45,9 @@ public class GameController extends GameEngine {
 
     @FXML
     void btnClick(ActionEvent event) {
+
+        startGameTimer();
+
         Button clickedButton = (Button) event.getSource(); // Получаем кнопку, на которую было нажато
         clickedButton.setText(String.valueOf(Constants.PLAYER_SYMBOL));
         clickedButton.setDisable(true);
@@ -49,9 +61,10 @@ public class GameController extends GameEngine {
 
         // Увеличиваем счетчик ходов
         moveCounter++;
+        playerMovesCounter++;
 
         // Записываем ход игрока
-        GameMove.recordGameMove(moveCounter, "player", row, col);
+        GameMove.addMove(moveCounter, "player", row, col);
 
         checkAndUpdateGameState();
     }
@@ -59,7 +72,7 @@ public class GameController extends GameEngine {
     private void checkAndUpdateGameState() {
         if (checkForWin(gameField) || checkForDraw(gameField)) {
             String winnerSymbol = checkForWin(gameField) ? "The player" : "It's a draw";
-            endGame(gameField, winnerSymbol);
+            endGame(gameField, winnerSymbol, convertMovesToGameMovesList(), moveCounter, 0, 0, 0);
         } else {
             // Выбираем уровень сложности (стратегию)
             String selectedLevel = comb.getSelectionModel().getSelectedItem();
@@ -75,16 +88,41 @@ public class GameController extends GameEngine {
 
             // Увеличиваем счетчик ходов
             moveCounter++;
+            computerMovesCounter++;
 
             // Записываем ход компьютера
-            GameMove.recordGameMove(moveCounter, "computer", computerMove[0], computerMove[1]); // Записываем ход компьютера
+            GameMove.addMove(moveCounter, "computer", computerMove[0], computerMove[1]); // Записываем ход компьютера
 
             if (checkForWin(gameField) || checkForDraw(gameField)) {
                 String winnerSymbol = checkForWin(gameField) ? "The computer" : "It's a draw";
-                endGame(gameField, winnerSymbol);
+                endGame(gameField, winnerSymbol, convertMovesToGameMovesList(), moveCounter, playerMovesCounter, computerMovesCounter, stopGameTimer());
             }
         }
     }
+
+    // Метод для старта отсчета времени игры
+    public void startGameTimer() {
+        startTime = System.currentTimeMillis();
+    }
+
+    // Метод для остановки отсчета времени игры и получения продолжительности игры в секундах
+    public int stopGameTimer() {
+        long endTime = System.currentTimeMillis();
+        return (int) ((endTime - startTime) / 1000);
+    }
+
+    private List<GameMove> convertMovesToGameMovesList() {
+        List<GameMove> gameMovesList = new ArrayList<>();
+        for (Object[] move : GameMove.getMoves()) {
+            int moveNumber = (int) move[0];
+            String player = (String) move[1];
+            int row = (int) move[2];
+            int col = (int) move[3];
+            gameMovesList.add(new GameMove(moveNumber, player, row, col));
+        }
+        return gameMovesList;
+    }
+
 
     private void updateGameField(int row, int col, char symbol) {
         Button button = getButtonByIndexes(row, col);
