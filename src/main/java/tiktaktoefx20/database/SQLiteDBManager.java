@@ -36,44 +36,6 @@ public class SQLiteDBManager {
         }
     }
 
-    // Метод для создания таблицы games, если она не существует
-    private static void createGamesTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS games (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "total_moves INTEGER," +
-                "player_moves INTEGER," +
-                "computer_moves INTEGER," +
-                "result TEXT," +
-                "duration INTEGER," +
-                "level TEXT" + // Добавляем столбец для уровня сложности
-                ")";
-
-        try (Connection conn = DriverManager.getConnection(DB_URL);
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    // Метод для создания таблицы game_moves, если она не существует
-    private static void createGameMovesTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS game_moves (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "move_number INTEGER," +
-                "player TEXT," +
-                "row INTEGER," +
-                "col INTEGER" +
-                ")";
-
-        try (Connection conn = DriverManager.getConnection(DB_URL);
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     // Метод для записи хода в таблицу game_moves
     private static void recordMove(int moveNumber, String player, int row, int col) {
         String sql = "INSERT INTO game_moves (move_number, player, row, col) VALUES (?, ?, ?, ?)";
@@ -91,4 +53,54 @@ public class SQLiteDBManager {
             System.out.println(e.getMessage());
         }
     }
+
+    // Метод для создания таблицы games, если она не существует
+    private static void createGamesTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS games (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "total_moves INTEGER," +
+                "player_moves INTEGER," +
+                "computer_moves INTEGER," +
+                "result TEXT," +
+                "duration INTEGER," +
+                "level TEXT" + // Добавляем столбец для уровня сложности
+                ")";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement()) {
+            // Проверяем наличие таблицы
+            ResultSet rs = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='games'");
+            if (!rs.next()) {
+                // Таблица не существует, создаем ее
+                stmt.executeUpdate(sql);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Метод для создания таблицы game_moves, если она не существует
+    private static void createGameMovesTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS game_moves (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "move_number INTEGER," +
+                "player TEXT," +
+                "row INTEGER," +
+                "col INTEGER" +
+                ")";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement()) {
+            // Проверяем наличие таблицы
+            ResultSet rs = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='game_moves'");
+            if (!rs.next()) {
+                // Таблица не существует, создаем ее
+                stmt.executeUpdate(sql);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }
