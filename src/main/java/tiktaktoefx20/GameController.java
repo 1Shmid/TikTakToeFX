@@ -28,7 +28,7 @@ public class GameController extends GameEngine {
 
     private List<GameMove> moves;
     private Game currentGame;
-    private long startTime;
+    private static long startTime;
 
 
 
@@ -45,8 +45,6 @@ public class GameController extends GameEngine {
 
     @FXML
     void btnClick(ActionEvent event) {
-
-        startGameTimer();
 
         Button clickedButton = (Button) event.getSource(); // Получаем кнопку, на которую было нажато
         clickedButton.setText(String.valueOf(Constants.PLAYER_SYMBOL));
@@ -72,7 +70,7 @@ public class GameController extends GameEngine {
     private void checkAndUpdateGameState() {
         if (checkForWin(gameField) || checkForDraw(gameField)) {
             String winnerSymbol = checkForWin(gameField) ? "The player" : "It's a draw";
-            endGame(gameField, winnerSymbol, convertMovesToGameMovesList(), moveCounter, 0, 0, 0);
+            endGame(gameField, winnerSymbol, convertMovesToGameMovesList(), moveCounter, playerMovesCounter, computerMovesCounter, stopGameTimer());
         } else {
             // Выбираем уровень сложности (стратегию)
             String selectedLevel = comb.getSelectionModel().getSelectedItem();
@@ -101,7 +99,7 @@ public class GameController extends GameEngine {
     }
 
     // Метод для старта отсчета времени игры
-    public void startGameTimer() {
+    public static void startGameTimer() {
         startTime = System.currentTimeMillis();
     }
 
@@ -131,11 +129,19 @@ public class GameController extends GameEngine {
         gameField[row][col] = symbol;
     }
 
+    private GameResultHandler gameResultHandler;
+
     @FXML
     void initialize() {
         initializeComboBox();
         initializeGameField();
         initializeComputerStrategicMoveHandler();
+        gameResultHandler = new GameResultHandler(); // Передаем ссылку на текущий объект GameController
+        gameResultHandler.setGameController(this); // Установка контроллера в gameResultHandler
+
+        // Запускаем таймер
+        startGameTimer();
+
     }
 
     private void initializeComboBox() {
@@ -159,6 +165,10 @@ public class GameController extends GameEngine {
 
     private void handleComboBoxAction(ActionEvent event) {
         startNewGame(gameField);
+    }
+
+    public GameResultHandler getGameResultHandler() {
+        return gameResultHandler;
     }
 }
 
