@@ -2,14 +2,15 @@ package tiktaktoefx20.database;
 
 import java.sql.*;
 import java.util.*;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SQLiteDBManager {
 
     public static final String DB_URL = "jdbc:sqlite:TTTFX 2.0.db";
+    private static final Logger LOGGER = Logger.getLogger(SQLiteDBManager.class.getName());
 
     public static void addGame(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, String result, int duration, String level) {
-
         createGamesTable();
         createGameMovesTable();
 
@@ -27,12 +28,11 @@ public class SQLiteDBManager {
             pstmt.setInt(3, computerMoves);
             pstmt.setString(4, result);
             pstmt.setInt(5, duration);
-            pstmt.setString(6, level); // Добавляем уровень сложности в запрос
-
+            pstmt.setString(6, level);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.log(Level.SEVERE, "Error adding game to database", e);
         }
     }
 
@@ -50,7 +50,7 @@ public class SQLiteDBManager {
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.log(Level.SEVERE, "Error recording move in database", e);
         }
     }
 
@@ -63,19 +63,14 @@ public class SQLiteDBManager {
                 "computer_moves INTEGER," +
                 "result TEXT," +
                 "duration INTEGER," +
-                "level TEXT" + // Добавляем столбец для уровня сложности
+                "level TEXT" +
                 ")";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
-            // Проверяем наличие таблицы
-            ResultSet rs = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='games'");
-            if (!rs.next()) {
-                // Таблица не существует, создаем ее
-                stmt.executeUpdate(sql);
-            }
+            stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.log(Level.SEVERE, "Error creating games table", e);
         }
     }
 
@@ -91,16 +86,9 @@ public class SQLiteDBManager {
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              Statement stmt = conn.createStatement()) {
-            // Проверяем наличие таблицы
-            ResultSet rs = stmt.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='game_moves'");
-            if (!rs.next()) {
-                // Таблица не существует, создаем ее
-                stmt.executeUpdate(sql);
-            }
+            stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            LOGGER.log(Level.SEVERE, "Error creating game_moves table", e);
         }
     }
-
-
 }
