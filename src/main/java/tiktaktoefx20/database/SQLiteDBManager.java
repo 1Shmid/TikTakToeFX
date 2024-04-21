@@ -1,7 +1,7 @@
 package tiktaktoefx20.database;
 
 import java.sql.*;
-import java.util.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,17 +10,27 @@ public class SQLiteDBManager {
     public static final String DB_URL = "jdbc:sqlite:TTTFX 2.0.db";
     private static final Logger LOGGER = Logger.getLogger(SQLiteDBManager.class.getName());
 
+    private static Connection connection = null;
+
+    private static Connection getConnection() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            connection = DriverManager.getConnection(DB_URL);
+        }
+        return connection;
+    }
+
     public static void addGame(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, String result, int duration, String level) {
         createGamesTable();
         createGameMovesTable();
 
+        int lastMoveNumber = 0; // Хранит номер последнего хода
         for (GameMove move : moves) {
-            recordMove(move.getMoveNumber(), move.getPlayer(), move.getRow(), move.getCol());
+            recordMove(++lastMoveNumber, move.getPlayer(), move.getRow(), move.getCol());
         }
 
         String sql = "INSERT INTO games (total_moves, player_moves, computer_moves, result, duration, level) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, totalMoves);
@@ -36,11 +46,10 @@ public class SQLiteDBManager {
         }
     }
 
-    // Метод для записи хода в таблицу game_moves
     private static void recordMove(int moveNumber, String player, int row, int col) {
         String sql = "INSERT INTO game_moves (move_number, player, row, col) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, moveNumber);
@@ -54,7 +63,6 @@ public class SQLiteDBManager {
         }
     }
 
-    // Метод для создания таблицы games, если она не существует
     private static void createGamesTable() {
         String sql = "CREATE TABLE IF NOT EXISTS games (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -66,7 +74,7 @@ public class SQLiteDBManager {
                 "level TEXT" +
                 ")";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
@@ -74,7 +82,6 @@ public class SQLiteDBManager {
         }
     }
 
-    // Метод для создания таблицы game_moves, если она не существует
     private static void createGameMovesTable() {
         String sql = "CREATE TABLE IF NOT EXISTS game_moves (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -84,7 +91,7 @@ public class SQLiteDBManager {
                 "col INTEGER" +
                 ")";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
+        try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
