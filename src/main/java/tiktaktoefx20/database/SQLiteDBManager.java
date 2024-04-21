@@ -3,121 +3,96 @@ package tiktaktoefx20.database;
 import java.sql.*;
 import java.util.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+import static tiktaktoefx20.database.GameMove.*;
 
 
 public class SQLiteDBManager {
 
-    protected static final String DB_URL = "jdbc:sqlite:tiktaktoe.db";
-    private static Connection connection;
+    static final String DB_URL = "jdbc:sqlite:game_database.db";
 
-    public SQLiteDBManager(String dbName) {
-        try {
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static void addGame(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, String result, int duration) {
+        createGamesTable();
+        createGameMovesTable();
+
+        for (GameMove move : moves) {
+            recordMove(move.getMoveNumber(), move.getPlayer(), move.getRow(), move.getCol());
         }
-    }
 
-    public void createTables() {
-        try {
-            Statement statement = connection.createStatement();
-            // Создаем таблицу для записей об играх
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS GameRecords (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "gameNumber INTEGER," +
-                    "player TEXT," +
-                    "coordinates TEXT," +
-                    "moveNumber INTEGER" +
-                    ")");
-            // Создаем таблицу для хранения данных о каждой игре
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS Games (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "gameNumber INTEGER," +
-                    "moves TEXT," +
-                    "totalMoves INTEGER," +
-                    "playerMoves INTEGER," +
-                    "computerMoves INTEGER," +
-                    "result TEXT," +
-                    "duration INTEGER" +
-                    ")");
-            // Создаем таблицу для общей статистики всех игр
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS GameStats (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "totalGames INTEGER," +
-                    "totalDuration INTEGER," +
-                    "longestGame INTEGER," +
-                    "shortestGame INTEGER," +
-                    "totalWins INTEGER," +
-                    "playerWins INTEGER," +
-                    "computerWins INTEGER" +
-                    ")");
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+        String sql = "INSERT INTO games (total_moves, player_moves, computer_moves, result, duration) VALUES (?, ?, ?, ?, ?)";
 
-    public static Connection getConnection() {
-        return connection;
-    }
-
-    public void closeConnection() {
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void addMove(String player, String coordinates) {
-        // Метод для добавления записи о ходе в таблицу Moves
-        String sql = "INSERT INTO Moves (Player, Coordinates) VALUES (?, ?)";
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, player);
-            pstmt.setString(2, coordinates);
+
+            pstmt.setInt(1, totalMoves);
+            pstmt.setInt(2, playerMoves);
+            pstmt.setInt(3, computerMoves);
+            pstmt.setString(4, result);
+            pstmt.setInt(5, duration);
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
-    public static void addGame(String moves, int totalMoves, int playerMoves, int computerMoves,
-                               String result, int durationSeconds) {
-        // Метод для добавления записи об игре в таблицу Games
-        String sql = "INSERT INTO Games (Moves, TotalMoves, PlayerMoves, ComputerMoves, Result, DurationSeconds) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+    // Метод для создания таблицы games, если она не существует
+    private static void createGamesTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS games (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "total_moves INTEGER," +
+                "player_moves INTEGER," +
+                "computer_moves INTEGER," +
+                "result TEXT," +
+                "duration INTEGER" +
+                ")";
+
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, moves);
-            pstmt.setInt(2, totalMoves);
-            pstmt.setInt(3, playerMoves);
-            pstmt.setInt(4, computerMoves);
-            pstmt.setString(5, result);
-            pstmt.setInt(6, durationSeconds);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
-    public static List<String> getMoves() {
-        // Метод для чтения всех ходов из таблицы Moves
-        List<String> movesList = new ArrayList<>();
-        String sql = "SELECT Player, Coordinates FROM Moves";
+    // Метод для создания таблицы game_moves, если она не существует
+    private static void createGameMovesTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS game_moves (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "move_number INTEGER," +
+                "player TEXT," +
+                "row INTEGER," +
+                "col INTEGER" +
+                ")";
+
         try (Connection conn = DriverManager.getConnection(DB_URL);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                String player = rs.getString("Player");
-                String coordinates = rs.getString("Coordinates");
-                movesList.add("Player: " + player + ", Coordinates: " + coordinates);
-            }
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-        return movesList;
+    }
+
+    // Метод для записи хода в таблицу game_moves
+    private static void recordMove(int moveNumber, String player, int row, int col) {
+        String sql = "INSERT INTO game_moves (move_number, player, row, col) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, moveNumber);
+            pstmt.setString(2, player);
+            pstmt.setInt(3, row);
+            pstmt.setInt(4, col);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
