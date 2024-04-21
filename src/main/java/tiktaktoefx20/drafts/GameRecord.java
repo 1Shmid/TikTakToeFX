@@ -1,4 +1,4 @@
-package tiktaktoefx20;
+package tiktaktoefx20.drafts;
 
 public class GameRecord {
 
