@@ -70,13 +70,6 @@ public class GameResultHandler {
         // Ожидаем действия пользователя
         Optional<ButtonType> resultButton = alert.showAndWait();
 
-
-        // Обновляем результат и продолжительность игры
-//        totalMoves = moves.size();
-        //result = winnerSymbol.equals("The player") ? "The player wins!" : "It's a draw";
-//        result = checkForWin(gameField) ? "The player" : (checkForDraw(gameField) ? "It's a draw" : "The computer");
-//        System.out.println("The result is: " + result);
-
         // Создаем объект игры и записываем ее в базу данных
         Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration);
         game.recordGame();
