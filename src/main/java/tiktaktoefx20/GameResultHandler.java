@@ -11,6 +11,8 @@ import java.sql.*;
 
 import java.util.*;
 
+import static tiktaktoefx20.GameEngine.checkForDraw;
+import static tiktaktoefx20.GameEngine.checkForWin;
 import static tiktaktoefx20.database.SQLiteDBManager.DB_URL;
 
 import javafx.fxml.FXML;
@@ -44,9 +46,9 @@ public class GameResultHandler {
 
         // Проверяем условия победы или ничьи
         String result = "";
-        if (GameEngine.checkForWin(gameField)) {
+        if (checkForWin(gameField)) {
             result = winnerSymbol + " wins!";
-        } else if (GameEngine.checkForDraw(gameField)) {
+        } else if (checkForDraw(gameField)) {
             result = "It's a draw!!";
         }
 
@@ -70,8 +72,10 @@ public class GameResultHandler {
 
 
         // Обновляем результат и продолжительность игры
-        totalMoves = moves.size();
-        result = winnerSymbol.equals("The player") ? "The player wins!" : "It's a draw";
+//        totalMoves = moves.size();
+        //result = winnerSymbol.equals("The player") ? "The player wins!" : "It's a draw";
+//        result = checkForWin(gameField) ? "The player" : (checkForDraw(gameField) ? "It's a draw" : "The computer");
+//        System.out.println("The result is: " + result);
 
         // Создаем объект игры и записываем ее в базу данных
         Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration);
@@ -81,15 +85,13 @@ public class GameResultHandler {
 
         // Если пользователь выбрал "Новая игра", начинаем новую игру
         if (resultButton.isPresent() && resultButton.get() == newGameButton) {
-
-
             startNewGame(gameField);
-
         } else {
             // Иначе закрываем приложение
             Platform.exit();
         }
     }
+
 
     protected void startNewGame(char[][] gameField) {
         // Очищаем игровое поле и включаем все кнопки
@@ -106,6 +108,8 @@ public class GameResultHandler {
                 gameField[i][j] = Constants.EMPTY_SYMBOL;
             }
         }
+        // Обнуляем счетчики ходов
+        GameController.resetMoveCounters();
 
         // Включаем таймер игры
         GameController.startGameTimer();
