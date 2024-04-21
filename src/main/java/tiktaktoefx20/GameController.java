@@ -22,9 +22,9 @@ public class GameController extends GameEngine {
     Context hardMoveHandler = new Context(hardStrategy);
 
     private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
-    private int moveCounter = 0; // Переменная для хранения счетчика ходов
-    private int playerMovesCounter = 0; // Переменная для хранения счетчика ходов
-    private int computerMovesCounter = 0; // Переменная для хранения счетчика ходов
+    private static int moveCounter = 0; // Переменная для хранения счетчика ходов
+    private static int playerMovesCounter = 0; // Переменная для хранения счетчика ходов
+    private static int computerMovesCounter = 0; // Переменная для хранения счетчика ходов
 
     private List<GameMove> moves;
     private Game currentGame;
@@ -164,7 +164,15 @@ public class GameController extends GameEngine {
     }
 
     private void handleComboBoxAction(ActionEvent event) {
+
+        resetMoveCounters();
         startNewGame(gameField);
+    }
+
+    public static void resetMoveCounters() {
+        moveCounter = 0; // Переменная для хранения счетчика ходов
+        playerMovesCounter = 0; // Переменная для хранения счетчика ходов
+        computerMovesCounter = 0; // Переменная для хранения счетчика ходов
     }
 
     public GameResultHandler getGameResultHandler() {
