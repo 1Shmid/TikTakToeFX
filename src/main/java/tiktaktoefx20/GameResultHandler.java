@@ -109,7 +109,7 @@ public class GameResultHandler {
         GameController.startGameTimer();
 
         // Выводим содержание таблиц
-        printDatabaseContents();
+        // printDatabaseContents();
     }
 
     private void printDatabaseContents() {
