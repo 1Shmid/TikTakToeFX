@@ -1,68 +1,43 @@
 package tiktaktoefx20.strategies;
 
-import tiktaktoefx20.database.*;
-
 import tiktaktoefx20.*;
+import tiktaktoefx20.database.SQLiteDBManager;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import static tiktaktoefx20.database.SQLiteDBManager.getWinningGameStates;
+
 
 public class ImpossibleStrategy implements MoveStrategy {
 
     @Override
     public int[] makeMove(char[][] gameField, String selectedLevel) {
-        // Получаем список предыдущих выигрышных состояний игрового поля из базы данных
-        List<char[][]> winningGameStates = SQLiteDBManager.getWinningGameStates();
-        // Создаем список для хранения возможных ходов
+        List<char[][]> winningGameStates = getWinningGameStates();
         List<int[]> possibleMoves = new ArrayList<>();
 
-        // Сравниваем текущее игровое поле с каждым предыдущим выигрышным состоянием
         for (char[][] winningGameState : winningGameStates) {
-            int[] move = compareGameField(gameField, winningGameState);
-            // Если найден возможный ход, добавляем его в список
+            int[] move = compareGameFields(gameField, winningGameState);
             if (move != null) {
                 possibleMoves.add(move);
             }
         }
 
-        // Если найдены возможные ходы, возвращаем первый из них
         if (!possibleMoves.isEmpty()) {
-            return possibleMoves.get(0);
+            return chooseBestMove(possibleMoves, gameField);
         }
 
-        // Если ни один возможный ход не найден, возвращаем случайный ход
         return new HardStrategy().makeMove(gameField, selectedLevel);
     }
 
-    // Метод для сравнения текущего игрового поля с предыдущим выигрышным состоянием и определения возможного хода
-
-    /* Этот метод сравнивает каждую клетку текущего игрового поля с соответствующей клеткой предыдущего
-    выигрышного состояния. Если значение клетки совпадает, увеличивается счетчик совпадений.
-    Затем метод выбирает клетку с наибольшим числом совпадений и возвращает ее координаты
-    как наиболее вероятный следующий ход.
-     */
-    private int[] compareGameField(char[][] gameField, char[][] winningGameState) {
-        // Создаем переменные для хранения наиболее вероятного следующего хода
+    private int[] compareGameFields(char[][] currentGameState, char[][] winningGameState) {
         int bestRow = -1;
         int bestCol = -1;
         int maxMatches = -1;
 
-        // Проходим по всем клеткам текущего игрового поля
-        for (int row = 0; row < gameField.length; row++) {
-            for (int col = 0; col < gameField[0].length; col++) {
-                // Если клетка пуста
-                if (gameField[row][col] == Constants.EMPTY_SYMBOL) {
-                    int matches = 0; // Переменная для подсчета совпадений с предыдущим выигрышным состоянием
-
-                    // Сравниваем значение клетки текущего поля с соответствующей клеткой предыдущего выигрышного состояния
-                    if (gameField[row][col] == winningGameState[row][col]) {
-                        matches++; // Если значение совпадает, увеличиваем счетчик совпадений
-                    }
-
-                    // Если число совпадений больше текущего максимума, обновляем наиболее вероятный следующий ход
+        for (int row = 0; row < currentGameState.length; row++) {
+            for (int col = 0; col < currentGameState[0].length; col++) {
+                if (currentGameState[row][col] == Constants.EMPTY_SYMBOL && currentGameState[row][col] == winningGameState[row][col]) {
+                    int matches = countMatches(currentGameState, winningGameState, row, col);
                     if (matches > maxMatches) {
                         maxMatches = matches;
                         bestRow = row;
@@ -72,14 +47,81 @@ public class ImpossibleStrategy implements MoveStrategy {
             }
         }
 
-        // Если найден наиболее вероятный следующий ход, возвращаем его координаты
-        if (maxMatches > 0) {
-            return new int[]{bestRow, bestCol};
+        return (maxMatches > 0) ? new int[]{bestRow, bestCol} : null;
+    }
+
+    private int countMatches(char[][] currentGameState, char[][] winningGameState, int row, int col) {
+        int matches = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (isValidPosition(row + i, col + j, currentGameState.length, currentGameState[0].length) &&
+                        currentGameState[row + i][col + j] == winningGameState[row + i][col + j]) {
+                    matches++;
+                }
+            }
+        }
+        return matches;
+    }
+
+    private boolean isValidPosition(int row, int col, int numRows, int numCols) {
+        return row >= 0 && row < numRows && col >= 0 && col < numCols;
+    }
+
+    private int[] chooseBestMove(List<int[]> possibleMoves, char[][] gameField) {
+        sortMovesByPriority(possibleMoves, gameField); // Передаем оба аргумента
+        return possibleMoves.get(0);
+    }
+
+
+    private void sortMovesByPriority(List<int[]> possibleMoves, char[][] gameField) {
+        List<Map.Entry<int[], Integer>> entryList = new ArrayList<>();
+        Map<int[], Integer> movePriorityMap = new HashMap<>();
+
+        for (int[] move : possibleMoves) {
+            int priority = calculatePriority(gameField, move);
+            movePriorityMap.put(move, priority);
         }
 
-        // Если ни один ход не найден, возвращаем null
-        return null;
+        entryList.addAll(movePriorityMap.entrySet());
+        entryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        possibleMoves.clear();
+        for (Map.Entry<int[], Integer> entry : entryList) {
+            possibleMoves.add(entry.getKey());
+        }
+    }
+
+    private int calculatePriority(char[][] gameField, int[] move) {
+        int priority = 0;
+        List<char[][]> winningGameStates = getWinningGameStates();
+
+        for (char[][] winningGameState : winningGameStates) {
+            int matches = compareWithWinningState(gameField, move, winningGameState);
+            priority += matches;
+        }
+
+        return priority;
+    }
+
+
+    private int compareWithWinningState(char[][] gameField, int[] move, char[][] winningGameState) {
+        int matches = 0;
+
+        for (int row = 0; row < gameField.length; row++) {
+            for (int col = 0; col < gameField[0].length; col++) {
+                // Сравниваем каждую клетку текущего игрового поля с соответствующей клеткой выигрышного состояния
+                if (gameField[row][col] == winningGameState[row][col]) {
+                    matches++;
+                }
+            }
+        }
+
+        // Увеличиваем количество совпадений, если ход совпадает с выигрышным состоянием
+        if (gameField[move[0]][move[1]] == winningGameState[move[0]][move[1]]) {
+            matches++;
+        }
+
+        return matches;
     }
 
 }
-
