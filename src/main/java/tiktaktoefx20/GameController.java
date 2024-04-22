@@ -16,10 +16,13 @@ public class GameController extends GameEngine {
     // Создаем объекты стратегий
     MoveStrategy easyStrategy = new EasyStrategy();
     MoveStrategy hardStrategy = new HardStrategy();
+    MoveStrategy impossibleStrategy = new ImpossibleStrategy();
 
     // Создаем объекты обработчиков хода с разными стратегиями
     Context easyMoveHandler = new Context(easyStrategy);
     Context hardMoveHandler = new Context(hardStrategy);
+    Context impossibleMoveHandler = new Context(impossibleStrategy);
+
 
     private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
     private static int moveCounter = 0; // Переменная для хранения счетчика ходов
@@ -90,6 +93,7 @@ public class GameController extends GameEngine {
             int[] computerMove = switch (selectedLevel) {
                 case "EASY" -> easyMoveHandler.makeMove(gameField, selectedLevel);
                 case "HARD" -> hardMoveHandler.makeMove(gameField, selectedLevel);
+                case "IMPOSSIBLE" -> impossibleMoveHandler.makeMove(gameField, selectedLevel);
                 default -> easyMoveHandler.makeMove(gameField, selectedLevel); // По умолчанию используем случайную стратегию
             };
 
