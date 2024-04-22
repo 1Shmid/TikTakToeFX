@@ -114,8 +114,8 @@ public class GameResultHandler {
 
     private void printDatabaseContents() {
         // Выводим содержание таблицы game_moves
-        System.out.println("Contents of game_moves table:");
-        printTableContents("game_moves");
+        System.out.println("Contents of moves table:");
+        printTableContents("moves");
 
         // Выводим содержание таблицы games
         System.out.println("Contents of games table:");
