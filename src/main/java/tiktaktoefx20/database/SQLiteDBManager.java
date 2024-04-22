@@ -18,7 +18,7 @@ public class SQLiteDBManager {
         createTables();
 
         try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO games (total_moves, player_moves, computer_moves, result, duration, level) VALUES (?, ?, ?, ?, ?, ?)")) {
+             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO games (total_moves, player_moves, computer_moves, result, duration, level, game_state) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
 
             conn.setAutoCommit(false);
 
@@ -32,6 +32,7 @@ public class SQLiteDBManager {
             pstmt.setString(4, result);
             pstmt.setInt(5, duration);
             pstmt.setString(6, level);
+            pstmt.setString(7, serializeGameState(moves)); // Serialize game state and store it
 
             pstmt.executeUpdate();
             conn.commit();
@@ -40,8 +41,10 @@ public class SQLiteDBManager {
         }
     }
 
+
+
     private static void recordMove(Connection conn, int moveNumber, String player, int row, int col) {
-        try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO game_moves (move_number, player, row, col) VALUES (?, ?, ?, ?)")) {
+        try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO moves (move_number, player, row, col) VALUES (?, ?, ?, ?)")) {
             pstmt.setInt(1, moveNumber);
             pstmt.setString(2, player);
             pstmt.setInt(3, row);
@@ -60,10 +63,11 @@ public class SQLiteDBManager {
                 "computer_moves INTEGER," +
                 "result TEXT," +
                 "duration INTEGER," +
-                "level TEXT" +
+                "level TEXT," +
+                "game_state TEXT" + // Добавляем колонку для хранения состояния игры
                 ")";
 
-        String gameMovesTableSQL = "CREATE TABLE IF NOT EXISTS game_moves (" +
+        String gameMovesTableSQL = "CREATE TABLE IF NOT EXISTS moves (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "move_number INTEGER," +
                 "player TEXT," +
@@ -79,6 +83,18 @@ public class SQLiteDBManager {
             LOGGER.log(Level.SEVERE, "Error creating tables", e);
         }
     }
+
+
+    private static String serializeGameState(List<GameMove> moves) {
+        StringBuilder serializedState = new StringBuilder();
+        for (GameMove move : moves) {
+            serializedState.append(move.getPlayer());
+            serializedState.append(move.getRow());
+            serializedState.append(move.getCol());
+        }
+        return serializedState.toString();
+    }
+
 
     public static int getTotalGames() {
         String sql = "SELECT COUNT(*) FROM games";
@@ -194,7 +210,7 @@ public class SQLiteDBManager {
     public static List<char[][]> getWinningGameStates() {
         List<char[][]> winningStates = new ArrayList<>();
 
-        String sql = "SELECT game_state FROM games WHERE result = 'Win'";
+        String sql = "SELECT game_state FROM games WHERE result LIKE '%wins%'";
 
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
@@ -211,6 +227,7 @@ public class SQLiteDBManager {
         return winningStates;
     }
 
+
     // Десериализация игрового состояния из строки в двумерный массив
     private static char[][] deserializeGameState(String serializedState) {
         char[][] gameField = new char[3][3];
@@ -222,5 +239,7 @@ public class SQLiteDBManager {
         }
         return gameField;
     }
+
+
 
 }
