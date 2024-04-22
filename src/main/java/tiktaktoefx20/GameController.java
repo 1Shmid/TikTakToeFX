@@ -1,10 +1,12 @@
 package tiktaktoefx20;
 
+import javafx.animation.*;
 import javafx.collections.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.util.*;
 import tiktaktoefx20.database.*;
 import tiktaktoefx20.strategies.*;
 
@@ -53,7 +55,22 @@ public class GameController extends GameEngine {
 
         Button clickedButton = (Button) event.getSource(); // Получаем кнопку, на которую было нажато
         clickedButton.setText(String.valueOf(Constants.PLAYER_SYMBOL));
+
+
+    // Анимация появления символа на кнопке
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), clickedButton);
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.play();
+
+    // Изменение цвета фона и текста кнопки
+        clickedButton.setStyle("-fx-background-color: gray; -fx-text-fill: white;");
+
         clickedButton.setDisable(true);
+
+
+
+
 
         // Получаем индексы кнопки
         int row = GridPane.getRowIndex(clickedButton) == null ? 0 : GridPane.getRowIndex(clickedButton);
@@ -152,6 +169,7 @@ public class GameController extends GameEngine {
     }
 
     private GameResultHandler gameResultHandler;
+    private String initialButtonStyle; // Поле для хранения текущего стиля кнопок
 
     @FXML
     void initialize() {
@@ -164,6 +182,15 @@ public class GameController extends GameEngine {
         // Запускаем таймер
         startGameTimer();
 
+        // Сохраняем текущий стиль кнопок
+        saveInitialButtonStyle();
+
+    }
+
+    private void saveInitialButtonStyle() {
+        // Получаем стиль кнопки по умолчанию
+        Button sampleButton = new Button();
+        initialButtonStyle = sampleButton.getStyle();
     }
 
     private void initializeComboBox() {
