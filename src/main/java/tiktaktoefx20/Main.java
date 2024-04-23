@@ -4,6 +4,7 @@ import javafx.application.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.stage.*;
+import tiktaktoefx20.database.*;
 
 import java.io.*;
 
@@ -11,6 +12,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        int gameId = SQLiteDBManager.getGameIdFromDatabase(); // Получаем номер игры из базы данных
+        String title = "TikTacToeFX | Game №" + gameId; // Формируем заголовок окна с номером игры
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("TTTFX.fxml"));
         Parent root = fxmlLoader.load();
         GameController controller = fxmlLoader.getController();
@@ -19,7 +23,8 @@ public class Main extends Application {
         fxmlLoader.setController(new GameController());
 
         Scene scene = new Scene(root, 862, 400);
-        stage.setTitle("TikTakToeFX");
+        //stage.setTitle("TikTakToeFX");
+        stage.setTitle(title); // Устанавливаем заголовок окна с номером игры
         stage.setScene(scene);
         stage.show();
     }
