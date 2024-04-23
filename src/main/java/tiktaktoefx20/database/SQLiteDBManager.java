@@ -240,6 +240,23 @@ public class SQLiteDBManager {
         return gameField;
     }
 
+    // Метод для получения номера игры из базы данных
+    public static int getGameIdFromDatabase() {
+        String sql = "SELECT MAX(id) FROM games"; // Получаем максимальный идентификатор игры
+        int gameId = 0;
+
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                gameId = rs.getInt(1); // Получаем значение максимального идентификатора
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error getting game ID from database", e);
+        }
+
+        return gameId;
+    }
 
 
 }
