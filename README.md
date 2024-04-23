@@ -1,9 +1,18 @@
 # TicTacToeFX 2.2
 
 ## Overview
-In this version of my application, I have added SQLite database support to store  games with the assistance of ChatGPT, an AI language model developed by OpenAI. Additionally, a combination of interfaces and the Strategy pattern has been implemented for managing computer moves. 
 
-Please note that the project is still a work in progress.
+In this version of the game, the logic of difficulty levels has been overhauled using the Strategy pattern. I had to rewrite many of the classes almost from scratch, but the combination of interfaces and the Strategy pattern ultimately reduced the time needed to reconfigure existing logic and implement and debug new logic based on past game experience. SQLite database support was integrated to save games. I extensively utilized ChatGPT at this stage and found it to be very useful.
+
+## Computer Moves Logic
+
+Now, the logic of computer moves is organized as follows:
+
+- `class EasyStrategy`: Implements random selection of computer moves.
+- `class HardStrategy`: Blocks possible winning moves of the player, and then searches for winning combinations for itself. It protects center and corner positions if necessary.
+- `class ImpossibleStrategy`: Analyzes the current state of the playing field and compares it to past game experiences stored in the database. It evaluates each possible move by counting the number of matches with winning states from past games and selects the move with the most matches.
+
+These improvements have significantly enhanced the efficiency of computer gameplay and have made the process more enjoyable and challenging for the player.
 
 ## Table Structure
 ### Table `moves`:
