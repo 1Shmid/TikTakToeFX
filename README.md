@@ -1,6 +1,38 @@
-# TikTakToeFX 2.2
+# TicTacToeFX 2.2
 
-Implementing a strategy of computer moves in a game using a combination of interfaces and pattern Strategy. Still in the works.
+## Overview
+In this version of my application, I have added SQLite database support to store  games with the assistance of ChatGPT, an AI language model developed by OpenAI. Additionally, a combination of interfaces and the Strategy pattern has been implemented for managing computer moves. 
+
+Please note that the project is still a work in progress.
+
+## Table Structure
+### Table `moves`:
+- `id`: Unique move identifier.
+- `move_number`: The move number within the game.
+- `player`: The player who made the move.
+- `row`: The row number on the game board (from 0 to 2).
+- `col`: The column number on the game board (from 0 to 2).
+
+### Table `games`:
+- `id`: Unique game identifier.
+- `total_moves`: Total number of moves in the game.
+- `player_moves`: Number of moves made by the player.
+- `computer_moves`: Number of moves made by the computer.
+- `result`: The result of the game (e.g., "Player wins" or "Computer wins").
+- `duration`: The duration of the game in seconds.
+- `level`: The difficulty level of the game (e.g., "Easy", "Medium", "Hard").
+- `game_state`: The game state represented as a string containing information about the placement of Xs and Os on the game board.
+
+## Data Access Methods
+- `getTotalGames`: Returns the total number of games played.
+- `getLongestGameDuration`: Returns the duration of the longest game.
+- `getShortestGame`: Returns the duration of the shortest game (in seconds) and the number of moves in it.
+- `getTotalWins`: Returns the total number of wins in the games.
+- `getPlayerWins`: Returns the number of wins for a specific player.
+- `getWinningGameStates`: Returns a list of winning game states.
+
+## Logging
+Logging has been implemented using the standard Java Logging Framework. Errors are logged at the SEVERE level and include information about the exception. Logging improves error tracking and management in the application.
 
 
 -------------------------
