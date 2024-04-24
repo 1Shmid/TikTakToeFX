@@ -1,0 +1,8 @@
+/* styles.css */
+
+/* Применяем стиль для разделителей внутри GridPane */
+.grid-pane > .column-line, .grid-pane > .row-line {
+    -fx-stroke: red; /* Цвет линии (красный) */
+    -fx-stroke-width: 2px; /* Ширина линии */
+    -fx-stroke-dash-array: 5 5; /* Пунктирный стиль */
+}
