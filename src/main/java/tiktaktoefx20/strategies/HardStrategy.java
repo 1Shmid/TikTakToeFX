@@ -18,10 +18,10 @@ public class HardStrategy implements MoveStrategy {
         move = blockPlayerWin(gameField);
         if (move != null) return move;
 
-        move = occupyCenter(gameField);
+        move = occupyCorner(gameField);
         if (move != null) return move;
 
-        move = occupyCorner(gameField);
+        move = occupyCenter(gameField);
         if (move != null) return move;
 
         // Если ни одно из условий не выполнено, делаем ход по простой стратегии
