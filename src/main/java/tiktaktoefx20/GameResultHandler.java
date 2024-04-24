@@ -5,6 +5,7 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.*;
 import tiktaktoefx20.database.*;
 
 import java.sql.*;
@@ -70,7 +71,6 @@ public class GameResultHandler {
         // Ожидаем действия пользователя
         Optional<ButtonType> resultButton = alert.showAndWait();
 
-        // String selectedLevel = gameController.comb.getSelectionModel().getSelectedItem(); // Получаем выбранный уровень сложности
         Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration, selectedLevel); // Добавляем уровень сложности в конструктор
         game.recordGame();
         gameNumber++; // Увеличиваем счетчик игр после завершения текущей игры
@@ -87,7 +87,6 @@ public class GameResultHandler {
 
 
     protected void startNewGame(char[][] gameField) {
-
         // Очищаем игровое поле и включаем все кнопки
         for (Node node : gridPane.getChildren()) {
             if (node instanceof Button button) {
@@ -108,9 +107,18 @@ public class GameResultHandler {
         // Включаем таймер игры
         GameController.startGameTimer();
 
+        // Получаем новый номер игры из базы данных
+        int newGameId = SQLiteDBManager.getGameIdFromDatabase();
+
+        // Обновляем заголовок окна с новым номером игры
+        String newTitle = Constants.GAME_TITLE_PREFIX + newGameId;
+        Stage stage = (Stage) gridPane.getScene().getWindow();
+        stage.setTitle(newTitle);
+
         // Выводим содержание таблиц
         // printDatabaseContents();
     }
+
 
     private void printDatabaseContents() {
         // Выводим содержание таблицы game_moves
