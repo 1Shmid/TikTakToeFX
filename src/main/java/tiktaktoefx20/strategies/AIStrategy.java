@@ -1,14 +1,13 @@
 package tiktaktoefx20.strategies;
 
 import tiktaktoefx20.*;
-import tiktaktoefx20.database.SQLiteDBManager;
 
 import java.util.*;
 
 import static tiktaktoefx20.database.SQLiteDBManager.getWinningGameStates;
 
 
-public class ImpossibleStrategy implements MoveStrategy {
+public class AIStrategy implements MoveStrategy {
 
     @Override
     public int[] makeMove(char[][] gameField, String selectedLevel) {
