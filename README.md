@@ -1,16 +1,20 @@
 # TicTacToeFX 2.2
 
+![TikTakToeFX](TTTFX%202.2%20Screenshot_4.jpg)
+
 ## Overview
 
 In this version of the game, the logic of difficulty levels has been overhauled using the Strategy pattern. I had to rewrite many of the classes almost from scratch, but the combination of interfaces and the Strategy pattern ultimately reduced the time needed to reconfigure existing logic and implement and debug new logic based on past game experience. SQLite database support was integrated to save games. I extensively utilized ChatGPT at this stage and found it to be very useful.
+I've also redesigned the playing field. Everyone's tastes are different, but I like this one better
+
 
 ## Computer Moves Logic
 
 Now, the logic of computer moves is organized as follows:
 
-- `class EasyStrategy`: Implements random selection of computer moves.
-- `class HardStrategy`: Blocks possible winning moves of the player, and then searches for winning combinations for itself. It protects center and corner positions if necessary.
-- `class ImpossibleStrategy`: Analyzes the current state of the playing field and compares it to past game experiences stored in the database. It evaluates each possible move by counting the number of matches with winning states from past games and selects the move with the most matches.
+- **EASY Level** (`class EasyStrategy`): Implements random selection of computer moves.
+- **HARD Level** (`class HardStrategy`): Logic based on the minimax method blocks possible winning moves of the player and then searches for winning combinations for itself. It protects center and corner positions if necessary.
+- **AI Level** (`class AIStrategy`): Using an evolutionary reinforcement learning algorithm, it analyzes saved games to check the current state of the playing field and compares it to past game experiences stored in the database. It evaluates each possible move by counting the number of matches with winning states from past games and selects the move with the most matches.
 
 These improvements have significantly enhanced the efficiency of computer gameplay and have made the process more enjoyable and challenging for the player.
 
@@ -43,7 +47,21 @@ These improvements have significantly enhanced the efficiency of computer gamepl
 ## Logging
 Logging has been implemented using the standard Java Logging Framework. Errors are logged at the SEVERE level and include information about the exception. Logging improves error tracking and management in the application.
 
+## Graphical interface
 
+Although I am familiar with graphics packages, I lack formal artistic education. Therefore, for the basis of the new game design, I utilized the top results from Google Images.
+
+## Usage
+
+1. Clone the repository.
+2. Compile and run the project using your preferred IDE.
+3. Enjoy playing Tic-Tac-Toe against the computer!
+
+## Credits
+
+Graphic interface: Top results from Google Images.
+
+## License
 -------------------------
 
 
