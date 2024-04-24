@@ -5,6 +5,7 @@ import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.*;
 import tiktaktoefx20.database.*;
 import tiktaktoefx20.strategies.*;
 
@@ -16,12 +17,12 @@ public class GameController extends GameEngine {
     // Создаем объекты стратегий
     MoveStrategy easyStrategy = new EasyStrategy();
     MoveStrategy hardStrategy = new HardStrategy();
-    MoveStrategy impossibleStrategy = new ImpossibleStrategy();
+    MoveStrategy aiStrategy = new AIStrategy();
 
     // Создаем объекты обработчиков хода с разными стратегиями
     Context easyMoveHandler = new Context(easyStrategy);
     Context hardMoveHandler = new Context(hardStrategy);
-    Context impossibleMoveHandler = new Context(impossibleStrategy);
+    Context aiMoveHandler = new Context(aiStrategy);
 
 
     private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
@@ -97,7 +98,7 @@ public class GameController extends GameEngine {
             int[] computerMove = switch (selectedLevel) {
                 case "EASY" -> easyMoveHandler.makeMove(gameField, selectedLevel);
                 case "HARD" -> hardMoveHandler.makeMove(gameField, selectedLevel);
-                case "IMPOSSIBLE" -> impossibleMoveHandler.makeMove(gameField, selectedLevel);
+                case "AI" -> aiMoveHandler.makeMove(gameField, selectedLevel);
                 default -> easyMoveHandler.makeMove(gameField, selectedLevel); // По умолчанию используем случайную стратегию
             };
 
@@ -174,10 +175,15 @@ public class GameController extends GameEngine {
     }
 
     private void initializeComboBox() {
-        ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "IMPOSSIBLE");
+        ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "AI");
         comb.setItems(list);
         comb.setValue("EASY");
         comb.setOnAction(this::handleComboBoxAction);
+        // Установка шрифта и цвета текста
+        // Установка шрифта и цвета текста
+        Font font = Font.font("Arial", FontWeight.NORMAL, 12); // Указать нужный шрифт, размер и стиль
+        comb.setStyle("-fx-font-size: 12px;"); // Установка размера шрифта
+        comb.setStyle("-fx-text-fill: red;"); // Установка цвета текста
     }
 
     private void initializeGameField() {
