@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         int gameId = SQLiteDBManager.getGameIdFromDatabase(); // Получаем номер игры из базы данных
-        String title = "TikTacToeFX | Game №" + gameId; // Формируем заголовок окна с номером игры
+        String title = Constants.GAME_TITLE_PREFIX + gameId; // Формируем заголовок окна с номером игры
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("TTTFX.fxml"));
         Parent root = fxmlLoader.load();
