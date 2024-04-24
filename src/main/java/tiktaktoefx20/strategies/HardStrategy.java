@@ -25,7 +25,7 @@ public class HardStrategy implements MoveStrategy {
         if (move != null) return move;
 
         // Если ни одно из условий не выполнено, делаем ход по простой стратегии
-        return makeMove(gameField, selectedLevel);
+        return easyStrategy.makeMove(gameField, selectedLevel);
     }
 
     private int[] findWinningMove(char[][] gameField) {
