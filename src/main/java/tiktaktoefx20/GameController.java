@@ -53,7 +53,11 @@ public class GameController extends GameEngine {
 
         Button clickedButton = (Button) event.getSource(); // Получаем кнопку, на которую было нажато
         clickedButton.setText(String.valueOf(Constants.PLAYER_SYMBOL));
+        clickedButton.setStyle("-fx-text-fill: #545454; -fx-opacity: 1.0; -fx-background-color: transparent;"); // Устанавливаем черный цвет текста для кнопки
+
+
         clickedButton.setDisable(true);
+
 
         // Получаем индексы кнопки
         int row = GridPane.getRowIndex(clickedButton) == null ? 0 : GridPane.getRowIndex(clickedButton);
@@ -120,6 +124,14 @@ public class GameController extends GameEngine {
         }
     }
 
+    private void updateGameField(int row, int col, char symbol) {
+        Button button = getButtonByIndexes(row, col);
+        button.setText(String.valueOf(symbol));
+        button.setDisable(true);
+        gameField[row][col] = symbol;
+        button.setStyle("-fx-text-fill: white; -fx-opacity: 1.0; -fx-background-color: transparent ;"); // Устанавливаем черный цвет текста для кнопки
+    }
+
     // Метод для старта отсчета времени игры
     public static void startGameTimer() {
         startTime = System.currentTimeMillis();
@@ -144,12 +156,7 @@ public class GameController extends GameEngine {
     }
 
 
-    private void updateGameField(int row, int col, char symbol) {
-        Button button = getButtonByIndexes(row, col);
-        button.setText(String.valueOf(symbol));
-        button.setDisable(true);
-        gameField[row][col] = symbol;
-    }
+
 
     private GameResultHandler gameResultHandler;
 
