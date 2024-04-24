@@ -62,6 +62,9 @@ Although I am familiar with graphics packages, I lack formal artistic education.
 Graphic interface: Top results from Google Images.
 
 ## License
+This project is licensed under the MIT (X11) License.
+
+
 -------------------------
 
 
