@@ -8,15 +8,16 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="862.0" style="-fx-background-color: #99CCCC;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tiktaktoefx20.GameController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="862.0" style="-fx-background-color: #99CCCC;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tiktaktoefx20.GameController">
    <children>
-      <Line endX="227.4000244140625" layoutX="357.0" layoutY="266.0" startX="-79.0" stroke="#0da192" strokeWidth="3.0" />
-      <Line endX="227.4000244140625" endY="-1.52587890625E-5" layoutX="357.0" layoutY="164.0" startX="-79.0" stroke="#0da192" strokeWidth="3.0" />
-      <Line endX="100.0" endY="41.79998779296875" layoutX="281.0" layoutY="328.0" startX="100.0" startY="-266.0" stroke="#0da192" strokeWidth="3.0" />
-      <ComboBox fx:id="comb" layoutX="26.0" layoutY="40.0" onAction="#Select" prefWidth="150.0" promptText="Choose" visibleRowCount="3" />
-      <Line endX="100.0" endY="45.79998779296875" layoutX="383.0" layoutY="323.0" startX="100.0" startY="-261.0" stroke="#0da192" strokeWidth="3.0" />
-      <GridPane fx:id="gridPane" layoutX="278.0" layoutY="62.0" prefHeight="306.0" prefWidth="306.0" style="-fx-background-color: transparent;">
+      <Line endX="227.4000244140625" layoutX="357.0" layoutY="251.0" startX="-79.0" stroke="#0da192" strokeWidth="3.0" />
+      <Line endX="227.4000244140625" endY="-1.52587890625E-5" layoutX="357.0" layoutY="149.0" startX="-79.0" stroke="#0da192" strokeWidth="3.0" />
+      <Line endX="100.0" endY="41.79998779296875" layoutX="281.0" layoutY="313.0" startX="100.0" startY="-266.0" stroke="#0da192" strokeWidth="3.0" />
+      <ComboBox fx:id="comb" layoutX="28.0" layoutY="79.0" onAction="#Select" prefWidth="150.0" promptText="Choose" visibleRowCount="3" />
+      <Line endX="100.0" endY="45.79998779296875" layoutX="383.0" layoutY="308.0" startX="100.0" startY="-261.0" stroke="#0da192" strokeWidth="3.0" />
+      <GridPane fx:id="gridPane" layoutX="278.0" layoutY="47.0" prefHeight="306.0" prefWidth="306.0" style="-fx-background-color: transparent;">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,5 +76,10 @@
             </Button>
          </children>
       </GridPane>
+      <Text fill="#545454" layoutX="28.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level" wrappingWidth="86.85354614257812">
+         <font>
+            <Font name="Gill Sans MT" size="24.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
