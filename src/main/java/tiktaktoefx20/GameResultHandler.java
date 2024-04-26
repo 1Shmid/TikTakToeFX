@@ -11,6 +11,7 @@ import javafx.scene.shape.*;
 import javafx.stage.*;
 import tiktaktoefx20.database.*;
 
+import java.io.*;
 import java.sql.*;
 
 import java.util.*;
@@ -49,53 +50,55 @@ public class GameResultHandler {
 
     @FXML
     public void endGame(List<int[]> winningCells, char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel, AnchorPane anchorPane) {
-
         Constants.Winner winner;
-
-        // Проверяем условия победы или ничьи
         String result = "";
 
         if (checkForWin(gameField)) {
             result = winnerSymbol + " wins!";
-
             winner = winnerSymbol.equals("The player") ? Constants.Winner.PLAYER : Constants.Winner.COMPUTER;
-
             drawWinningLine(winningCells, anchorPane, winner); // Рисуем линию победы
-
         } else if (checkForDraw(gameField)) {
             result = "It's a draw!!";
         }
 
-        // Создаем новое диалоговое окно
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-        alert.setTitle("Game result");
-        alert.setHeaderText(null);
-        alert.setContentText(result);
-
-        // Создаем кнопки для новой игры и выхода
-        ButtonType newGameButton = new ButtonType("New Game", ButtonBar.ButtonData.YES);
-        ButtonType exitButton = new ButtonType("Exit", ButtonBar.ButtonData.NO);
-
-        // Устанавливаем кнопки в диалоговом окне
-        alert.getButtonTypes().setAll(newGameButton, exitButton);
-
-        // Ожидаем действия пользователя
-        Optional<ButtonType> resultButton = alert.showAndWait();
-
-        Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration, selectedLevel); // Добавляем уровень сложности в конструктор
-        game.recordGame();
-        gameNumber++; // Увеличиваем счетчик игр после завершения текущей игры
-
-        // Если пользователь выбрал "Новая игра", начинаем новую игру
-        if (resultButton.isPresent() && resultButton.get() == newGameButton) {
-
-            startNewGame(gameField, anchorPane);
-        } else {
-            // Иначе закрываем приложение
-            Platform.exit();
+        // Загрузите FXML-файл для диалогового окна
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EndGameDialog.fxml"));
+        EndGameDialogController controller = new EndGameDialogController();
+        loader.setController(controller); // Устанавливаем контроллер
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
         }
+
+        // Устанавливаем символ победителя и результат игры
+        controller.setWinnerSymbol(winnerSymbol);
+        controller.setResultText(result);
+
+        // Создайте новое диалоговое окно
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED); // Устанавливаем стиль без заголовка
+        stage.setScene(new Scene(root));
+        controller.setStage(stage); // Устанавливаем Stage
+
+        // Устанавливаем обработчик события на клик мышкой
+        root.setOnMouseClicked(event -> {
+            stage.close();
+            startNewGame(gameField, anchorPane);
+        });
+
+        // Показываем диалоговое окно
+        stage.showAndWait();
+
+        Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration, selectedLevel);
+        game.recordGame();
+        gameNumber++;
     }
+
+
 
     // Метод для рисования линии на Canvas
     private void drawWinningLine(List<int[]> winningCells, AnchorPane anchorPane, Constants.Winner winner) {
