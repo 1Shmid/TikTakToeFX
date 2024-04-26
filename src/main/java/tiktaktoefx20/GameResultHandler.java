@@ -3,8 +3,11 @@ package tiktaktoefx20;
 import javafx.application.*;
 import javafx.fxml.*;
 import javafx.scene.*;
+import javafx.scene.canvas.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.scene.shape.*;
 import javafx.stage.*;
 import tiktaktoefx20.database.*;
 
@@ -12,8 +15,8 @@ import java.sql.*;
 
 import java.util.*;
 
-import static tiktaktoefx20.GameEngine.checkForDraw;
-import static tiktaktoefx20.GameEngine.checkForWin;
+import static com.sun.javafx.sg.prism.NGCanvas.LINE_WIDTH;
+import static tiktaktoefx20.GameEngine.*;
 import static tiktaktoefx20.database.SQLiteDBManager.DB_URL;
 
 import javafx.fxml.FXML;
@@ -32,6 +35,7 @@ public class GameResultHandler {
     @FXML
     protected GridPane gridPane;
 
+
     private GameController gameController;
 
     public GameResultHandler() {
@@ -43,12 +47,18 @@ public class GameResultHandler {
     }
 
     @FXML
-    public void endGame(char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel) {
+    public void endGame(List<int[]> winningCells, char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel, AnchorPane anchorPane) {
 
         // Проверяем условия победы или ничьи
         String result = "";
         if (checkForWin(gameField)) {
             result = winnerSymbol + " wins!";
+
+            drawWinningLine(winningCells, anchorPane); // Рисуем линию победы
+
+            printGridAndCellCoordinates();
+
+
         } else if (checkForDraw(gameField)) {
             result = "It's a draw!!";
         }
@@ -82,6 +92,133 @@ public class GameResultHandler {
         } else {
             // Иначе закрываем приложение
             Platform.exit();
+        }
+    }
+
+
+
+
+    private Canvas winningLineCanvas = new Canvas(); // Объявляем поле для хранения объекта Canvas с нарисованной линией
+
+    // Метод для рисования линии на Canvas
+    // Метод для рисования линии на Canvas
+    private void drawWinningLine(List<int[]> winningCells, AnchorPane anchorPane) {
+        // Получаем размеры AnchorPane
+        double anchorPaneWidth = anchorPane.getWidth();
+        double anchorPaneHeight = anchorPane.getHeight();
+
+        // Получаем размеры поля GridPane
+        double gridPaneWidth = gridPane.getWidth();
+        double gridPaneHeight = gridPane.getHeight();
+
+        // Получаем размеры ячейки
+        double cellWidth = gridPaneWidth / Constants.FIELD_SIZE;
+        double cellHeight = gridPaneHeight / Constants.FIELD_SIZE;
+
+        // Находим координаты центров начальной и конечной ячеек в системе координат GridPane
+        int startRow = winningCells.get(0)[0];
+        int startCol = winningCells.get(0)[1];
+        int endRow = winningCells.get(winningCells.size() - 1)[0];
+        int endCol = winningCells.get(winningCells.size() - 1)[1];
+
+        double startCellCenterX = (startCol + 0.5) * cellWidth;
+        double startCellCenterY = (startRow + 0.5) * cellHeight;
+        double endCellCenterX = (endCol + 0.5) * cellWidth;
+        double endCellCenterY = (endRow + 0.5) * cellHeight;
+
+        // Преобразуем координаты центров ячеек из системы координат GridPane в систему координат AnchorPane
+        double startX = gridPane.localToScene(startCellCenterX, startCellCenterY).getX();
+        double startY = gridPane.localToScene(startCellCenterX, startCellCenterY).getY();
+        double endX = gridPane.localToScene(endCellCenterX, endCellCenterY).getX();
+        double endY = gridPane.localToScene(endCellCenterX, endCellCenterY).getY();
+
+        // Выводим координаты и размеры для проверки
+        System.out.println("// Находим центры начальной и конечной ячеек");
+
+
+        System.out.println("startRow  width: " + startRow);
+        System.out.println("startCol  width: " + startCol);
+        System.out.println("endRow  width: " + endRow);
+        System.out.println("endCol  endCol: " + endCol);
+        System.out.println("AnchorPane width: " + anchorPaneWidth);
+        System.out.println("AnchorPane height: " + anchorPaneHeight);
+        System.out.println("GridPane width: " + gridPaneWidth);
+        System.out.println("GridPane height: " + gridPaneHeight);
+        System.out.println("Cell width: " + cellWidth);
+        System.out.println("Cell height: " + cellHeight);
+        System.out.println("Start X: " + startX);
+        System.out.println("Start Y: " + startY);
+        System.out.println("End X: " + endX);
+        System.out.println("End Y: " + endY);
+
+        // Установка размеров и добавление Canvas на сцену
+        setupCanvas(anchorPane);
+
+        // Рисуем линию на Canvas
+        drawLine(startX, startY, endX, endY);
+    }
+
+
+    // Метод для установки размеров и добавления Canvas на сцену
+    private void setupCanvas(AnchorPane anchorPane) {
+        if (!anchorPane.getChildren().contains(winningLineCanvas)) {
+            winningLineCanvas.setWidth(anchorPane.getWidth());
+            winningLineCanvas.setHeight(anchorPane.getHeight());
+            anchorPane.getChildren().add(0, winningLineCanvas); // Добавляем Canvas в начало списка дочерних элементов AnchorPane
+        }
+    }
+
+
+    // Метод для рисования линии на Canvas
+    private void drawLine(double startX, double startY, double endX, double endY) {
+        GraphicsContext gc = winningLineCanvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, winningLineCanvas.getWidth(), winningLineCanvas.getHeight()); // Очищаем Canvas
+        gc.setStroke(Color.RED); // Цвет линии
+        gc.setLineWidth(LINE_WIDTH); // Ширина линии
+        gc.strokeLine(startX, startY, endX, endY);
+    }
+
+
+
+    private void removeWinningLine(GridPane gridPane, List<int[]> winningCells) {
+        // Создаем новый объект Canvas
+        Canvas canvas = new Canvas(gridPane.getWidth(), gridPane.getHeight());
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        // Добавляем проверку наличия существующей линии и удаляем ее, если она есть
+        if (winningLineCanvas != null) {
+            gridPane.getChildren().remove(winningLineCanvas);
+        }
+        // Сохраняем ссылку на новый Canvas в поле winningLineCanvas
+        winningLineCanvas = canvas;
+    }
+
+    private void printGridAndCellCoordinates() {
+        // Получаем координаты поля
+        double gridPaneSceneX = gridPane.localToScene(gridPane.getBoundsInLocal()).getMinX();
+        double gridPaneSceneY = gridPane.localToScene(gridPane.getBoundsInLocal()).getMinY();
+        double gridPaneWidth = gridPane.getWidth();
+        double gridPaneHeight = gridPane.getHeight();
+
+        System.out.println("GridPane coordinates:");
+        System.out.println("Scene X: " + gridPaneSceneX);
+        System.out.println("Scene Y: " + gridPaneSceneY);
+        System.out.println("Width: " + gridPaneWidth);
+        System.out.println("Height: " + gridPaneHeight);
+
+        // Получаем координаты каждой ячейки
+        double cellWidth = gridPaneWidth / Constants.FIELD_SIZE;
+        double cellHeight = gridPaneHeight / Constants.FIELD_SIZE;
+
+        System.out.println("\nCell coordinates:");
+        for (int i = 0; i < Constants.FIELD_SIZE; i++) {
+            for (int j = 0; j < Constants.FIELD_SIZE; j++) {
+                double cellSceneX = gridPaneSceneX + j * cellWidth;
+                double cellSceneY = gridPaneSceneY + i * cellHeight;
+                System.out.println("Cell [" + i + ", " + j + "]:");
+                System.out.println("Scene X: " + cellSceneX);
+                System.out.println("Scene Y: " + cellSceneY);
+            }
         }
     }
 
