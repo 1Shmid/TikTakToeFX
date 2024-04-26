@@ -63,18 +63,12 @@ public class GameEngine extends GameResultHandler {
         return (symbol == gameField[1][1] && symbol == gameField[2][2]) ? diagonalLeftRight : diagonalRightLeft;
     }
 
-
-
     static boolean checkRowsForWin(char[][] gameField) {
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
             if (gameField[i][0] == gameField[i][1] &&
                     gameField[i][0] == gameField[i][2] &&
                     (gameField[i][0] == Constants.X_SYMBOL || gameField[i][0] == Constants.O_SYMBOL)) {
                 winningCells = getRowsWinningCellsCoordinates(gameField, i);
-                // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
-                System.out.println("checkRowsForWin  Победила строка: " + Arrays.toString(winningCells.get(0)) + ", " +
-                        Arrays.toString(winningCells.get(1)) + ", " +
-                        Arrays.toString(winningCells.get(2)));
                 return true;
             }
         }
@@ -87,10 +81,6 @@ public class GameEngine extends GameResultHandler {
                     gameField[0][i] == gameField[2][i] &&
                     (gameField[0][i] == Constants.X_SYMBOL || gameField[0][i] == Constants.O_SYMBOL)) {
                 winningCells = getColumnWinningCellsCoordinates(gameField, i);
-                // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
-                System.out.println("checkColumnsForWin  Победил столбец: " + Arrays.toString(winningCells.get(0)) + ", " +
-                        Arrays.toString(winningCells.get(1)) + ", " +
-                        Arrays.toString(winningCells.get(2)));
                 columnWinFound = true; // Устанавливаем флаг, что выигрыш в столбце найден
                 break; // Прерываем цикл, так как выигрыш найден
             }
@@ -108,14 +98,7 @@ public class GameEngine extends GameResultHandler {
                 winningCells.add(new int[]{i, i});
 
                 winningCells = getDiagonalWinningCellsCoordinates(gameField);
-                // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
-                System.out.println("checkRowsForWin  Победила диагональ 1: " + Arrays.toString(winningCells.get(0)) + ", " +
-                        Arrays.toString(winningCells.get(1)) + ", " +
-                        Arrays.toString(winningCells.get(2)));
-
             }
-            // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
-            System.out.println("Победила диагональ: " + winningCells);
             return true;
         }
 
@@ -125,13 +108,7 @@ public class GameEngine extends GameResultHandler {
                 winningCells.add(new int[]{i, Constants.FIELD_SIZE - 1 - i});
 
                 winningCells = getDiagonalWinningCellsCoordinates(gameField);
-                // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
-                System.out.println("checkRowsForWin  Победила диагональ 2: " + Arrays.toString(winningCells.get(0)) + ", " +
-                        Arrays.toString(winningCells.get(1)) + ", " +
-                        Arrays.toString(winningCells.get(2)));
             }
-            // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
-//            System.out.println("Победила диагональ: " + winningCells);
             return true;
         }
 
@@ -152,27 +129,6 @@ public class GameEngine extends GameResultHandler {
             }
         }
         return null; // Возвращаем null, если кнопка не найдена
-    }
-
-    // Метод для получения выигрышных ячеек
-    // Метод для получения выигрышных ячеек
-    public static List<int[]> getWinningCells(char[][] gameField) {
-        List<int[]> winningCells = new ArrayList<>();
-        if (checkRowsForWin(gameField)) {
-            // Добавляем координаты выигрышных ячеек в строках
-            for (int i = 0; i < Constants.FIELD_SIZE; i++) {
-                winningCells.addAll(getRowsWinningCellsCoordinates(gameField, i));
-            }
-        } else if (checkColumnsForWin(gameField)) {
-            // Добавляем координаты выигрышных ячеек в столбцах
-            for (int i = 0; i < Constants.FIELD_SIZE; i++) {
-                winningCells.addAll(getColumnWinningCellsCoordinates(gameField, i));
-            }
-        } else if (checkDiagonalsForWin(gameField)) {
-            // Добавляем координаты выигрышных ячеек по диагоналям
-            winningCells.addAll(getDiagonalWinningCellsCoordinates(gameField));
-        }
-        return winningCells;
     }
 
 

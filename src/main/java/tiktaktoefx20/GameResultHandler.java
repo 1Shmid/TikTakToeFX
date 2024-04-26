@@ -37,6 +37,7 @@ public class GameResultHandler {
 
 
     private GameController gameController;
+    private Canvas winningLineCanvas = new Canvas(); // Объявляем поле для хранения объекта Canvas с нарисованной линией
 
     public GameResultHandler() {
         // Конструктор по умолчанию
@@ -49,19 +50,17 @@ public class GameResultHandler {
     @FXML
     public void endGame(List<int[]> winningCells, char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel, AnchorPane anchorPane) {
 
+        Constants.Winner winner;
+
         // Проверяем условия победы или ничьи
         String result = "";
+
         if (checkForWin(gameField)) {
             result = winnerSymbol + " wins!";
 
-            System.out.println("endGame  Победила диагональ: " + Arrays.toString(winningCells.get(0)) + ", " +
-                    Arrays.toString(winningCells.get(1)) + ", " +
-                    Arrays.toString(winningCells.get(2)));
+            winner = winnerSymbol.equals("The player") ? Constants.Winner.PLAYER : Constants.Winner.COMPUTER;
 
-            drawWinningLine(winningCells, anchorPane); // Рисуем линию победы
-
-            printGridAndCellCoordinates();
-
+            drawWinningLine(winningCells, anchorPane, winner); // Рисуем линию победы
 
         } else if (checkForDraw(gameField)) {
             result = "It's a draw!!";
@@ -81,7 +80,6 @@ public class GameResultHandler {
         // Устанавливаем кнопки в диалоговом окне
         alert.getButtonTypes().setAll(newGameButton, exitButton);
 
-
         // Ожидаем действия пользователя
         Optional<ButtonType> resultButton = alert.showAndWait();
 
@@ -92,25 +90,15 @@ public class GameResultHandler {
         // Если пользователь выбрал "Новая игра", начинаем новую игру
         if (resultButton.isPresent() && resultButton.get() == newGameButton) {
 
-            startNewGame(gameField);
+            startNewGame(gameField, anchorPane);
         } else {
             // Иначе закрываем приложение
             Platform.exit();
         }
     }
 
-
-
-
-    private Canvas winningLineCanvas = new Canvas(); // Объявляем поле для хранения объекта Canvas с нарисованной линией
-
     // Метод для рисования линии на Canvas
-    // Метод для рисования линии на Canvas
-    private void drawWinningLine(List<int[]> winningCells, AnchorPane anchorPane) {
-
-        System.out.println("drawWinningLine  Победила диагональ: " + Arrays.toString(winningCells.get(0)) + ", " +
-                Arrays.toString(winningCells.get(1)) + ", " +
-                Arrays.toString(winningCells.get(2)));
+    private void drawWinningLine(List<int[]> winningCells, AnchorPane anchorPane, Constants.Winner winner) {
 
         // Получаем размеры AnchorPane
         double anchorPaneWidth = anchorPane.getWidth();
@@ -141,32 +129,12 @@ public class GameResultHandler {
         double endX = gridPane.localToScene(endCellCenterX, endCellCenterY).getX();
         double endY = gridPane.localToScene(endCellCenterX, endCellCenterY).getY();
 
-        // Выводим координаты и размеры для проверки
-        System.out.println("// Находим центры начальной и конечной ячеек");
-
-
-        System.out.println("startRow  width: " + startRow);
-        System.out.println("startCol  width: " + startCol);
-        System.out.println("endRow  width: " + endRow);
-        System.out.println("endCol  endCol: " + endCol);
-        System.out.println("AnchorPane width: " + anchorPaneWidth);
-        System.out.println("AnchorPane height: " + anchorPaneHeight);
-        System.out.println("GridPane width: " + gridPaneWidth);
-        System.out.println("GridPane height: " + gridPaneHeight);
-        System.out.println("Cell width: " + cellWidth);
-        System.out.println("Cell height: " + cellHeight);
-        System.out.println("Start X: " + startX);
-        System.out.println("Start Y: " + startY);
-        System.out.println("End X: " + endX);
-        System.out.println("End Y: " + endY);
-
         // Установка размеров и добавление Canvas на сцену
         setupCanvas(anchorPane);
 
         // Рисуем линию на Canvas
-        drawLine(startX, startY, endX, endY);
+        drawLine(startX, startY, endX, endY, winner);
     }
-
 
     // Метод для установки размеров и добавления Canvas на сцену
     private void setupCanvas(AnchorPane anchorPane) {
@@ -177,62 +145,32 @@ public class GameResultHandler {
         }
     }
 
-
     // Метод для рисования линии на Canvas
-    private void drawLine(double startX, double startY, double endX, double endY) {
+    private void drawLine(double startX, double startY, double endX, double endY, Constants.Winner winner) {
         GraphicsContext gc = winningLineCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, winningLineCanvas.getWidth(), winningLineCanvas.getHeight()); // Очищаем Canvas
-        gc.setStroke(Color.RED); // Цвет линии
+        if (winner == Constants.Winner.PLAYER) {
+            gc.setStroke(Color.web("#545454"));// Цвет линии для победы игрока
+        } else {
+            gc.setStroke(Color.WHITE); // Цвет линии для победы компьютера
+        }
         gc.setLineWidth(LINE_WIDTH); // Ширина линии
         gc.strokeLine(startX, startY, endX, endY);
     }
 
 
+    protected void startNewGame(char[][] gameField, AnchorPane anchorPane) {
 
-    private void removeWinningLine(GridPane gridPane, List<int[]> winningCells) {
-        // Создаем новый объект Canvas
-        Canvas canvas = new Canvas(gridPane.getWidth(), gridPane.getHeight());
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        // Добавляем проверку наличия существующей линии и удаляем ее, если она есть
-        if (winningLineCanvas != null) {
-            gridPane.getChildren().remove(winningLineCanvas);
-        }
-        // Сохраняем ссылку на новый Canvas в поле winningLineCanvas
-        winningLineCanvas = canvas;
-    }
-
-    private void printGridAndCellCoordinates() {
-        // Получаем координаты поля
-        double gridPaneSceneX = gridPane.localToScene(gridPane.getBoundsInLocal()).getMinX();
-        double gridPaneSceneY = gridPane.localToScene(gridPane.getBoundsInLocal()).getMinY();
-        double gridPaneWidth = gridPane.getWidth();
-        double gridPaneHeight = gridPane.getHeight();
-
-        System.out.println("GridPane coordinates:");
-        System.out.println("Scene X: " + gridPaneSceneX);
-        System.out.println("Scene Y: " + gridPaneSceneY);
-        System.out.println("Width: " + gridPaneWidth);
-        System.out.println("Height: " + gridPaneHeight);
-
-        // Получаем координаты каждой ячейки
-        double cellWidth = gridPaneWidth / Constants.FIELD_SIZE;
-        double cellHeight = gridPaneHeight / Constants.FIELD_SIZE;
-
-        System.out.println("\nCell coordinates:");
-        for (int i = 0; i < Constants.FIELD_SIZE; i++) {
-            for (int j = 0; j < Constants.FIELD_SIZE; j++) {
-                double cellSceneX = gridPaneSceneX + j * cellWidth;
-                double cellSceneY = gridPaneSceneY + i * cellHeight;
-                System.out.println("Cell [" + i + ", " + j + "]:");
-                System.out.println("Scene X: " + cellSceneX);
-                System.out.println("Scene Y: " + cellSceneY);
+        // Проход по всем элементам AnchorPane
+        anchorPane.getChildren().forEach(node -> {
+            // Проверка, является ли текущий элемент Canvas
+            if (node instanceof Canvas) {
+                // Если элемент - Canvas, очистить его
+                ((Canvas) node).getGraphicsContext2D().clearRect(0, 0, ((Canvas) node).getWidth(), ((Canvas) node).getHeight());
             }
-        }
-    }
+        });
 
 
-    protected void startNewGame(char[][] gameField) {
         // Очищаем игровое поле и включаем все кнопки
         for (Node node : gridPane.getChildren()) {
             if (node instanceof Button button) {
@@ -261,45 +199,8 @@ public class GameResultHandler {
         Stage stage = (Stage) gridPane.getScene().getWindow();
         stage.setTitle(newTitle);
 
-        // Выводим содержание таблиц
-        // printDatabaseContents();
     }
 
 
-    private void printDatabaseContents() {
-        // Выводим содержание таблицы game_moves
-        System.out.println("Contents of moves table:");
-        printTableContents("moves");
-
-        // Выводим содержание таблицы games
-        System.out.println("Contents of games table:");
-        printTableContents("games");
-    }
-
-    private void printTableContents(String tableName) {
-        String sql = "SELECT * FROM " + tableName;
-        try (Connection conn = DriverManager.getConnection(DB_URL);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            // Выводим заголовки столбцов
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnCount = rsmd.getColumnCount();
-            for (int i = 1; i <= columnCount; i++) {
-                System.out.print(rsmd.getColumnName(i) + "\t");
-            }
-            System.out.println();
-
-            // Выводим содержимое таблицы
-            while (rs.next()) {
-                for (int i = 1; i <= columnCount; i++) {
-                    System.out.print(rs.getString(i) + "\t");
-                }
-                System.out.println();
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 }
 

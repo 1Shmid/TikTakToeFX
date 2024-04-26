@@ -7,5 +7,9 @@ public class Constants {
     public static final char EMPTY_SYMBOL = ' ';
     public static final int FIELD_SIZE = 3;
     public static final char COMPUTER_SYMBOL = 'O';
-    public static final String GAME_TITLE_PREFIX = "TikTacToeFX | Game ";
+    public static final String GAME_TITLE_PREFIX = "TikTacToeFX | Game # ";
+    public enum Winner {
+        PLAYER,
+        COMPUTER
+    }
 }

@@ -35,6 +35,7 @@ public class GameController extends GameEngine {
     private static long startTime;
 
     private String selectedLevel;
+    private GameResultHandler gameResultHandler;
 
 
 
@@ -86,20 +87,10 @@ public class GameController extends GameEngine {
     private void checkAndUpdateGameState() {
         String selectedLevel = comb.getSelectionModel().getSelectedItem();
 
-
-
-
-
         if (checkForWin(gameField) || checkForDraw(gameField)) {
             String winnerSymbol = checkForWin(gameField) ? "The player" : "It's a draw";
 
-            // ЗДЕСЬ НУЖНО ЗАПИСЫВАТЬ List<int[]> winningCells
-
             List<int[]> winningCells = GameEngine.winningCells;
-
-            System.out.println("winningCells в checkAndUpdateGameState: " + Arrays.toString(winningCells.get(0)) + ", " +
-                    Arrays.toString(winningCells.get(1)) + ", " +
-                    Arrays.toString(winningCells.get(2)));
 
             endGame(winningCells,
                     gameField,
@@ -154,17 +145,6 @@ public class GameController extends GameEngine {
         button.setStyle("-fx-text-fill: white; -fx-opacity: 1.0; -fx-background-color: transparent ;"); // Устанавливаем черный цвет текста для кнопки
     }
 
-    // Метод для старта отсчета времени игры
-    public static void startGameTimer() {
-        startTime = System.currentTimeMillis();
-    }
-
-    // Метод для остановки отсчета времени игры и получения продолжительности игры в секундах
-    public int stopGameTimer() {
-        long endTime = System.currentTimeMillis();
-        return (int) ((endTime - startTime) / 1000);
-    }
-
     private List<GameMove> convertMovesToGameMovesList() {
         List<GameMove> gameMovesList = new ArrayList<>();
         for (Object[] move : GameMove.getMoves()) {
@@ -178,9 +158,19 @@ public class GameController extends GameEngine {
     }
 
 
+    // Метод для старта отсчета времени игры
+    public static void startGameTimer() {
+        startTime = System.currentTimeMillis();
+    }
+
+    // Метод для остановки отсчета времени игры и получения продолжительности игры в секундах
+    public int stopGameTimer() {
+        long endTime = System.currentTimeMillis();
+        return (int) ((endTime - startTime) / 1000);
+    }
 
 
-    private GameResultHandler gameResultHandler;
+
 
     @FXML
     void initialize() {
@@ -223,7 +213,7 @@ public class GameController extends GameEngine {
     private void handleComboBoxAction(ActionEvent event) {
 
         resetMoveCounters();
-        startNewGame(gameField);
+        startNewGame(gameField, anchorPane);
     }
 
     public static void resetMoveCounters() {
