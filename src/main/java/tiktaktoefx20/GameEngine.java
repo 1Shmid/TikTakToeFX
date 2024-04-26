@@ -33,7 +33,7 @@ public class GameEngine extends GameResultHandler {
     }
 
     // Определение координат выигрышных ячеек в строках
-    static List<int[]> getRowWinningCellsCoordinates(char[][] gameField, int row) {
+    static List<int[]> getRowsWinningCellsCoordinates(char[][] gameField, int row) {
         List<int[]> coordinates = new ArrayList<>();
         for (int j = 0; j < Constants.FIELD_SIZE; j++) {
             coordinates.add(new int[]{row, j});
@@ -69,9 +69,11 @@ public class GameEngine extends GameResultHandler {
             if (gameField[i][0] == gameField[i][1] &&
                     gameField[i][0] == gameField[i][2] &&
                     (gameField[i][0] == Constants.X_SYMBOL || gameField[i][0] == Constants.O_SYMBOL)) {
-                List<int[]> winningCells = getRowWinningCellsCoordinates(gameField, i);
+                winningCells = getRowsWinningCellsCoordinates(gameField, i);
                 // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
-                System.out.println("Победила строка: " + winningCells);
+                System.out.println("checkRowsForWin  Победила строка: " + Arrays.toString(winningCells.get(0)) + ", " +
+                        Arrays.toString(winningCells.get(1)) + ", " +
+                        Arrays.toString(winningCells.get(2)));
                 return true;
             }
         }
@@ -104,6 +106,13 @@ public class GameEngine extends GameResultHandler {
                 (symbol == Constants.X_SYMBOL || symbol == Constants.O_SYMBOL))) {
             for (int i = 0; i < Constants.FIELD_SIZE; i++) {
                 winningCells.add(new int[]{i, i});
+
+                winningCells = getColumnWinningCellsCoordinates(gameField, i);
+                // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
+                System.out.println("checkRowsForWin  Победила диагональ 1: " + Arrays.toString(winningCells.get(0)) + ", " +
+                        Arrays.toString(winningCells.get(1)) + ", " +
+                        Arrays.toString(winningCells.get(2)));
+
             }
             // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
             System.out.println("Победила диагональ: " + winningCells);
@@ -114,6 +123,12 @@ public class GameEngine extends GameResultHandler {
                 (gameField[0][2] == Constants.X_SYMBOL || gameField[0][2] == Constants.O_SYMBOL)) {
             for (int i = 0; i < Constants.FIELD_SIZE; i++) {
                 winningCells.add(new int[]{i, Constants.FIELD_SIZE - 1 - i});
+
+                winningCells = getColumnWinningCellsCoordinates(gameField, i);
+                // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
+                System.out.println("checkRowsForWin  Победила диагональ 2: " + Arrays.toString(winningCells.get(0)) + ", " +
+                        Arrays.toString(winningCells.get(1)) + ", " +
+                        Arrays.toString(winningCells.get(2)));
             }
             // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
 //            System.out.println("Победила диагональ: " + winningCells);
@@ -146,7 +161,7 @@ public class GameEngine extends GameResultHandler {
         if (checkRowsForWin(gameField)) {
             // Добавляем координаты выигрышных ячеек в строках
             for (int i = 0; i < Constants.FIELD_SIZE; i++) {
-                winningCells.addAll(getRowWinningCellsCoordinates(gameField, i));
+                winningCells.addAll(getRowsWinningCellsCoordinates(gameField, i));
             }
         } else if (checkColumnsForWin(gameField)) {
             // Добавляем координаты выигрышных ячеек в столбцах
