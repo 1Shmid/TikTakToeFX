@@ -9,6 +9,9 @@ import java.util.*;
 
 public class GameEngine extends GameResultHandler {
 
+    // Статическая переменная для хранения координат выигрышных ячеек
+    protected static List<int[]> winningCells = new ArrayList<>();
+
     // Проверка на победу
     public static boolean checkForWin(char[][] gameField) {
 
@@ -30,7 +33,7 @@ public class GameEngine extends GameResultHandler {
     }
 
     // Определение координат выигрышных ячеек в строках
-    static List<int[]> getWinningCellsCoordinates(char[][] gameField, int row) {
+    static List<int[]> getRowWinningCellsCoordinates(char[][] gameField, int row) {
         List<int[]> coordinates = new ArrayList<>();
         for (int j = 0; j < Constants.FIELD_SIZE; j++) {
             coordinates.add(new int[]{row, j});
@@ -66,7 +69,7 @@ public class GameEngine extends GameResultHandler {
             if (gameField[i][0] == gameField[i][1] &&
                     gameField[i][0] == gameField[i][2] &&
                     (gameField[i][0] == Constants.X_SYMBOL || gameField[i][0] == Constants.O_SYMBOL)) {
-                List<int[]> winningCells = getWinningCellsCoordinates(gameField, i);
+                List<int[]> winningCells = getRowWinningCellsCoordinates(gameField, i);
                 // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
                 System.out.println("Победила строка: " + winningCells);
                 return true;
@@ -75,17 +78,21 @@ public class GameEngine extends GameResultHandler {
         return false;
     }
     static boolean checkColumnsForWin(char[][] gameField) {
+        boolean columnWinFound = false; // Добавляем флаг для отслеживания нахождения выигрыша в столбце
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
             if (gameField[0][i] == gameField[1][i] &&
                     gameField[0][i] == gameField[2][i] &&
                     (gameField[0][i] == Constants.X_SYMBOL || gameField[0][i] == Constants.O_SYMBOL)) {
-                List<int[]> winningCells = getColumnWinningCellsCoordinates(gameField, i);
+                winningCells = getColumnWinningCellsCoordinates(gameField, i);
                 // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
-                System.out.println("Победил столбец: " + winningCells);
-                return true;
+                System.out.println("checkColumnsForWin  Победил столбец: " + Arrays.toString(winningCells.get(0)) + ", " +
+                        Arrays.toString(winningCells.get(1)) + ", " +
+                        Arrays.toString(winningCells.get(2)));
+                columnWinFound = true; // Устанавливаем флаг, что выигрыш в столбце найден
+                break; // Прерываем цикл, так как выигрыш найден
             }
         }
-        return false;
+        return columnWinFound; // Возвращаем флаг, показывающий, был ли найден выигрыш в столбце
     }
 
     // Проверка на победу по диагоналям
@@ -109,7 +116,7 @@ public class GameEngine extends GameResultHandler {
                 winningCells.add(new int[]{i, Constants.FIELD_SIZE - 1 - i});
             }
             // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
-            System.out.println("Победила диагональ: " + winningCells);
+//            System.out.println("Победила диагональ: " + winningCells);
             return true;
         }
 
@@ -132,30 +139,26 @@ public class GameEngine extends GameResultHandler {
         return null; // Возвращаем null, если кнопка не найдена
     }
 
-//    // Определение выигрышных ячеек
-//    public Button[] getWinningCells(char[][] gameField) {
-//        if (checkRowsForWin(gameField)) {
-//            // Победа по строкам
-//            for (int i = 0; i < Constants.FIELD_SIZE; i++) {
-//                if (gameField[i][0] == gameField[i][1] && gameField[i][0] == gameField[i][2]) {
-//                    return new Button[]{getButtonByIndexes(i, 0), getButtonByIndexes(i, 1), getButtonByIndexes(i, 2)};
-//                }
-//            }
-//        } else if (checkColumnsForWin(gameField)) {
-//            // Победа по столбцам
-//            for (int i = 0; i < Constants.FIELD_SIZE; i++) {
-//                if (gameField[0][i] == gameField[1][i] && gameField[0][i] == gameField[2][i]) {
-//                    return new Button[]{getButtonByIndexes(0, i), getButtonByIndexes(1, i), getButtonByIndexes(2, i)};
-//                }
-//            }
-//        } else if (checkDiagonalsForWin(gameField)) {
-//            // Победа по диагоналям
-//            if (gameField[0][0] == gameField[1][1] && gameField[0][0] == gameField[2][2]) {
-//                return new Button[]{getButtonByIndexes(0, 0), getButtonByIndexes(1, 1), getButtonByIndexes(2, 2)};
-//            } else if (gameField[0][2] == gameField[1][1] && gameField[0][2] == gameField[2][0]) {
-//                return new Button[]{getButtonByIndexes(0, 2), getButtonByIndexes(1, 1), getButtonByIndexes(2, 0)};
-//            }
-//        }
-//        return new Button[0]; // Если нет победы, возвращаем пустой массив
-//    }
+    // Метод для получения выигрышных ячеек
+    // Метод для получения выигрышных ячеек
+    public static List<int[]> getWinningCells(char[][] gameField) {
+        List<int[]> winningCells = new ArrayList<>();
+        if (checkRowsForWin(gameField)) {
+            // Добавляем координаты выигрышных ячеек в строках
+            for (int i = 0; i < Constants.FIELD_SIZE; i++) {
+                winningCells.addAll(getRowWinningCellsCoordinates(gameField, i));
+            }
+        } else if (checkColumnsForWin(gameField)) {
+            // Добавляем координаты выигрышных ячеек в столбцах
+            for (int i = 0; i < Constants.FIELD_SIZE; i++) {
+                winningCells.addAll(getColumnWinningCellsCoordinates(gameField, i));
+            }
+        } else if (checkDiagonalsForWin(gameField)) {
+            // Добавляем координаты выигрышных ячеек по диагоналям
+            winningCells.addAll(getDiagonalWinningCellsCoordinates(gameField));
+        }
+        return winningCells;
+    }
+
+
 }
