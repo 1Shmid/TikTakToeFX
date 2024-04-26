@@ -58,11 +58,12 @@ public class GameEngine extends GameResultHandler {
             diagonalLeftRight.add(new int[]{i, i});
             diagonalRightLeft.add(new int[]{i, Constants.FIELD_SIZE - 1 - i});
         }
-        List<int[]> allDiagonalCells = new ArrayList<>();
-        allDiagonalCells.addAll(diagonalLeftRight);
-        allDiagonalCells.addAll(diagonalRightLeft);
-        return allDiagonalCells;
+        // Выбираем одну диагональ в зависимости от символов в ее ячейках
+        char symbol = gameField[0][0];
+        return (symbol == gameField[1][1] && symbol == gameField[2][2]) ? diagonalLeftRight : diagonalRightLeft;
     }
+
+
 
     static boolean checkRowsForWin(char[][] gameField) {
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
@@ -100,14 +101,13 @@ public class GameEngine extends GameResultHandler {
     // Проверка на победу по диагоналям
     static boolean checkDiagonalsForWin(char[][] gameField) {
         char symbol = gameField[0][0];
-        List<int[]> winningCells = new ArrayList<>();
 
         if ((symbol == gameField[1][1] && symbol == gameField[2][2] &&
                 (symbol == Constants.X_SYMBOL || symbol == Constants.O_SYMBOL))) {
             for (int i = 0; i < Constants.FIELD_SIZE; i++) {
                 winningCells.add(new int[]{i, i});
 
-                winningCells = getColumnWinningCellsCoordinates(gameField, i);
+                winningCells = getDiagonalWinningCellsCoordinates(gameField);
                 // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
                 System.out.println("checkRowsForWin  Победила диагональ 1: " + Arrays.toString(winningCells.get(0)) + ", " +
                         Arrays.toString(winningCells.get(1)) + ", " +
@@ -124,7 +124,7 @@ public class GameEngine extends GameResultHandler {
             for (int i = 0; i < Constants.FIELD_SIZE; i++) {
                 winningCells.add(new int[]{i, Constants.FIELD_SIZE - 1 - i});
 
-                winningCells = getColumnWinningCellsCoordinates(gameField, i);
+                winningCells = getDiagonalWinningCellsCoordinates(gameField);
                 // Здесь можно вызвать метод для отрисовки линии или выполнить другие действия
                 System.out.println("checkRowsForWin  Победила диагональ 2: " + Arrays.toString(winningCells.get(0)) + ", " +
                         Arrays.toString(winningCells.get(1)) + ", " +

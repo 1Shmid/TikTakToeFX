@@ -54,6 +54,10 @@ public class GameResultHandler {
         if (checkForWin(gameField)) {
             result = winnerSymbol + " wins!";
 
+            System.out.println("endGame  Победила диагональ: " + Arrays.toString(winningCells.get(0)) + ", " +
+                    Arrays.toString(winningCells.get(1)) + ", " +
+                    Arrays.toString(winningCells.get(2)));
+
             drawWinningLine(winningCells, anchorPane); // Рисуем линию победы
 
             printGridAndCellCoordinates();
@@ -103,6 +107,11 @@ public class GameResultHandler {
     // Метод для рисования линии на Canvas
     // Метод для рисования линии на Canvas
     private void drawWinningLine(List<int[]> winningCells, AnchorPane anchorPane) {
+
+        System.out.println("drawWinningLine  Победила диагональ: " + Arrays.toString(winningCells.get(0)) + ", " +
+                Arrays.toString(winningCells.get(1)) + ", " +
+                Arrays.toString(winningCells.get(2)));
+
         // Получаем размеры AnchorPane
         double anchorPaneWidth = anchorPane.getWidth();
         double anchorPaneHeight = anchorPane.getHeight();
@@ -118,8 +127,8 @@ public class GameResultHandler {
         // Находим координаты центров начальной и конечной ячеек в системе координат GridPane
         int startRow = winningCells.get(0)[0];
         int startCol = winningCells.get(0)[1];
-        int endRow = winningCells.get(winningCells.size() - 1)[0];
-        int endCol = winningCells.get(winningCells.size() - 1)[1];
+        int endRow = winningCells.get(2)[0];
+        int endCol = winningCells.get(2)[1];
 
         double startCellCenterX = (startCol + 0.5) * cellWidth;
         double startCellCenterY = (startRow + 0.5) * cellHeight;
