@@ -48,6 +48,9 @@ public class GameController extends GameEngine {
     public void setStage() {
     }
 
+    @FXML
+    private AnchorPane anchorPane;
+
 
     @FXML
     void btnClick(ActionEvent event) {
@@ -77,22 +80,38 @@ public class GameController extends GameEngine {
         checkAndUpdateGameState();
     }
 
+    // Объект GameEngine
+    //private GameEngine gameEngine;
+
     private void checkAndUpdateGameState() {
         String selectedLevel = comb.getSelectionModel().getSelectedItem();
 
+
+
+
+
         if (checkForWin(gameField) || checkForDraw(gameField)) {
             String winnerSymbol = checkForWin(gameField) ? "The player" : "It's a draw";
-            endGame(gameField,
+
+            // ЗДЕСЬ НУЖНО ЗАПИСЫВАТЬ List<int[]> winningCells
+
+            List<int[]> winningCells = GameEngine.winningCells;
+
+            System.out.println("winningCells в checkAndUpdateGameState: " + Arrays.toString(winningCells.get(0)) + ", " +
+                    Arrays.toString(winningCells.get(1)) + ", " +
+                    Arrays.toString(winningCells.get(2)));
+
+            endGame(winningCells,
+                    gameField,
                     winnerSymbol,
                     convertMovesToGameMovesList(),
                     moveCounter,
                     playerMovesCounter,
                     computerMovesCounter,
                     stopGameTimer(),
-                    selectedLevel);
+                    selectedLevel,
+                    anchorPane);
         } else {
-            // Выбираем уровень сложности (стратегию)
-            //String selectedLevel = comb.getSelectionModel().getSelectedItem();
 
             // Делаем ход компьютера с выбранной стратегией
             int[] computerMove = switch (selectedLevel) {
@@ -113,14 +132,16 @@ public class GameController extends GameEngine {
 
             if (checkForWin(gameField) || checkForDraw(gameField)) {
                 String winnerSymbol = checkForWin(gameField) ? "The computer" : "It's a draw";
-                endGame(gameField,
+                endGame(winningCells,
+                        gameField,
                         winnerSymbol,
                         convertMovesToGameMovesList(),
                         moveCounter,
                         playerMovesCounter,
                         computerMovesCounter,
                         stopGameTimer(),
-                        selectedLevel);
+                        selectedLevel,
+                        anchorPane);
             }
         }
     }
@@ -168,6 +189,7 @@ public class GameController extends GameEngine {
         initializeComputerStrategicMoveHandler();
         gameResultHandler = new GameResultHandler(); // Передаем ссылку на текущий объект GameController
         gameResultHandler.setGameController(this); // Установка контроллера в gameResultHandler
+        this.anchorPane = anchorPane;
 
         // Запускаем таймер
         startGameTimer();
