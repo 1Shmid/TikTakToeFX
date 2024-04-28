@@ -2,6 +2,7 @@ package tiktaktoefx20;
 
 import javafx.application.*;
 import javafx.fxml.*;
+import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.canvas.*;
 import javafx.scene.control.*;
@@ -77,12 +78,23 @@ public class GameResultHandler {
         controller.setWinnerSymbol(winnerSymbol);
         controller.setResultText(result);
 
-        // Создайте новое диалоговое окно
+        // Получаем размеры окна игры
+        Bounds gameBounds = anchorPane.localToScreen(anchorPane.getBoundsInLocal());
+        System.out.println("Game Window Bounds: " + gameBounds);
+
+        // Создаем новое диалоговое окно
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.UNDECORATED); // Устанавливаем стиль без заголовка
-        stage.setScene(new Scene(root));
+
+        // Устанавливаем размеры нового окна
+        Scene dialogScene = new Scene(root);
+        stage.setScene(dialogScene);
         controller.setStage(stage); // Устанавливаем Stage
+        //stage.setOpacity(0.5);
+
+        // Устанавливаем обработчик события на отображение окна
+        stage.setOnShown(event -> centerStage(stage, gameBounds));
 
         // Устанавливаем обработчик события на клик мышкой
         root.setOnMouseClicked(event -> {
@@ -96,6 +108,29 @@ public class GameResultHandler {
         Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration, selectedLevel);
         game.recordGame();
         gameNumber++;
+    }
+
+    // Метод для центрирования окна относительно другого окна
+    private void centerStage(Stage stage, Bounds gameBounds) {
+        // Получаем размеры диалогового окна
+        double dialogWidth = stage.getWidth();
+        double dialogHeight = stage.getHeight();
+
+        // Получаем размеры окна игры
+        double gameWidth = gameBounds.getWidth();
+        double gameHeight = gameBounds.getHeight();
+
+        // Вычисляем координаты середины окна игры
+        double gameCenterX = gameBounds.getMinX() + gameWidth / 2;
+        double gameCenterY = gameBounds.getMinY() + gameHeight / 2;
+
+        // Вычисляем новые координаты для центрирования диалогового окна
+        double newDialogX = gameCenterX - dialogWidth / 2;
+        double newDialogY = gameCenterY - dialogHeight / 2;
+
+        // Устанавливаем новые координаты для диалогового окна
+        stage.setX(newDialogX);
+        stage.setY(newDialogY);
     }
 
     // Метод для рисования линии на Canvas
