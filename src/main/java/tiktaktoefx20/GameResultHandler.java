@@ -48,7 +48,6 @@ public class GameResultHandler {
         this.gameController = gameController;
     }
 
-
     @FXML
     public void endGame(List<int[]> winningCells, char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel, AnchorPane anchorPane) {
         Constants.Winner winner;
