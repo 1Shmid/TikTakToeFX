@@ -1,5 +1,6 @@
 package tiktaktoefx20;
 
+import javafx.animation.*;
 import javafx.application.*;
 import javafx.fxml.*;
 import javafx.geometry.*;
@@ -10,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.stage.*;
+import javafx.util.*;
 import tiktaktoefx20.database.*;
 
 import java.io.*;
@@ -34,11 +36,11 @@ public class GameResultHandler {
 
     private int gameNumber = 1; // Инициализируем начальное значение счетчика игр
 
-    @FXML
-    protected GridPane gridPane;
-
     private GameController gameController;
     private Canvas winningLineCanvas = new Canvas(); // Объявляем поле для хранения объекта Canvas с нарисованной линией
+
+    @FXML
+    protected GridPane gridPane;
 
     public GameResultHandler() {
         // Конструктор по умолчанию
@@ -50,17 +52,40 @@ public class GameResultHandler {
 
     @FXML
     public void endGame(List<int[]> winningCells, char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel, AnchorPane anchorPane) {
+        
+        final String result = gameResult(winningCells, gameField, winnerSymbol, anchorPane);
+
+        if (showEndGameDialog(gameField, winnerSymbol, anchorPane, result)) return;
+
+        recordGameResult(moves, totalMoves, playerMoves, computerMoves, duration, selectedLevel, result);
+    }
+
+    private String gameResult(List<int[]> winningCells, char[][] gameField, String winnerSymbol, AnchorPane anchorPane) {
         Constants.Winner winner;
         String result = "";
 
         if (checkForWin(gameField)) {
             result = winnerSymbol + " wins!";
             winner = winnerSymbol.equals("The player") ? Constants.Winner.PLAYER : Constants.Winner.COMPUTER;
-            drawWinningLine(winningCells, anchorPane, winner); // Рисуем линию победы
+
+            // Рисуем линию победы
+            GraphicsManager graphicsManager = new GraphicsManager();
+            graphicsManager.drawWinningLine(winningCells, anchorPane, winner, gridPane); 
+
         } else if (checkForDraw(gameField)) {
             result = "It's a draw!!";
         }
+        return result;
+    }
 
+    private void recordGameResult(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel, String result) {
+        // Записываем результат игры
+        Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration, selectedLevel);
+        game.recordGame();
+        gameNumber++;
+    }
+
+    private boolean showEndGameDialog(char[][] gameField, String winnerSymbol, AnchorPane anchorPane, String result) {
         // Загрузите FXML-файл для диалогового окна
         FXMLLoader loader = new FXMLLoader(getClass().getResource("EndGameDialog.fxml"));
         EndGameDialogController controller = new EndGameDialogController();
@@ -70,7 +95,7 @@ public class GameResultHandler {
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-            return;
+            return true;
         }
 
         // Устанавливаем символ победителя и результат игры
@@ -79,7 +104,6 @@ public class GameResultHandler {
 
         // Получаем размеры окна игры
         Bounds gameBounds = anchorPane.localToScreen(anchorPane.getBoundsInLocal());
-        System.out.println("Game Window Bounds: " + gameBounds);
 
         // Создаем новое диалоговое окно
         Stage stage = new Stage();
@@ -90,7 +114,14 @@ public class GameResultHandler {
         Scene dialogScene = new Scene(root);
         stage.setScene(dialogScene);
         controller.setStage(stage); // Устанавливаем Stage
-        //stage.setOpacity(0.5);
+
+        // Создаем паузу в 1 секунду перед показом окна
+        PauseTransition pause = new PauseTransition(Duration.millis(300));
+        pause.setOnFinished(event -> {
+            // После завершения паузы, показываем диалоговое окно
+            Platform.runLater(stage::showAndWait);
+        });
+        pause.play();
 
         // Устанавливаем обработчик события на отображение окна
         stage.setOnShown(event -> centerStage(stage, gameBounds));
@@ -100,13 +131,7 @@ public class GameResultHandler {
             stage.close();
             startNewGame(gameField, anchorPane);
         });
-
-        // Показываем диалоговое окно
-        stage.showAndWait();
-
-        Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration, selectedLevel);
-        game.recordGame();
-        gameNumber++;
+        return false;
     }
 
     // Метод для центрирования окна относительно другого окна
@@ -132,92 +157,14 @@ public class GameResultHandler {
         stage.setY(newDialogY);
     }
 
-    // Метод для рисования линии на Canvas
-    private void drawWinningLine(List<int[]> winningCells, AnchorPane anchorPane, Constants.Winner winner) {
-
-        // Получаем размеры AnchorPane
-        double anchorPaneWidth = anchorPane.getWidth();
-        double anchorPaneHeight = anchorPane.getHeight();
-
-        // Получаем размеры поля GridPane
-        double gridPaneWidth = gridPane.getWidth();
-        double gridPaneHeight = gridPane.getHeight();
-
-        // Получаем размеры ячейки
-        double cellWidth = gridPaneWidth / Constants.FIELD_SIZE;
-        double cellHeight = gridPaneHeight / Constants.FIELD_SIZE;
-
-        // Находим координаты центров начальной и конечной ячеек в системе координат GridPane
-        int startRow = winningCells.get(0)[0];
-        int startCol = winningCells.get(0)[1];
-        int endRow = winningCells.get(2)[0];
-        int endCol = winningCells.get(2)[1];
-
-        double startCellCenterX = (startCol + 0.5) * cellWidth;
-        double startCellCenterY = (startRow + 0.5) * cellHeight;
-        double endCellCenterX = (endCol + 0.5) * cellWidth;
-        double endCellCenterY = (endRow + 0.5) * cellHeight;
-
-        // Преобразуем координаты центров ячеек из системы координат GridPane в систему координат AnchorPane
-        double startX = gridPane.localToScene(startCellCenterX, startCellCenterY).getX();
-        double startY = gridPane.localToScene(startCellCenterX, startCellCenterY).getY();
-        double endX = gridPane.localToScene(endCellCenterX, endCellCenterY).getX();
-        double endY = gridPane.localToScene(endCellCenterX, endCellCenterY).getY();
-
-        // Установка размеров и добавление Canvas на сцену
-        setupCanvas(anchorPane);
-
-        // Рисуем линию на Canvas
-        drawLine(startX, startY, endX, endY, winner);
-    }
-
-    // Метод для установки размеров и добавления Canvas на сцену
-    private void setupCanvas(AnchorPane anchorPane) {
-        if (!anchorPane.getChildren().contains(winningLineCanvas)) {
-            winningLineCanvas.setWidth(anchorPane.getWidth());
-            winningLineCanvas.setHeight(anchorPane.getHeight());
-            anchorPane.getChildren().add(0, winningLineCanvas); // Добавляем Canvas в начало списка дочерних элементов AnchorPane
-        }
-    }
-
-    // Метод для рисования линии на Canvas
-    private void drawLine(double startX, double startY, double endX, double endY, Constants.Winner winner) {
-        GraphicsContext gc = winningLineCanvas.getGraphicsContext2D();
-        gc.clearRect(0, 0, winningLineCanvas.getWidth(), winningLineCanvas.getHeight()); // Очищаем Canvas
-        if (winner == Constants.Winner.PLAYER) {
-            gc.setStroke(Color.web("#545454"));// Цвет линии для победы игрока
-        } else {
-            gc.setStroke(Color.WHITE); // Цвет линии для победы компьютера
-        }
-        gc.setLineWidth(LINE_WIDTH); // Ширина линии
-        gc.strokeLine(startX, startY, endX, endY);
-    }
-
     protected void startNewGame(char[][] gameField, AnchorPane anchorPane) {
 
-        // Проход по всем элементам AnchorPane
-        anchorPane.getChildren().forEach(node -> {
-            // Проверка, является ли текущий элемент Canvas
-            if (node instanceof Canvas) {
-                // Если элемент - Canvas, очистить его
-                ((Canvas) node).getGraphicsContext2D().clearRect(0, 0, ((Canvas) node).getWidth(), ((Canvas) node).getHeight());
-            }
-        });
+        clearCanvas(anchorPane);
 
-        // Очищаем игровое поле и включаем все кнопки
-        for (Node node : gridPane.getChildren()) {
-            if (node instanceof Button button) {
-                button.setText("");
-                button.setDisable(false);
-            }
-        }
+        clearGridPaine();
 
-        // Обнуляем состояние полей массива игры
-        for (int i = 0; i < Constants.FIELD_SIZE; i++) {
-            for (int j = 0; j < Constants.FIELD_SIZE; j++) {
-                gameField[i][j] = Constants.EMPTY_SYMBOL;
-            }
-        }
+        clearGameField(gameField);
+
         // Обнуляем счетчики ходов
         GameController.resetMoveCounters();
 
@@ -228,10 +175,44 @@ public class GameResultHandler {
         int newGameId = SQLiteDBManager.getGameIdFromDatabase();
 
         // Обновляем заголовок окна с новым номером игры
+        setNewTitleGameNumber(newGameId);
+
+    }
+
+    private void setNewTitleGameNumber(int newGameId) {
         String newTitle = Constants.GAME_TITLE_PREFIX + newGameId;
         Stage stage = (Stage) gridPane.getScene().getWindow();
         stage.setTitle(newTitle);
+    }
 
+    private static void clearGameField(char[][] gameField) {
+        // Обнуляем состояние полей массива игры
+        for (int i = 0; i < Constants.FIELD_SIZE; i++) {
+            for (int j = 0; j < Constants.FIELD_SIZE; j++) {
+                gameField[i][j] = Constants.EMPTY_SYMBOL;
+            }
+        }
+    }
+
+    private void clearGridPaine() {
+        // Очищаем игровое поле и включаем все кнопки
+        for (Node node : gridPane.getChildren()) {
+            if (node instanceof Button button) {
+                button.setText("");
+                button.setDisable(false);
+            }
+        }
+    }
+
+    private static void clearCanvas(AnchorPane anchorPane) {
+        // Проход по всем элементам AnchorPane
+        anchorPane.getChildren().forEach(node -> {
+            // Проверка, является ли текущий элемент Canvas
+            if (node instanceof Canvas) {
+                // Если элемент - Canvas, очистить его
+                ((Canvas) node).getGraphicsContext2D().clearRect(0, 0, ((Canvas) node).getWidth(), ((Canvas) node).getHeight());
+            }
+        });
     }
 }
 
