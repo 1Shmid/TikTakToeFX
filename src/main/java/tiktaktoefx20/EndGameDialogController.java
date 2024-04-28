@@ -40,7 +40,7 @@ public class EndGameDialogController {
     public void setWinnerSymbol(String winnerSymbol) {
         if (winnerSymbol.equals("The player")) {
             winnerLabel.setText("X");
-            winnerLabel.setTextFill(Color.BLACK); // Черный цвет для символа "X"
+            winnerLabel.setTextFill(Color.web("#545454")); // Черный цвет для символа "X"
             winnerLabel.setAlignment(Pos.CENTER);
         } else if (winnerSymbol.equals("The computer")) {
             winnerLabel.setText("O");
@@ -49,11 +49,11 @@ public class EndGameDialogController {
         } else {
             XText.setText("X");
             OText.setText("O");
-            XText.setFill(Color.BLACK); // Черный цвет для символа "X"
+            XText.setFill(Color.web("#545454")); // Черный цвет для символа "X"
             OText.setFill(Color.WHITE); // Белый цвет для символа "O"
 
             Text xText = new Text(XText.getText());
-            xText.setFill(Color.BLACK);
+            xText.setFill(Color.web("#545454"));
             xText.setFont(XText.getFont()); // Используем шрифт из XText
 
             Text oText = new Text(OText.getText());
