@@ -36,7 +36,6 @@ public class GameResultHandler {
     @FXML
     protected GridPane gridPane;
 
-
     private GameController gameController;
     private Canvas winningLineCanvas = new Canvas(); // Объявляем поле для хранения объекта Canvas с нарисованной линией
 
@@ -47,6 +46,7 @@ public class GameResultHandler {
     public void setGameController(GameController gameController) {
         this.gameController = gameController;
     }
+
 
     @FXML
     public void endGame(List<int[]> winningCells, char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel, AnchorPane anchorPane) {
@@ -97,8 +97,6 @@ public class GameResultHandler {
         game.recordGame();
         gameNumber++;
     }
-
-
 
     // Метод для рисования линии на Canvas
     private void drawWinningLine(List<int[]> winningCells, AnchorPane anchorPane, Constants.Winner winner) {
@@ -161,7 +159,6 @@ public class GameResultHandler {
         gc.strokeLine(startX, startY, endX, endY);
     }
 
-
     protected void startNewGame(char[][] gameField, AnchorPane anchorPane) {
 
         // Проход по всем элементам AnchorPane
@@ -172,7 +169,6 @@ public class GameResultHandler {
                 ((Canvas) node).getGraphicsContext2D().clearRect(0, 0, ((Canvas) node).getWidth(), ((Canvas) node).getHeight());
             }
         });
-
 
         // Очищаем игровое поле и включаем все кнопки
         for (Node node : gridPane.getChildren()) {
@@ -203,7 +199,5 @@ public class GameResultHandler {
         stage.setTitle(newTitle);
 
     }
-
-
 }
 
