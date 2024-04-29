@@ -55,7 +55,10 @@ public class GameResultHandler {
         
         final String result = gameResult(winningCells, gameField, winnerSymbol, anchorPane);
 
-        if (showEndGameDialog(gameField, winnerSymbol, anchorPane, result)) return;
+        // Задержка перед показом диалогового окна
+        PauseTransition pause = new PauseTransition(Duration.millis(110)); // Время анимации линии
+        pause.setOnFinished(event -> showEndGameDialog(gameField, winnerSymbol, anchorPane, result));
+        pause.play();
 
         recordGameResult(moves, totalMoves, playerMoves, computerMoves, duration, selectedLevel, result);
     }
@@ -119,7 +122,7 @@ public class GameResultHandler {
         PauseTransition pause = new PauseTransition(Duration.millis(300));
         pause.setOnFinished(event -> {
             // После завершения паузы, показываем диалоговое окно
-            Platform.runLater(stage::showAndWait);
+            Platform.runLater(stage::showAndWait); // ЗДЕСЬ ПРОБЛЕМА!
         });
         pause.play();
 
@@ -155,7 +158,37 @@ public class GameResultHandler {
         // Устанавливаем новые координаты для диалогового окна
         stage.setX(newDialogX);
         stage.setY(newDialogY);
+
+        // Создаем анимацию для плавного отображения окна
+        startScaleAnimation(stage.getScene().getRoot());
     }
+
+    private void startScaleAnimation(Node node) {
+        // Создаем анимацию масштабирования и изменения прозрачности
+        ParallelTransition animation = createScaleAndFadeAnimation(node);
+
+        // Запускаем анимацию
+        animation.play();
+    }
+
+    private ParallelTransition createScaleAndFadeAnimation(Node node) {
+        // Создаем анимацию изменения масштаба
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(300), node);
+        scaleTransition.setToX(1.0); // Конечный масштаб по оси X
+        scaleTransition.setToY(1.0); // Конечный масштаб по оси Y
+
+        // Создаем анимацию изменения прозрачности
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), node);
+        fadeTransition.setFromValue(0.0); // Начальное значение прозрачности
+        fadeTransition.setToValue(1.0); // Конечное значение прозрачности
+
+        // Создаем параллельную анимацию для выполнения обеих анимаций одновременно
+        ParallelTransition parallelTransition = new ParallelTransition(scaleTransition, fadeTransition);
+
+        return parallelTransition;
+    }
+
+
 
     protected void startNewGame(char[][] gameField, AnchorPane anchorPane) {
 
