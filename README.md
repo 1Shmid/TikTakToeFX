@@ -1,6 +1,6 @@
 # TicTacToeFX 2.2
 
-![TikTakToeFX](TTTFX%202.2%20Screenshot_4.jpg)
+![TikTakToeFX](src/main/resources/tiktaktoefx20/TTTFX.gif)
 
 ## Overview
 
@@ -49,8 +49,9 @@ Logging has been implemented using the standard Java Logging Framework. Errors a
 
 ## Graphical interface
 
-Although I am familiar with graphics packages, I lack formal artistic education. Therefore, for the basis of the new game design, I utilized the top results from Google Images.
+Although I know graphic packages, I have no artistic education, so I took the top one from Google as a basis for the new game design.
 
+Graphical elements and their animation are placed in a separate class `GraphicsManager`
 ## Usage
 
 1. Clone the repository.
