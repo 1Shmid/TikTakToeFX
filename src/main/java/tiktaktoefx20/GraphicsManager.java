@@ -29,11 +29,40 @@ public class GraphicsManager extends GameResultHandler {
             winningLineCanvas.getGraphicsContext2D().setStroke(Color.WHITE);
         }
 
-        // Устанавливаем ширину линии и рисуем её
+        // Устанавливаем ширину линии
         double lineWidth = 5.0; // Пример ширины линии
         winningLineCanvas.getGraphicsContext2D().setLineWidth(lineWidth);
-        winningLineCanvas.getGraphicsContext2D().strokeLine(startX, startY, endX, endY);
+
+        // Рассчитываем шаги изменения координат
+        double stepX = (endX - startX) / 20; // 20 - количество шагов анимации
+        double stepY = (endY - startY) / 20;
+
+        // Задаем начальные координаты линии
+        final double[] currentX = {startX};
+        final double[] currentY = {startY};
+
+        // Анимируем рисование линии
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            int count = 0;
+
+            @Override
+            public void run() {
+                if (count < 20) {
+                    currentX[0] += stepX;
+                    currentY[0] += stepY;
+                    winningLineCanvas.getGraphicsContext2D().strokeLine(startX, startY, currentX[0], currentY[0]);
+                    count++;
+                } else {
+                    // Останавливаем таймер после завершения анимации
+                    timer.cancel();
+                    timer.purge();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 10); // 0 - начальная задержка, 50 - интервал между шагами анимации
     }
+
 
     protected void drawWinningLine(List<int[]> winningCells, AnchorPane anchorPane, Constants.Winner winner, GridPane gridPane) {
 
