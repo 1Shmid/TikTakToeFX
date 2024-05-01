@@ -246,10 +246,18 @@ public class SQLiteDBManager {
         int gameId = 0;
 
         try (Connection conn = getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            if (rs.next()) {
-                gameId = rs.getInt(1); // Получаем значение максимального идентификатора
+             Statement stmt = conn.createStatement()) {
+            // Проверяем наличие таблицы "games" в базе данных
+            DatabaseMetaData meta = conn.getMetaData();
+            ResultSet tableResultSet = meta.getTables(null, null, "games", null);
+            if (tableResultSet.next()) { // Если таблица существует
+                ResultSet rs = stmt.executeQuery(sql);
+                if (rs.next()) {
+                    gameId = rs.getInt(1); // Получаем значение максимального идентификатора
+                }
+            }
+            else {
+                LOGGER.log(Level.WARNING, "Table 'games' does not exist in the database."); // Логируем предупреждение
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error getting game ID from database", e);
@@ -257,6 +265,7 @@ public class SQLiteDBManager {
 
         return gameId;
     }
+
 
 
 }
