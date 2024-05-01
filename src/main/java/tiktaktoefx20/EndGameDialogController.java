@@ -11,31 +11,12 @@ import javafx.stage.*;
 public class EndGameDialogController {
 
     @FXML
-    private Text XText;
-
-    @FXML
-    private Text OText;
-
-    @FXML
     private Label resultLabel;
 
     @FXML
     private Label winnerLabel;
 
     private Stage stage;
-    public void setWinnerTexts(Text XText, Text OText) {
-        this.XText = XText;
-        this.OText = OText;
-    }
-
-    public void initialize() {
-        // Инициализируем шрифт для текста
-        Font font = new Font("Gill Sans MT", 96);
-
-        // Применяем шрифт к текстовым объектам
-        XText.setFont(font);
-        OText.setFont(font);
-    }
 
     public void setWinnerSymbol(String winnerSymbol) {
         if (winnerSymbol.equals("The player")) {
@@ -47,28 +28,18 @@ public class EndGameDialogController {
             winnerLabel.setTextFill(Color.WHITE); // Белый цвет для символа "O"
             winnerLabel.setAlignment(Pos.CENTER);
         } else {
-            XText.setText("X");
-            OText.setText("O");
-            XText.setFill(Color.web("#545454")); // Черный цвет для символа "X"
-            OText.setFill(Color.WHITE); // Белый цвет для символа "O"
-
-            Text xText = new Text(XText.getText());
+            Text xText = new Text(String.valueOf(Constants.PLAYER_SYMBOL));
             xText.setFill(Color.web("#545454"));
-            xText.setFont(XText.getFont()); // Используем шрифт из XText
+            xText.setFont(winnerLabel.getFont());
 
-            Text oText = new Text(OText.getText());
+            Text oText = new Text(String.valueOf(Constants.COMPUTER_SYMBOL));
             oText.setFill(Color.WHITE);
-            oText.setFont(OText.getFont()); // Используем шрифт из OText
-
+            oText.setFont(winnerLabel.getFont());
 
             TextFlow flow = new TextFlow(xText, oText);
             winnerLabel.setGraphic(flow);
-
-
         }
     }
-
-
 
     public void setResultText(String resultText) {
         if (resultText.contains("wins")) {
