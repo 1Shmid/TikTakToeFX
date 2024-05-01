@@ -5,10 +5,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -16,11 +18,17 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="862.0" style="-fx-background-color: #99CCCC;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tiktaktoefx20.GameController">
    <children>
-      <MenuBar prefHeight="26.0" prefWidth="862.0">
+      <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="862.0">
         <menus>
           <Menu mnemonicParsing="false" text="Game">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleNewGame" text="New Game" />
+                  <Menu fx:id="newGameMenu" mnemonicParsing="false" text="New Game">
+                    <items>
+                        <RadioMenuItem mnemonicParsing="false" onAction="#handleNewGameEasy" text="EASY" />
+                        <RadioMenuItem mnemonicParsing="false" text="HARD" />
+                        <RadioMenuItem mnemonicParsing="false" text="AI" />
+                    </items>
+                  </Menu>
                   <MenuItem mnemonicParsing="false" onAction="#handleOptions" text="Options" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit " />
@@ -105,5 +113,19 @@
             </Button>
          </children>
       </GridPane>
+      <HBox fx:id="hbox" layoutX="384.0" layoutY="370.0" prefHeight="26.0" prefWidth="87.0">
+         <children>
+            <Text fx:id="staticText" fill="#545454" strokeType="OUTSIDE" strokeWidth="0.0" text="Level:" wrappingWidth="54.853546142578125">
+               <font>
+                  <Font name="Gill Sans MT" size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="dynamicText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="EASY" wrappingWidth="44.453643798828125">
+               <font>
+                  <Font name="Gill Sans MT" size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
