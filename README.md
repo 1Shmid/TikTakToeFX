@@ -52,6 +52,23 @@ Logging has been implemented using the standard Java Logging Framework. Errors a
 Although I know graphic packages, I have no artistic education, so I took the top one from Google as a basis for the new game design.
 
 Graphical elements and their animation are placed in a separate class `GraphicsManager`
+
+## Dependency injection
+As the project grows, methods with skyscrapers of parameters began to appear. To make the code easier to read, I applied dependency injection through the container implementation.
+
+- `GameResultContainer`
+- `Container2`
+- `Container3`
+
+
+## Project structure
+- `src`: contains the source code of the project
+- `package1]`: [Description of package contents].
+- `[package2]`: [Package Content Description].
+- `resources:` contains project resources such as FXML files, images and others
+- `docs`: contains project documentation
+- `[other directories]`: [Description of other project directories].
+
 ## Usage
 
 1. Clone the repository.
