@@ -81,9 +81,6 @@ public class GameController extends GameEngine {
         checkAndUpdateGameState();
     }
 
-    // Объект GameEngine
-    //private GameEngine gameEngine;
-
     private void checkAndUpdateGameState() {
         String selectedLevel = comb.getSelectionModel().getSelectedItem();
 
@@ -169,28 +166,35 @@ public class GameController extends GameEngine {
         return (int) ((endTime - startTime) / 1000);
     }
 
-
-
-
     @FXML
     void initialize() {
 
+        initializeHBox();
         initializeMenuBar();
-
         initializeComboBox();
         initializeGameField();
         initializeComputerStrategicMoveHandler();
         gameResultHandler = new GameResultHandler(); // Передаем ссылку на текущий объект GameController
         gameResultHandler.setGameController(this); // Установка контроллера в gameResultHandler
-        this.anchorPane = anchorPane;
 
         // Запускаем таймер
         startGameTimer();
 
     }
 
+    private void initializeHBox() {
+        // Вычисляем сумму wrappingWidth для обеих строк
+        double totalWrappingWidth = staticText.getWrappingWidth() + dynamicText.getWrappingWidth();
+
+        // Устанавливаем сумму wrappingWidth в качестве prefWidth для HBox
+        hbox.setPrefWidth(totalWrappingWidth);
+
+        // Центрируем HBox относительно AnchorPane
+        hbox.setLayoutX((anchorPane.getPrefWidth() - hbox.getPrefWidth()) / 2);
+    }
+
     private void initializeMenuBar() {
-        difficultyToggleGroup = new ToggleGroup();
+        ToggleGroup difficultyToggleGroup = new ToggleGroup();
 
         // Перебираем все меню в MenuBar
         for (Menu menu : menuBar.getMenus()) {
@@ -218,13 +222,6 @@ public class GameController extends GameEngine {
             }
         }
     }
-
-
-    private void handleDifficultyChange(RadioMenuItem selected) {
-        // Обновляем динамический текст
-        dynamicText.setText(selected.getText());
-    }
-
 
     private void initializeComboBox() {
         ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "AI");
@@ -273,11 +270,39 @@ public class GameController extends GameEngine {
 
     @FXML
     private Text dynamicText;
+    @FXML
+    private Text staticText;
+
+    @FXML
+    private HBox hbox;
+
+    private void handleDifficultyChange(RadioMenuItem selected) {
+        // Обновляем динамический текст
+        dynamicText.setText(selected.getText());
+
+        // Устанавливаем wrappingWidth для dynamicText
+        Text level = (Text) hbox.getChildren().get(1);
+        level.setWrappingWidth(computeTextWidth(dynamicText.getText()));
+
+        // Вычисляем сумму wrappingWidth для обеих строк
+        double totalWrappingWidth = staticText.getWrappingWidth() + dynamicText.getWrappingWidth();
+
+        // Устанавливаем сумму wrappingWidth в качестве prefWidth для HBox
+        hbox.setPrefWidth(totalWrappingWidth);
+
+        // Центрируем HBox относительно AnchorPane
+        hbox.setLayoutX((anchorPane.getPrefWidth() - hbox.getPrefWidth()) / 2);
 
 
-    private ToggleGroup difficultyToggleGroup;
+    }
 
-
+    // Метод для вычисления ширины текста в пикселях
+    private double computeTextWidth(String text) {
+        Text helper = new Text();
+        helper.setFont(dynamicText.getFont());
+        helper.setText(text);
+        return helper.getLayoutBounds().getWidth();
+    }
 
 
     // Обработчики событий для меню
