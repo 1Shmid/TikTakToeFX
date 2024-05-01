@@ -15,43 +15,45 @@ import java.util.*;
 public class GameController extends GameEngine {
 
     // Создаем объекты стратегий
-    MoveStrategy easyStrategy = new EasyStrategy();
-    MoveStrategy hardStrategy = new HardStrategy();
-    MoveStrategy aiStrategy = new AIStrategy();
+    private final MoveStrategy easyStrategy = new EasyStrategy();
+    private final MoveStrategy hardStrategy = new HardStrategy();
+    private final MoveStrategy aiStrategy = new AIStrategy();
 
     // Создаем объекты обработчиков хода с разными стратегиями
-    Context easyMoveHandler = new Context(easyStrategy);
-    Context hardMoveHandler = new Context(hardStrategy);
-    Context aiMoveHandler = new Context(aiStrategy);
-
-
+    private final Context easyMoveHandler = new Context(easyStrategy);
+    private final Context hardMoveHandler = new Context(hardStrategy);
+    private final Context aiMoveHandler = new Context(aiStrategy);
     private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
     private static int moveCounter = 0; // Переменная для хранения счетчика ходов
     private static int playerMovesCounter = 0; // Переменная для хранения счетчика ходов
     private static int computerMovesCounter = 0; // Переменная для хранения счетчика ходов
-
+    private static long startTime;
     private List<GameMove> moves;
     private Game currentGame;
-    private static long startTime;
-
     private String selectedLevel;
     private GameResultHandler gameResultHandler;
-
-
 
     @FXML
     ComboBox<String> comb;
 
     @FXML
-    void Select() {
-    }
-
-    public void setStage() {
-    }
-
-    @FXML
     private AnchorPane anchorPane;
 
+    @FXML
+    private MenuBar menuBar;
+
+    @FXML
+    private Text dynamicText;
+
+    @FXML
+    private Text staticText;
+
+    @FXML
+    private HBox hbox;
+
+    @FXML
+    void Select() {
+    }
 
     @FXML
     void btnClick(ActionEvent event) {
@@ -60,9 +62,7 @@ public class GameController extends GameEngine {
         clickedButton.setText(String.valueOf(Constants.PLAYER_SYMBOL));
         clickedButton.setStyle("-fx-text-fill: #545454; -fx-opacity: 1.0; -fx-background-color: transparent;"); // Устанавливаем черный цвет текста для кнопки
 
-
         clickedButton.setDisable(true);
-
 
         // Получаем индексы кнопки
         int row = GridPane.getRowIndex(clickedButton) == null ? 0 : GridPane.getRowIndex(clickedButton);
@@ -79,6 +79,24 @@ public class GameController extends GameEngine {
         GameMove.addMove(moveCounter, "player", row, col);
 
         checkAndUpdateGameState();
+    }
+
+    @FXML
+    void initialize() {
+
+        initializeHBox();
+        initializeMenuBar();
+        initializeComboBox();
+        initializeGameField();
+        initializeComputerStrategicMoveHandler();
+        gameResultHandler = new GameResultHandler(); // Передаем ссылку на текущий объект GameController
+        gameResultHandler.setGameController(this); // Установка контроллера в gameResultHandler
+
+        // Запускаем таймер
+        startGameTimer();
+    }
+
+    void setStage() {
     }
 
     private void checkAndUpdateGameState() {
@@ -154,34 +172,6 @@ public class GameController extends GameEngine {
         return gameMovesList;
     }
 
-
-    // Метод для старта отсчета времени игры
-    public static void startGameTimer() {
-        startTime = System.currentTimeMillis();
-    }
-
-    // Метод для остановки отсчета времени игры и получения продолжительности игры в секундах
-    public int stopGameTimer() {
-        long endTime = System.currentTimeMillis();
-        return (int) ((endTime - startTime) / 1000);
-    }
-
-    @FXML
-    void initialize() {
-
-        initializeHBox();
-        initializeMenuBar();
-        initializeComboBox();
-        initializeGameField();
-        initializeComputerStrategicMoveHandler();
-        gameResultHandler = new GameResultHandler(); // Передаем ссылку на текущий объект GameController
-        gameResultHandler.setGameController(this); // Установка контроллера в gameResultHandler
-
-        // Запускаем таймер
-        startGameTimer();
-
-    }
-
     private void initializeHBox() {
         // Вычисляем сумму wrappingWidth для обеих строк
         double totalWrappingWidth = staticText.getWrappingWidth() + dynamicText.getWrappingWidth();
@@ -228,11 +218,6 @@ public class GameController extends GameEngine {
         comb.setItems(list);
         comb.setValue("EASY");
         comb.setOnAction(this::handleComboBoxAction);
-
-        // Установка шрифта и цвета текста
-        Font font = Font.font("Arial", FontWeight.NORMAL, 12); // Указать нужный шрифт, размер и стиль
-        comb.setStyle("-fx-font-size: 12px;"); // Установка размера шрифта
-        comb.setStyle("-fx-text-fill: red;"); // Установка цвета текста
     }
 
     private void initializeGameField() {
@@ -263,19 +248,6 @@ public class GameController extends GameEngine {
         return gameResultHandler;
     }
 
-
-
-    @FXML
-    private MenuBar menuBar;
-
-    @FXML
-    private Text dynamicText;
-    @FXML
-    private Text staticText;
-
-    @FXML
-    private HBox hbox;
-
     private void handleDifficultyChange(RadioMenuItem selected) {
         // Обновляем динамический текст
         dynamicText.setText(selected.getText());
@@ -292,8 +264,6 @@ public class GameController extends GameEngine {
 
         // Центрируем HBox относительно AnchorPane
         hbox.setLayoutX((anchorPane.getPrefWidth() - hbox.getPrefWidth()) / 2);
-
-
     }
 
     // Метод для вычисления ширины текста в пикселях
@@ -304,6 +274,16 @@ public class GameController extends GameEngine {
         return helper.getLayoutBounds().getWidth();
     }
 
+    // Метод для старта отсчета времени игры
+    public static void startGameTimer() {
+        startTime = System.currentTimeMillis();
+    }
+
+    // Метод для остановки отсчета времени игры и получения продолжительности игры в секундах
+    public int stopGameTimer() {
+        long endTime = System.currentTimeMillis();
+        return (int) ((endTime - startTime) / 1000);
+    }
 
     // Обработчики событий для меню
     public void handleNewGameEasy() {
@@ -346,8 +326,6 @@ public class GameController extends GameEngine {
         // Ваш код для статистики
         System.out.println("You selected About menu item");
     }
-
-
 }
 
 
