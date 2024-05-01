@@ -30,9 +30,10 @@
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleHowTo" text="How To" />
                   <MenuItem mnemonicParsing="false" onAction="#handleStatistic" text="Statistic" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" onAction="#handleAbout" text="About" />
         </menus>
       </MenuBar>
       <Line endX="227.4000244140625" layoutX="357.0" layoutY="251.0" startX="-79.0" stroke="#0da192" strokeWidth="3.0" />
