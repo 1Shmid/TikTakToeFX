@@ -174,6 +174,9 @@ public class GameController extends GameEngine {
 
     @FXML
     void initialize() {
+
+        initializeMenuBar();
+
         initializeComboBox();
         initializeGameField();
         initializeComputerStrategicMoveHandler();
@@ -186,12 +189,49 @@ public class GameController extends GameEngine {
 
     }
 
+    private void initializeMenuBar() {
+        difficultyToggleGroup = new ToggleGroup();
+
+        // Перебираем все меню в MenuBar
+        for (Menu menu : menuBar.getMenus()) {
+            // Находим меню "Game"
+            if ("Game".equals(menu.getText())) {
+                // Перебираем все пункты меню в меню "Game"
+                for (MenuItem menuItem : menu.getItems()) {
+                    // Находим меню "New Game"
+                    if (menuItem instanceof Menu && "New Game".equals(menuItem.getText())) {
+                        // Перебираем все пункты меню в меню "New Game"
+                        for (MenuItem subMenuItem : ((Menu) menuItem).getItems()) {
+                            // Находим RadioMenuItem EASY
+                            if (subMenuItem instanceof RadioMenuItem && "EASY".equals(subMenuItem.getText())) {
+                                ((RadioMenuItem) subMenuItem).setSelected(true); // Устанавливаем EASY по умолчанию
+                                handleDifficultyChange((RadioMenuItem) subMenuItem);
+                            }
+                            // Устанавливаем обработчик событий для RadioMenuItem
+                            if (subMenuItem instanceof RadioMenuItem) {
+                                ((RadioMenuItem) subMenuItem).setToggleGroup(difficultyToggleGroup);
+                                subMenuItem.setOnAction(event -> handleDifficultyChange((RadioMenuItem) subMenuItem));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    private void handleDifficultyChange(RadioMenuItem selected) {
+        // Обновляем динамический текст
+        dynamicText.setText(selected.getText());
+    }
+
+
     private void initializeComboBox() {
         ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "AI");
         comb.setItems(list);
         comb.setValue("EASY");
         comb.setOnAction(this::handleComboBoxAction);
-        // Установка шрифта и цвета текста
+
         // Установка шрифта и цвета текста
         Font font = Font.font("Arial", FontWeight.NORMAL, 12); // Указать нужный шрифт, размер и стиль
         comb.setStyle("-fx-font-size: 12px;"); // Установка размера шрифта
@@ -225,6 +265,64 @@ public class GameController extends GameEngine {
     public GameResultHandler getGameResultHandler() {
         return gameResultHandler;
     }
+
+
+
+    @FXML
+    private MenuBar menuBar;
+
+    @FXML
+    private Text dynamicText;
+
+
+    private ToggleGroup difficultyToggleGroup;
+
+
+
+
+    // Обработчики событий для меню
+    public void handleNewGameEasy() {
+        // Ваш код для новой игры
+        System.out.println("You selected New Game EASY menu item");
+    }
+
+    public void handleNewGameHard() {
+        // Ваш код для новой игры
+        System.out.println("You selected New Game HARD menu item");
+    }
+
+    public void handleNewGameAI() {
+        // Ваш код для новой игры
+        System.out.println("You selected New Game AI menu item");
+    }
+
+    public void handleOptions() {
+        // Ваш код для настроек
+        System.out.println("You selected Options menu item");
+    }
+
+    public void handleExit() {
+        // Ваш код для выхода
+        System.out.println("You selected Exit menu item");
+    }
+
+    // Обработчики событий для справки
+    public void handleHowTo() {
+        // Ваш код для инструкций
+        System.out.println("You selected How To menu item");
+    }
+
+    public void handleStatistic() {
+        // Ваш код для статистики
+        System.out.println("You selected Statistic menu item");
+    }
+
+    public void handleAbout() {
+        // Ваш код для статистики
+        System.out.println("You selected About menu item");
+    }
+
+
 }
 
 
