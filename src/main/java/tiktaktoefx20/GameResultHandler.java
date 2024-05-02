@@ -1,53 +1,40 @@
 package tiktaktoefx20;
 
 import javafx.animation.*;
-import javafx.application.*;
 import javafx.fxml.*;
 import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.canvas.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
-import javafx.scene.shape.*;
 import javafx.stage.*;
 import javafx.util.*;
 import tiktaktoefx20.database.*;
 
 import java.io.*;
-import java.sql.*;
 
 import java.util.*;
 
-import static com.sun.javafx.sg.prism.NGCanvas.LINE_WIDTH;
 import static tiktaktoefx20.GameEngine.*;
-import static tiktaktoefx20.database.SQLiteDBManager.DB_URL;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.Node;
 import javafx.application.Platform;
-import java.sql.*;
 
 public class GameResultHandler {
 
     private int gameNumber = 1; // Инициализируем начальное значение счетчика игр
 
-    private GameController gameController;
-    private Canvas winningLineCanvas = new Canvas(); // Объявляем поле для хранения объекта Canvas с нарисованной линией
+    private final Canvas winningLineCanvas = new Canvas(); // Объявляем поле для хранения объекта Canvas с нарисованной линией
 
     @FXML
     protected GridPane gridPane;
 
     public GameResultHandler() {
-        // Конструктор по умолчанию
     }
 
     public void setGameController(GameController gameController) {
-        this.gameController = gameController;
     }
 
     @FXML
@@ -88,7 +75,7 @@ public class GameResultHandler {
         gameNumber++;
     }
 
-    private boolean showEndGameDialog(char[][] gameField, String winnerSymbol, AnchorPane anchorPane, String result) {
+    private void showEndGameDialog(char[][] gameField, String winnerSymbol, AnchorPane anchorPane, String result) {
         // Загрузите FXML-файл для диалогового окна
         FXMLLoader loader = new FXMLLoader(getClass().getResource("EndGameDialog.fxml"));
         EndGameDialogController controller = new EndGameDialogController();
@@ -98,7 +85,7 @@ public class GameResultHandler {
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-            return true;
+            return;
         }
 
         // Устанавливаем символ победителя и результат игры
@@ -107,6 +94,9 @@ public class GameResultHandler {
 
         // Получаем размеры окна игры
         Bounds gameBounds = anchorPane.localToScreen(anchorPane.getBoundsInLocal());
+
+        // Получаем размеры объекта MenuBar
+        double menuBarHeight = anchorPane.lookup("#menuBar").getBoundsInLocal().getHeight();
 
         // Создаем новое диалоговое окно
         Stage stage = new Stage();
@@ -122,30 +112,29 @@ public class GameResultHandler {
         PauseTransition pause = new PauseTransition(Duration.millis(300));
         pause.setOnFinished(event -> {
             // После завершения паузы, показываем диалоговое окно
-            Platform.runLater(stage::showAndWait); // ЗДЕСЬ ПРОБЛЕМА!
+            Platform.runLater(stage::showAndWait);
         });
         pause.play();
 
         // Устанавливаем обработчик события на отображение окна
-        stage.setOnShown(event -> centerStage(stage, gameBounds));
+        stage.setOnShown(event -> centerStage(stage, gameBounds, menuBarHeight));
 
         // Устанавливаем обработчик события на клик мышкой
         root.setOnMouseClicked(event -> {
             stage.close();
             startNewGame(gameField, anchorPane);
         });
-        return false;
     }
 
-    // Метод для центрирования окна относительно другого окна
-    private void centerStage(Stage stage, Bounds gameBounds) {
+    // Метод для центрирования окна относительно другого окна с учетом высоты MenuBar
+    private void centerStage(Stage stage, Bounds gameBounds, double menuBarHeight) {
         // Получаем размеры диалогового окна
         double dialogWidth = stage.getWidth();
         double dialogHeight = stage.getHeight();
 
-        // Получаем размеры окна игры
+        // Получаем размеры окна игры за вычетом высоты MenuBar
         double gameWidth = gameBounds.getWidth();
-        double gameHeight = gameBounds.getHeight();
+        double gameHeight = gameBounds.getHeight() - menuBarHeight;
 
         // Вычисляем координаты середины окна игры
         double gameCenterX = gameBounds.getMinX() + gameWidth / 2;
@@ -162,6 +151,7 @@ public class GameResultHandler {
         // Создаем анимацию для плавного отображения окна
         startScaleAnimation(stage.getScene().getRoot());
     }
+
 
     private void startScaleAnimation(Node node) {
         // Создаем анимацию масштабирования и изменения прозрачности
