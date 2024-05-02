@@ -42,10 +42,7 @@ public class GameResultHandler {
         
         final String result = gameResult(winningCells, gameField, winnerSymbol, anchorPane);
 
-        // Задержка перед показом диалогового окна
-        PauseTransition pause = new PauseTransition(Duration.millis(110)); // Время анимации линии
-        pause.setOnFinished(event -> showEndGameDialog(gameField, winnerSymbol, anchorPane, result));
-        pause.play();
+        showEndGameDialog(gameField, winnerSymbol, anchorPane, result);
 
         recordGameResult(moves, totalMoves, playerMoves, computerMoves, duration, selectedLevel, result);
     }
@@ -120,7 +117,7 @@ public class GameResultHandler {
         stage.setOnShown(event -> centerStage(stage, gameBounds, menuBarHeight));
 
         // Устанавливаем обработчик события на клик мышкой
-        root.setOnMouseClicked(event -> {
+        root.setOnMouseClicked(mouseEvent -> {
             stage.close();
             startNewGame(gameField, anchorPane);
         });
