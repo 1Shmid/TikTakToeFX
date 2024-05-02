@@ -6,8 +6,6 @@
 
 In this version of the game, the logic of difficulty levels has been overhauled using the Strategy pattern. I had to rewrite many of the classes almost from scratch, but the combination of interfaces and the Strategy pattern ultimately reduced the time needed to reconfigure existing logic and implement and debug new logic based on past game experience. SQLite database support was integrated to save games. I extensively utilized ChatGPT at this stage and found it to be very useful.
 I've also redesigned the playing field. Everyone's tastes are different, but I like this one better.
-
-
 ## Computer Moves Logic
 
 Now, the logic of computer moves is organized as follows:
@@ -74,6 +72,12 @@ As the project grows, methods with skyscrapers of parameters began to appear. To
 1. Clone the repository.
 2. Compile and run the project using your preferred IDE.
 3. Enjoy playing Tic-Tac-Toe against the computer!
+
+## How to Play
+1. Start the application and using the top menu select the desired game mode: EASY, HARD, or AI.
+2. Make your move by clicking on a cell on the game board.
+3. The game continues until one of the players wins or a draw is recorded.
+4. To start a new game, click any symbol in the game results box.
 
 ## Credits
 
