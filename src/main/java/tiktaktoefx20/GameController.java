@@ -1,12 +1,12 @@
 package tiktaktoefx20;
 
-import javafx.collections.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import tiktaktoefx20.database.*;
+import tiktaktoefx20.menu.*;
 import tiktaktoefx20.strategies.*;
 
 import java.util.*;
@@ -28,16 +28,8 @@ public class GameController extends GameEngine {
     private static int playerMovesCounter = 0; // Переменная для хранения счетчика ходов
     private static int computerMovesCounter = 0; // Переменная для хранения счетчика ходов
     private static long startTime;
-    private List<GameMove> moves;
-    private Game currentGame;
-    private String selectedLevel;
     private GameResultHandler gameResultHandler;
-
-//    @FXML
-//    private RadioMenuItem subMenuItem;
-
-    @FXML
-    ComboBox<String> comb;
+    private ToggleGroup difficultyNewGame;
 
     @FXML
     private AnchorPane anchorPane;
@@ -53,10 +45,6 @@ public class GameController extends GameEngine {
 
     @FXML
     private HBox hbox;
-
-    @FXML
-    void Select() {
-    }
 
     @FXML
     void btnClick(ActionEvent event) {
@@ -89,7 +77,6 @@ public class GameController extends GameEngine {
 
         initializeHBox();
         initializeMenuBar();
-        // initializeComboBox();
         initializeGameField();
         initializeComputerStrategicMoveHandler();
         gameResultHandler = new GameResultHandler(); // Передаем ссылку на текущий объект GameController
@@ -103,17 +90,12 @@ public class GameController extends GameEngine {
     }
 
     private void checkAndUpdateGameState() {
-        // String selectedLevel = comb.getSelectionModel().getSelectedItem();
-        //String selectedLevel = handleDifficultyChange(subMenuItem);
 
         // Получаем выбранный RadioMenuItem
         RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyNewGame.getSelectedToggle();
 
         // Получаем текст выбранного элемента
         String selectedLevel = selectedMenuItem.getText();
-
-        System.out.println("selectedLevel for checkAndUpdateGameState: " + selectedLevel);
-
 
         if (checkForWin(gameField) || checkForDraw(gameField)) {
             String winnerSymbol = checkForWin(gameField) ? "The player" : "It's a draw";
@@ -196,12 +178,7 @@ public class GameController extends GameEngine {
         hbox.setLayoutX((anchorPane.getPrefWidth() - hbox.getPrefWidth()) / 2);
     }
 
-
-    private ToggleGroup difficultyNewGame;
-
     private void initializeMenuBar() {
-        //ToggleGroup difficultyNewGame = new ToggleGroup();
-
         difficultyNewGame = new ToggleGroup();
 
         // Перебираем все меню в MenuBar
@@ -210,57 +187,47 @@ public class GameController extends GameEngine {
             if ("Game".equals(menu.getText())) {
                 // Перебираем все пункты меню в меню "Game"
                 for (MenuItem menuItem : menu.getItems()) {
-                    // Находим меню "New Game"
+                    // Находим меню "Difficulty Level"
                     if (menuItem instanceof Menu && "Difficulty Level".equals(menuItem.getText())) {
-                        // Перебираем все пункты меню в меню "New Game"
-                        for (MenuItem subMenuItem : ((Menu) menuItem).getItems()) {
-                            // Находим RadioMenuItem EASY
-                            if (subMenuItem instanceof RadioMenuItem && "EASY".equals(subMenuItem.getText())) {
-                                ((RadioMenuItem) subMenuItem).setSelected(true); // Устанавливаем EASY по умолчанию
-                                handleDifficultyChange((RadioMenuItem) subMenuItem);
-                            }
-                            // Устанавливаем обработчик событий для RadioMenuItem
-                            if (subMenuItem instanceof RadioMenuItem) {
-                                ((RadioMenuItem) subMenuItem).setToggleGroup(difficultyNewGame);
-                                //subMenuItem.setOnAction(event -> handleDifficultyChange((RadioMenuItem) subMenuItem));
-
-                                subMenuItem.setOnAction(event -> {
-                                    // Получаем текст из subMenuItem
-                                    String text = ((RadioMenuItem) subMenuItem).getText();
-
-                                    // Проверяем значение текста и вызываем соответствующий метод
-                                    switch (text) {
-                                        case "EASY":
-                                            handleDifficultyChange((RadioMenuItem) subMenuItem);
-                                            handleNewGameEasy();
-                                            break;
-                                        case "HARD":
-                                            handleDifficultyChange((RadioMenuItem) subMenuItem);
-                                            handleNewGameHard();
-                                            break;
-                                        case "AI":
-                                            handleDifficultyChange((RadioMenuItem) subMenuItem);
-                                            handleNewGameAI();
-                                            break;
-                                        default:
-                                            // Действие по умолчанию
-                                            break;
-
-                                    }
-                                });
-                            }
-                        }
+                        initializeDifficultyMenu((Menu) menuItem, difficultyNewGame);
+                        break; // Нет смысла продолжать искать другие меню "Difficulty Level"
                     }
                 }
             }
         }
     }
 
-    private void initializeComboBox() {
-        ObservableList<String> list = FXCollections.observableArrayList("EASY", "HARD", "AI");
-        comb.setItems(list);
-        comb.setValue("EASY");
-        comb.setOnAction(this::handleComboBoxAction);
+    private void initializeDifficultyMenu(Menu difficultyMenu, ToggleGroup toggleGroup) {
+        // Перебираем все пункты меню в меню "Difficulty Level"
+        for (MenuItem subMenuItem : difficultyMenu.getItems()) {
+            // Находим RadioMenuItem EASY
+            if (subMenuItem instanceof RadioMenuItem && "EASY".equals(subMenuItem.getText())) {
+                ((RadioMenuItem) subMenuItem).setSelected(true); // Устанавливаем EASY по умолчанию
+                handleDifficultyChange((RadioMenuItem) subMenuItem);
+            }
+            // Устанавливаем обработчик событий для RadioMenuItem
+            if (subMenuItem instanceof RadioMenuItem) {
+                ((RadioMenuItem) subMenuItem).setToggleGroup(toggleGroup);
+                subMenuItem.setOnAction(event -> {
+                    String text = subMenuItem.getText();
+                    handleDifficultyChange((RadioMenuItem) subMenuItem);
+                    switch (text) {
+                        case "EASY":
+                            handleDifficultyLevelEasy();
+                            break;
+                        case "HARD":
+                            handleDifficultyLevelHard();
+                            break;
+                        case "AI":
+                            handleDifficultyLevelAI();
+                            break;
+                        default:
+                            // Действие по умолчанию
+                            break;
+                    }
+                });
+            }
+        }
     }
 
     private void initializeGameField() {
@@ -275,12 +242,6 @@ public class GameController extends GameEngine {
         Context computerStrategicMoveHandler = new Context(new EasyStrategy());
     }
 
-    private void handleComboBoxAction(ActionEvent event) {
-
-        resetMoveCounters();
-        startNewGame(gameField, anchorPane);
-    }
-
     public static void resetMoveCounters() {
         moveCounter = 0; // Переменная для хранения счетчика ходов
         playerMovesCounter = 0; // Переменная для хранения счетчика ходов
@@ -291,7 +252,7 @@ public class GameController extends GameEngine {
         return gameResultHandler;
     }
 
-    private String handleDifficultyChange(RadioMenuItem selected) {
+    private void handleDifficultyChange(RadioMenuItem selected) {
         // Обновляем динамический текст
         dynamicText.setText(selected.getText());
 
@@ -307,7 +268,6 @@ public class GameController extends GameEngine {
 
         // Центрируем HBox относительно AnchorPane
         hbox.setLayoutX((anchorPane.getPrefWidth() - hbox.getPrefWidth()) / 2);
-        return null;
     }
 
     // Метод для вычисления ширины текста в пикселях
@@ -329,49 +289,47 @@ public class GameController extends GameEngine {
         return (int) ((endTime - startTime) / 1000);
     }
 
-
-
-
     // Обработчики событий для меню
-    public void handleNewGameEasy() {
+    public void handleDifficultyLevelEasy() {
         // Ваш код для новой игры
         System.out.println("You selected New Game EASY menu item");
     }
 
-    public void handleNewGameHard() {
+    public void handleDifficultyLevelHard() {
         // Ваш код для новой игры
         System.out.println("You selected New Game HARD menu item");
     }
 
-    public void handleNewGameAI() {
+    public void handleDifficultyLevelAI() {
         // Ваш код для новой игры
         System.out.println("You selected New Game AI menu item");
     }
 
-    public void handleOptions() {
+    public void handleOptionsMenuItem() {
         // Ваш код для настроек
         System.out.println("You selected Options menu item");
     }
 
-    public void handleExit() {
+    public void handleExitMenuItem() {
         // Ваш код для выхода
         System.out.println("You selected Exit menu item");
     }
 
     // Обработчики событий для справки
-    public void handleHowTo() {
+    public void handleHowToMenuItem() {
         // Ваш код для инструкций
         System.out.println("You selected How To menu item");
     }
 
-    public void handleStatistic() {
+    public void handleStatisticMenuItem() {
         // Ваш код для статистики
         System.out.println("You selected Statistic menu item");
     }
 
-    public void handleAbout() {
+    public void handleAboutMenuItem() {
         // Ваш код для статистики
         System.out.println("You selected About menu item");
+        AboutWindow.displayAboutDialog();
     }
 }
 
