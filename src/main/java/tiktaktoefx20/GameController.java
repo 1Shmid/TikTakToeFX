@@ -33,6 +33,9 @@ public class GameController extends GameEngine {
     private String selectedLevel;
     private GameResultHandler gameResultHandler;
 
+//    @FXML
+//    private RadioMenuItem subMenuItem;
+
     @FXML
     ComboBox<String> comb;
 
@@ -86,7 +89,7 @@ public class GameController extends GameEngine {
 
         initializeHBox();
         initializeMenuBar();
-        initializeComboBox();
+        // initializeComboBox();
         initializeGameField();
         initializeComputerStrategicMoveHandler();
         gameResultHandler = new GameResultHandler(); // Передаем ссылку на текущий объект GameController
@@ -100,7 +103,17 @@ public class GameController extends GameEngine {
     }
 
     private void checkAndUpdateGameState() {
-        String selectedLevel = comb.getSelectionModel().getSelectedItem();
+        // String selectedLevel = comb.getSelectionModel().getSelectedItem();
+        //String selectedLevel = handleDifficultyChange(subMenuItem);
+
+        // Получаем выбранный RadioMenuItem
+        RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyNewGame.getSelectedToggle();
+
+        // Получаем текст выбранного элемента
+        String selectedLevel = selectedMenuItem.getText();
+
+        System.out.println("selectedLevel for checkAndUpdateGameState: " + selectedLevel);
+
 
         if (checkForWin(gameField) || checkForDraw(gameField)) {
             String winnerSymbol = checkForWin(gameField) ? "The player" : "It's a draw";
@@ -183,8 +196,13 @@ public class GameController extends GameEngine {
         hbox.setLayoutX((anchorPane.getPrefWidth() - hbox.getPrefWidth()) / 2);
     }
 
+
+    private ToggleGroup difficultyNewGame;
+
     private void initializeMenuBar() {
-        ToggleGroup difficultyToggleGroup = new ToggleGroup();
+        //ToggleGroup difficultyNewGame = new ToggleGroup();
+
+        difficultyNewGame = new ToggleGroup();
 
         // Перебираем все меню в MenuBar
         for (Menu menu : menuBar.getMenus()) {
@@ -193,7 +211,7 @@ public class GameController extends GameEngine {
                 // Перебираем все пункты меню в меню "Game"
                 for (MenuItem menuItem : menu.getItems()) {
                     // Находим меню "New Game"
-                    if (menuItem instanceof Menu && "New Game".equals(menuItem.getText())) {
+                    if (menuItem instanceof Menu && "Difficulty Level".equals(menuItem.getText())) {
                         // Перебираем все пункты меню в меню "New Game"
                         for (MenuItem subMenuItem : ((Menu) menuItem).getItems()) {
                             // Находим RadioMenuItem EASY
@@ -203,8 +221,33 @@ public class GameController extends GameEngine {
                             }
                             // Устанавливаем обработчик событий для RadioMenuItem
                             if (subMenuItem instanceof RadioMenuItem) {
-                                ((RadioMenuItem) subMenuItem).setToggleGroup(difficultyToggleGroup);
-                                subMenuItem.setOnAction(event -> handleDifficultyChange((RadioMenuItem) subMenuItem));
+                                ((RadioMenuItem) subMenuItem).setToggleGroup(difficultyNewGame);
+                                //subMenuItem.setOnAction(event -> handleDifficultyChange((RadioMenuItem) subMenuItem));
+
+                                subMenuItem.setOnAction(event -> {
+                                    // Получаем текст из subMenuItem
+                                    String text = ((RadioMenuItem) subMenuItem).getText();
+
+                                    // Проверяем значение текста и вызываем соответствующий метод
+                                    switch (text) {
+                                        case "EASY":
+                                            handleDifficultyChange((RadioMenuItem) subMenuItem);
+                                            handleNewGameEasy();
+                                            break;
+                                        case "HARD":
+                                            handleDifficultyChange((RadioMenuItem) subMenuItem);
+                                            handleNewGameHard();
+                                            break;
+                                        case "AI":
+                                            handleDifficultyChange((RadioMenuItem) subMenuItem);
+                                            handleNewGameAI();
+                                            break;
+                                        default:
+                                            // Действие по умолчанию
+                                            break;
+
+                                    }
+                                });
                             }
                         }
                     }
@@ -248,7 +291,7 @@ public class GameController extends GameEngine {
         return gameResultHandler;
     }
 
-    private void handleDifficultyChange(RadioMenuItem selected) {
+    private String handleDifficultyChange(RadioMenuItem selected) {
         // Обновляем динамический текст
         dynamicText.setText(selected.getText());
 
@@ -264,6 +307,7 @@ public class GameController extends GameEngine {
 
         // Центрируем HBox относительно AnchorPane
         hbox.setLayoutX((anchorPane.getPrefWidth() - hbox.getPrefWidth()) / 2);
+        return null;
     }
 
     // Метод для вычисления ширины текста в пикселях
@@ -284,6 +328,9 @@ public class GameController extends GameEngine {
         long endTime = System.currentTimeMillis();
         return (int) ((endTime - startTime) / 1000);
     }
+
+
+
 
     // Обработчики событий для меню
     public void handleNewGameEasy() {
