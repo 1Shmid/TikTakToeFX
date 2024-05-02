@@ -10,13 +10,12 @@ public class HowToWindow {
     public static void displayHowToDialog() {
         String overviewText = getOverviewTextFromReadme("README.md");
 
-        StringBuilder contentTextBuilder = new StringBuilder();
-        contentTextBuilder.append(overviewText.trim()); // Убираем лишние пробелы в начале и конце;
+        String contentTextBuilder = overviewText.trim(); // Убираем лишние пробелы в начале и конце;
 
         Alert howDialog = new Alert(Alert.AlertType.INFORMATION);
         howDialog.setTitle("How to Play");
         // aboutDialog.setHeaderText("Welcome to Tic-Tac-Toe 2.0!");
-        howDialog.setContentText(contentTextBuilder.toString());
+        howDialog.setContentText(contentTextBuilder);
 
         // Убираем иконку и текст
         howDialog.setHeaderText(null);
