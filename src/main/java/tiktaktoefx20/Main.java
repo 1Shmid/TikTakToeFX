@@ -22,7 +22,7 @@ public class Main extends Application {
 
         fxmlLoader.setController(new GameController());
 
-        Scene scene = new Scene(root, 862, 400);
+        Scene scene = new Scene(root, 600, 600);
         //stage.setTitle("TikTakToeFX");
         stage.setTitle(title); // Устанавливаем заголовок окна с номером игры
         stage.setScene(scene);
