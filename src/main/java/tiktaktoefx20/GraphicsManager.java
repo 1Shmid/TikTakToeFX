@@ -18,52 +18,49 @@ public class GraphicsManager extends GameResultHandler {
         }
     }
 
-    private void drawLine(double startX, double startY, double endX, double endY, Constants.Winner winner) {
-        // Очищаем Canvas
+    private void drawLine(Double startX, Double startY, Double endX, Double endY, Constants.Winner winner) {
         winningLineCanvas.getGraphicsContext2D().clearRect(0, 0, winningLineCanvas.getWidth(), winningLineCanvas.getHeight());
 
-        // Устанавливаем цвет линии в зависимости от победителя
-        if (winner == Constants.Winner.PLAYER) {
-            winningLineCanvas.getGraphicsContext2D().setStroke(Color.web("#545454"));
-        } else {
-            winningLineCanvas.getGraphicsContext2D().setStroke(Color.WHITE);
-        }
-
-        // Устанавливаем ширину линии
-        double lineWidth = 5.0; // Пример ширины линии
+        double lineWidth = 5.0;
         winningLineCanvas.getGraphicsContext2D().setLineWidth(lineWidth);
 
-        // Рассчитываем шаги изменения координат
-        double stepX = (endX - startX) / 20; // 20 - количество шагов анимации
-        double stepY = (endY - startY) / 20;
+        if (startX != null && startY != null && endX != null && endY != null) {
+            // Устанавливаем цвет линии в зависимости от победителя
+            winningLineCanvas.getGraphicsContext2D().setStroke(winner == Constants.Winner.PLAYER ? Color.web("#545454") : Color.WHITE);
 
-        // Задаем начальные координаты линии
-        final double[] currentX = {startX};
-        final double[] currentY = {startY};
+            // Рисуем линию от начальной точки до текущей точки
+            winningLineCanvas.getGraphicsContext2D().strokeLine(startX, startY, startX, startY);
 
-        // Анимируем рисование линии
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            int count = 0;
+            // Рассчитываем шаги изменения координат
+            double stepX = (endX - startX) / 20;
+            double stepY = (endY - startY) / 20;
 
-            @Override
-            public void run() {
-                if (count < 20) {
-                    currentX[0] += stepX;
-                    currentY[0] += stepY;
-                    winningLineCanvas.getGraphicsContext2D().strokeLine(startX, startY, currentX[0], currentY[0]);
-                    count++;
-                } else {
-                    // Останавливаем таймер после завершения анимации
-                    timer.cancel();
-                    timer.purge();
+            // Задаем начальные координаты линии
+            final double[] currentX = {startX};
+            final double[] currentY = {startY};
+
+            // Анимируем рисование линии
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                int count = 0;
+                @Override
+                public void run() {
+                    if (count < 20) {
+                        currentX[0] += stepX;
+                        currentY[0] += stepY;
+                        winningLineCanvas.getGraphicsContext2D().clearRect(0, 0, winningLineCanvas.getWidth(), winningLineCanvas.getHeight());
+                        winningLineCanvas.getGraphicsContext2D().strokeLine(startX, startY, currentX[0], currentY[0]);
+                        count++;
+                    } else {
+                        // Останавливаем таймер после завершения анимации
+                        timer.cancel();
+                        timer.purge();
+                    }
                 }
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 10); // 0 - начальная задержка, 50 - интервал между шагами анимации
+            };
+            timer.scheduleAtFixedRate(task, 0, 10);
+        }
     }
-
-
     protected void drawWinningLine(List<int[]> winningCells, AnchorPane anchorPane, Constants.Winner winner, GridPane gridPane) {
 
         // Получаем размеры поля GridPane
