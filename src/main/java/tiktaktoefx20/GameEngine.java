@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.util.*;
+import java.util.stream.*;
 
 public class GameEngine extends GameResultHandler {
 
@@ -15,21 +16,23 @@ public class GameEngine extends GameResultHandler {
     // Проверка на победу
     public static boolean checkForWin(char[][] gameField) {
 
-        return checkRowsForWin(gameField) || checkColumnsForWin(gameField) || checkDiagonalsForWin(gameField);
+        return  checkRowsForWin(gameField) ||
+                checkColumnsForWin(gameField) ||
+                checkDiagonalsForWin(gameField);
     }
 
-    // Проверка на ничью
     public static boolean checkForDraw(char[][] gameField) {
+        return !flattenGameField(gameField).contains(Constants.EMPTY_SYMBOL);
+    }
 
-        for (int i = 0; i < Constants.FIELD_SIZE; i++) {
-            for (int j = 0; j < Constants.FIELD_SIZE; j++) {
-                if (gameField[i][j] == Constants.EMPTY_SYMBOL) {
-                    // Найдена пустая ячейка, игра не закончилась вничью
-                    return false;
-                }
+    private static List<Character> flattenGameField(char[][] gameField) {
+        List<Character> flattenedList = new ArrayList<>();
+        for (char[] row : gameField) {
+            for (char cell : row) {
+                flattenedList.add(cell);
             }
         }
-        return true; // Все ячейки заполнены, ничья
+        return flattenedList;
     }
 
     // Определение координат выигрышных ячеек в строках
@@ -68,7 +71,9 @@ public class GameEngine extends GameResultHandler {
             if (gameField[i][0] == gameField[i][1] &&
                     gameField[i][0] == gameField[i][2] &&
                     (gameField[i][0] == Constants.X_SYMBOL || gameField[i][0] == Constants.O_SYMBOL)) {
-                winningCells = getRowsWinningCellsCoordinates(gameField, i);
+                //winningCells = getRowsWinningCellsCoordinates(gameField, i);
+                winningCells.clear();
+                winningCells.addAll(getRowsWinningCellsCoordinates(gameField, i));
                 return true;
             }
         }
