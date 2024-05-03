@@ -1,5 +1,6 @@
 package tiktaktoefx20;
 
+import javafx.application.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -28,7 +29,6 @@ public class GameController extends GameEngine {
     private static int playerMovesCounter = 0; // Переменная для хранения счетчика ходов
     private static int computerMovesCounter = 0; // Переменная для хранения счетчика ходов
     private static long startTime;
-    private GameResultHandler gameResultHandler;
     private ToggleGroup difficultyNewGame;
 
     @FXML
@@ -49,6 +49,46 @@ public class GameController extends GameEngine {
     @FXML
     void btnClick(ActionEvent event) {
 
+        final ClickResult clickResult = getClickResult(event);
+
+        magicOn(clickResult);
+    }
+
+    @FXML
+    void initialize() {
+
+        initializeGameField();
+
+        initializeLevelInfoLine();
+
+        initializeMenuBar();
+
+        initializeGameResultHandler();
+
+        // Запускаем таймер
+        startGameTimer();
+    }
+
+    private void initializeGameResultHandler() {
+        GameResultHandler gameResultHandler = new GameResultHandler(); // Передаем ссылку на текущий объект GameController
+        gameResultHandler.setGameController(this); // Установка контроллера в gameResultHandler
+    }
+
+    private void magicOn(ClickResult clickResult) {
+        // Обновляем поле игры
+        gameField[clickResult.row()][clickResult.col()] = Constants.PLAYER_SYMBOL;
+
+        // Увеличиваем счетчик ходов
+        moveCounter++;
+        playerMovesCounter++;
+
+        // Записываем ход игрока
+        GameMove.addMove(moveCounter, "player", clickResult.row(), clickResult.col());
+
+        checkAndUpdateGameState();
+    }
+
+    private static ClickResult getClickResult(ActionEvent event) {
         Button clickedButton = (Button) event.getSource(); // Получаем кнопку, на которую было нажато
         clickedButton.setText(String.valueOf(Constants.PLAYER_SYMBOL));
         clickedButton.setStyle("-fx-text-fill: #545454; -fx-opacity: 1.0; -fx-background-color: transparent;"); // Устанавливаем черный цвет текста для кнопки
@@ -58,40 +98,15 @@ public class GameController extends GameEngine {
         // Получаем индексы кнопки
         int row = GridPane.getRowIndex(clickedButton) == null ? 0 : GridPane.getRowIndex(clickedButton);
         int col = GridPane.getColumnIndex(clickedButton) == null ? 0 : GridPane.getColumnIndex(clickedButton);
-
-        // Обновляем поле игры
-        gameField[row][col] = Constants.PLAYER_SYMBOL;
-
-        // Увеличиваем счетчик ходов
-        moveCounter++;
-        playerMovesCounter++;
-
-        // Записываем ход игрока
-        GameMove.addMove(moveCounter, "player", row, col);
-
-        checkAndUpdateGameState();
+        return new ClickResult(row, col);
     }
 
-    @FXML
-    void initialize() {
-
-        initializeHBox();
-        initializeMenuBar();
-        initializeGameField();
-        initializeComputerStrategicMoveHandler();
-        gameResultHandler = new GameResultHandler(); // Передаем ссылку на текущий объект GameController
-        gameResultHandler.setGameController(this); // Установка контроллера в gameResultHandler
-
-        // Запускаем таймер
-        startGameTimer();
-    }
-
-    void setStage() {
+    private record ClickResult(int row, int col) {
     }
 
     private void checkAndUpdateGameState() {
 
-        // Получаем выбранный RadioMenuItem
+        // Получаем выбранный RadioMenuItem уровня сложности
         RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyNewGame.getSelectedToggle();
 
         // Получаем текст выбранного элемента
@@ -122,7 +137,7 @@ public class GameController extends GameEngine {
                 default -> easyMoveHandler.makeMove(gameField, selectedLevel); // По умолчанию используем случайную стратегию
             };
 
-            updateGameField(computerMove[0], computerMove[1], Constants.COMPUTER_SYMBOL);
+            updateGameField(computerMove[0], computerMove[1]);
 
             // Увеличиваем счетчик ходов
             moveCounter++;
@@ -147,12 +162,12 @@ public class GameController extends GameEngine {
         }
     }
 
-    private void updateGameField(int row, int col, char symbol) {
+    private void updateGameField(int row, int col) {
         Button button = getButtonByIndexes(row, col);
-        button.setText(String.valueOf(symbol));
+        button.setText(String.valueOf(Constants.COMPUTER_SYMBOL));
         button.setDisable(true);
-        gameField[row][col] = symbol;
-        button.setStyle("-fx-text-fill: white; -fx-opacity: 1.0; -fx-background-color: transparent ;"); // Устанавливаем черный цвет текста для кнопки
+        gameField[row][col] = Constants.COMPUTER_SYMBOL;
+        button.setStyle("-fx-text-fill: white; -fx-opacity: 1.0; -fx-background-color: transparent ;");
     }
 
     private List<GameMove> convertMovesToGameMovesList() {
@@ -167,7 +182,7 @@ public class GameController extends GameEngine {
         return gameMovesList;
     }
 
-    private void initializeHBox() {
+    private void initializeLevelInfoLine() {
         // Вычисляем сумму wrappingWidth для обеих строк
         double totalWrappingWidth = staticText.getWrappingWidth() + dynamicText.getWrappingWidth();
 
@@ -203,29 +218,12 @@ public class GameController extends GameEngine {
             // Находим RadioMenuItem EASY
             if (subMenuItem instanceof RadioMenuItem && "EASY".equals(subMenuItem.getText())) {
                 ((RadioMenuItem) subMenuItem).setSelected(true); // Устанавливаем EASY по умолчанию
-                handleDifficultyChange((RadioMenuItem) subMenuItem);
+                updateLevelInfoLine((RadioMenuItem) subMenuItem);
             }
             // Устанавливаем обработчик событий для RadioMenuItem
             if (subMenuItem instanceof RadioMenuItem) {
                 ((RadioMenuItem) subMenuItem).setToggleGroup(toggleGroup);
-                subMenuItem.setOnAction(event -> {
-                    String text = subMenuItem.getText();
-                    handleDifficultyChange((RadioMenuItem) subMenuItem);
-                    switch (text) {
-                        case "EASY":
-                            handleDifficultyLevelEasy();
-                            break;
-                        case "HARD":
-                            handleDifficultyLevelHard();
-                            break;
-                        case "AI":
-                            handleDifficultyLevelAI();
-                            break;
-                        default:
-                            // Действие по умолчанию
-                            break;
-                    }
-                });
+                subMenuItem.setOnAction(event -> updateLevelInfoLine((RadioMenuItem) subMenuItem));
             }
         }
     }
@@ -238,21 +236,7 @@ public class GameController extends GameEngine {
         }
     }
 
-    private void initializeComputerStrategicMoveHandler() {
-        Context computerStrategicMoveHandler = new Context(new EasyStrategy());
-    }
-
-    public static void resetMoveCounters() {
-        moveCounter = 0; // Переменная для хранения счетчика ходов
-        playerMovesCounter = 0; // Переменная для хранения счетчика ходов
-        computerMovesCounter = 0; // Переменная для хранения счетчика ходов
-    }
-
-    public GameResultHandler getGameResultHandler() {
-        return gameResultHandler;
-    }
-
-    private void handleDifficultyChange(RadioMenuItem selected) {
+    private void updateLevelInfoLine(RadioMenuItem selected) {
         // Обновляем динамический текст
         dynamicText.setText(selected.getText());
 
@@ -278,6 +262,15 @@ public class GameController extends GameEngine {
         return helper.getLayoutBounds().getWidth();
     }
 
+    static void resetMoveCounters() {
+        moveCounter = 0; // Переменная для хранения счетчика ходов
+        playerMovesCounter = 0; // Переменная для хранения счетчика ходов
+        computerMovesCounter = 0; // Переменная для хранения счетчика ходов
+    }
+
+    void setStage() {
+    }
+
     // Метод для старта отсчета времени игры
     public static void startGameTimer() {
         startTime = System.currentTimeMillis();
@@ -290,20 +283,6 @@ public class GameController extends GameEngine {
     }
 
     // Обработчики событий для меню
-    public void handleDifficultyLevelEasy() {
-        // Ваш код для новой игры
-        System.out.println("You selected New Game EASY menu item");
-    }
-
-    public void handleDifficultyLevelHard() {
-        // Ваш код для новой игры
-        System.out.println("You selected New Game HARD menu item");
-    }
-
-    public void handleDifficultyLevelAI() {
-        // Ваш код для новой игры
-        System.out.println("You selected New Game AI menu item");
-    }
 
     public void handleOptionsMenuItem() {
         // Ваш код для настроек
@@ -311,14 +290,12 @@ public class GameController extends GameEngine {
     }
 
     public void handleExitMenuItem() {
-        // Ваш код для выхода
-        System.out.println("You selected Exit menu item");
+        Platform.exit();
     }
 
     // Обработчики событий для справки
     public void handleHowToMenuItem() {
-        // Ваш код для инструкций
-        System.out.println("You selected How To menu item");
+        HowToWindow.displayHowToDialog();
     }
 
     public void handleStatisticMenuItem() {
@@ -327,8 +304,6 @@ public class GameController extends GameEngine {
     }
 
     public void handleAboutMenuItem() {
-        // Ваш код для статистики
-        System.out.println("You selected About menu item");
         AboutWindow.displayAboutDialog();
     }
 }
