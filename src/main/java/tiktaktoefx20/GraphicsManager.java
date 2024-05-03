@@ -1,8 +1,12 @@
 package tiktaktoefx20;
 
+import javafx.animation.*;
+import javafx.geometry.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+import javafx.util.*;
 
 import java.util.*;
 
@@ -93,5 +97,57 @@ public class GraphicsManager extends GameResultHandler {
 
         // Рисуем линию на Canvas
         drawLine(startX, startY, endX, endY, winner);
+    }
+
+    public void animateShade(Rectangle shade, GridPane gridPane) {
+        // Вызываем метод установки позиции
+        centeringShade(shade, gridPane);
+
+        // Создаем анимацию для масштабирования прямоугольника
+        ScaleTransition scaleTransition = new ScaleTransition();
+        scaleTransition.setNode(shade);
+        scaleTransition.setDuration(Duration.millis(300)); // Время анимации (1 секунда)
+        scaleTransition.setToX(0.33); // Масштабирование по оси X в 1/3 от исходного размера
+        scaleTransition.setToY(0.33); // Масштабирование по оси Y в 1/3 от исходного размера
+
+        scaleTransition.setOnFinished(event -> {
+            // Установка цвета прямоугольника на прозрачный
+            shade.setFill(Color.TRANSPARENT);
+        });
+
+        // Запуск анимации
+        scaleTransition.play();
+    }
+
+    private void centeringShade(Rectangle shade, GridPane gridPane) {
+        // Получаем размеры прямоугольника
+        double shadeWidth = shade.getWidth();
+        double shadeHeight = shade.getHeight();
+
+        // Получаем координаты центра GridPane относительно AnchorPane
+        Point2D centerCoordinates = getCenterCoordinates(gridPane);
+
+        // Вычисляем координаты верхнего левого угла прямоугольника так, чтобы его центр совпадал с центром GridPane
+        double topLeftX = centerCoordinates.getX() - shadeWidth / 2;
+        double topLeftY = centerCoordinates.getY() - shadeHeight / 2;
+
+        AnchorPane.setLeftAnchor(shade, topLeftX);
+        AnchorPane.setTopAnchor(shade, topLeftY);
+    }
+
+    private Point2D getCenterCoordinates(GridPane gridPane) {
+        // Получаем координаты верхнего левого угла GridPane относительно AnchorPane
+        double gridPaneLayoutX = gridPane.getLocalToParentTransform().getTx();
+        double gridPaneLayoutY = gridPane.getLocalToParentTransform().getTy();
+
+        // Получаем размеры GridPane
+        double gridPaneWidth = gridPane.getWidth();
+        double gridPaneHeight = gridPane.getHeight();
+
+        // Вычисляем координаты центра GridPane относительно AnchorPane
+        double centerX = gridPaneLayoutX + gridPaneWidth / 2;
+        double centerY = gridPaneLayoutY + gridPaneHeight / 2;
+
+        return new Point2D(centerX, centerY);
     }
 }
