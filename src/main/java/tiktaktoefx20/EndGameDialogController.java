@@ -1,12 +1,10 @@
 package tiktaktoefx20;
 
-import javafx.fxml.FXML;
+import javafx.fxml.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.*;
 import javafx.scene.text.*;
-import javafx.stage.*;
 
 import static tiktaktoefx20.Constants.*;
 
@@ -17,8 +15,6 @@ public class EndGameDialogController {
 
     @FXML
     private Label winnerLabel;
-
-    private Stage stage;
 
     public void setWinnerSymbol(String winnerSymbol) {
         if (winnerSymbol.equals("The player")) {
@@ -52,17 +48,7 @@ public class EndGameDialogController {
         resultLabel.setText(resultText.contains("wins") ? "WINNER!" : "DRAW!");
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setStage() {
     }
 
-    // Метод для расположения окна по центру AnchorPane
-    public void centerOnAnchorPane(double anchorPaneWidth, double anchorPaneHeight) {
-        double dialogWidth = stage.getWidth();
-        double dialogHeight = stage.getHeight();
-        double x = (anchorPaneWidth - dialogWidth) / 2;
-        double y = (anchorPaneHeight - dialogHeight) / 2;
-        stage.setX(x);
-        stage.setY(y);
-    }
 }

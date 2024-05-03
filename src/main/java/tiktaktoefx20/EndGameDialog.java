@@ -48,7 +48,7 @@ public class EndGameDialog {
         // Устанавливаем размеры нового окна
         Scene dialogScene = new Scene(root);
         stage.setScene(dialogScene);
-        controller.setStage(stage); // Устанавливаем Stage
+        controller.setStage(); // Устанавливаем Stage
 
         // Создаем паузу в 1 секунду перед показом окна
         PauseTransition pause = new PauseTransition(Duration.millis(300));
@@ -115,9 +115,8 @@ public class EndGameDialog {
         fadeTransition.setToValue(1.0); // Конечное значение прозрачности
 
         // Создаем параллельную анимацию для выполнения обеих анимаций одновременно
-        ParallelTransition parallelTransition = new ParallelTransition(scaleTransition, fadeTransition);
 
-        return parallelTransition;
+        return new ParallelTransition(scaleTransition, fadeTransition);
     }
 
 }

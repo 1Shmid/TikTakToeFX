@@ -10,16 +10,15 @@ public class AboutWindow {
     public static void displayAboutDialog() {
         String overviewText = getOverviewTextFromReadme("README.md");
 
-        StringBuilder contentTextBuilder = new StringBuilder();
-        contentTextBuilder.append("This application is an exciting game of Tic-Tac-Toe implemented in JavaFX.\n\n")
-                .append(overviewText.trim()) // Убираем лишние пробелы в начале и конце
-                .append("\n\n")
-                .append("The application features a convenient and intuitive interface to enjoy the game and have a great time.");
+        String contentTextBuilder = "This application is an exciting game of Tic-Tac-Toe implemented in JavaFX.\n\n" +
+                overviewText.trim() + // Убираем лишние пробелы в начале и конце
+                "\n\n" +
+                "The application features a convenient and intuitive interface to enjoy the game and have a great time.";
 
         Alert aboutDialog = new Alert(AlertType.INFORMATION);
         aboutDialog.setTitle("About");
         aboutDialog.setHeaderText("Welcome to Tic-Tac-Toe 2.0!");
-        aboutDialog.setContentText(contentTextBuilder.toString());
+        aboutDialog.setContentText(contentTextBuilder);
 
         // Убираем иконку
         aboutDialog.setGraphic(null);

@@ -71,7 +71,7 @@ public class GameController extends GameEngine {
 
     private void initializeGameResultHandler() {
         GameResultHandler gameResultHandler = new GameResultHandler(); // Передаем ссылку на текущий объект GameController
-        gameResultHandler.setGameController(this); // Установка контроллера в gameResultHandler
+        gameResultHandler.setGameController(); // Установка контроллера в gameResultHandler
     }
 
     private void magicOn(ClickResult clickResult) {

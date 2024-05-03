@@ -8,4 +8,6 @@ module org.example.tiktaktoefx {
 
     opens tiktaktoefx20 to javafx.fxml;
     exports tiktaktoefx20;
+    exports tiktaktoefx20.menu;
+    opens tiktaktoefx20.menu to javafx.fxml;
 }

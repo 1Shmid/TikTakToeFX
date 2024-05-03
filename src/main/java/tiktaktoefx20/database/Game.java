@@ -26,20 +26,4 @@ public class Game {
 
         SQLiteDBManager.addGame(moves, totalMoves, playerMoves, computerMoves, result, duration, level);
     }
-
-    private String formatMoves() {
-        StringBuilder formattedMoves = new StringBuilder();
-        for (GameMove move : moves) {
-            formattedMoves.append("Move Number: ").append(move.getMoveNumber()).append("\n");
-            formattedMoves.append("Player: ").append(move.getPlayer()).append("\n");
-            formattedMoves.append("Row: ").append(move.getRow()).append("\n");
-            formattedMoves.append("Column: ").append(move.getCol()).append("\n");
-            formattedMoves.append("-------------------").append("\n");
-        }
-        return formattedMoves.toString();
-    }
-
-
-
-    // Геттеры и сеттеры
 }

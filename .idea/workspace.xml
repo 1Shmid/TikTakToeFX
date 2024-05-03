@@ -4,28 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="GameController code refactored">
+    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="GameController - Code Readability Enhanced">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/TTTFXback_WidePaine.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/ComputerMoveHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/FirstAvailableMoveStrategy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameDataStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameDataStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AttackMoveStrategy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/BlockOpponentMoveStrategy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/CenterAndCornersMoveStrategy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tst/tiktaktoefx20/AttackMoveStrategyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tst/tiktaktoefx20/AttackMoveStrategyTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tst/tiktaktoefx20/CenterAndCornersMoveStrategyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tst/tiktaktoefx20/CenterAndCornersMoveStrategyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTTFX 2.0.db" beforeDir="false" afterPath="$PROJECT_DIR$/TTTFX 2.0.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameHistory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/MenuActions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/MenuController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameStats.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/SQLiteDBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/SQLiteDBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/AboutWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/AboutWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/HowToWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/HowToWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AIStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AIStrategy.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
         <option value="JUnit4 Test Class" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -36,6 +50,8 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -55,30 +71,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.HelloApplication.executor": "Run",
-    "Application.Main.executor": "Run",
-    "JUnit.GameControllerTest.executor": "Run",
-    "JUnit.GameControllerTest.testComputerMove.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "TestNG.GameControllerTest.testComputerMove.executor": "Run",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "version-2.2",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Asus/IdeaProjects/tetris",
-    "settings.editor.selected.configurable": "editor.preferences.folding"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GameControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.GameControllerTest.testComputerMove.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;TestNG.GameControllerTest.testComputerMove.executor&quot;: &quot;Run&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;version-2.2&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Asus/IdeaProjects/tetris&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.folding&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="tiktaktoefx20" />
+      <recent name="" />
+      <recent name="tiktaktoefx20.containers" />
+    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="tiktaktoefx20.Restart" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="tiktaktoefx20.database" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="tiktaktoefx20" />
@@ -89,7 +119,7 @@
       <module name="TikTakToeFX" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tiktaktoefx20.*" />
+          <option name="PATTERN" value="tiktaktoefx20.menu.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -104,7 +134,7 @@
       <module name="TikTakToeFX" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tiktaktoefx20.*" />
+          <option name="PATTERN" value="tiktaktoefx20.menu.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -120,7 +150,7 @@
       <module name="TikTakToeFX" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tiktaktoefx20.*" />
+          <option name="PATTERN" value="tiktaktoefx20.menu.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -157,118 +187,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712580090347</updated>
-    </task>
-    <task id="LOCAL-00001" summary="HelloController start improving">
-      <option name="closed" value="true" />
-      <created>1712629408609</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1712629408609</updated>
-    </task>
-    <task id="LOCAL-00002" summary="HelloController start improving">
-      <option name="closed" value="true" />
-      <created>1712630537832</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1712630537832</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Package renamed">
-      <option name="closed" value="true" />
-      <created>1712630782084</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1712630782084</updated>
-    </task>
-    <task id="LOCAL-00004" summary=" GameController renamed from HelloController">
-      <option name="closed" value="true" />
-      <created>1712632412294</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1712632412294</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Constants created">
-      <option name="closed" value="true" />
-      <created>1712639837050</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1712639837050</updated>
-    </task>
-    <task id="LOCAL-00006" summary="GameController  - checkForWin() and checkForDraw() implemented">
-      <option name="closed" value="true" />
-      <created>1712648516767</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1712648516767</updated>
-    </task>
-    <task id="LOCAL-00007" summary="GameController  - resetGame fix intention 1.0">
-      <option name="closed" value="true" />
-      <created>1712661873762</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1712661873762</updated>
-    </task>
-    <task id="LOCAL-00008" summary="GameController  - resetGame fix  intention 2.0.&#10; resetGame renamed to startNewGame">
-      <option name="closed" value="true" />
-      <created>1712749992738</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1712749992738</updated>
-    </task>
-    <task id="LOCAL-00009" summary="hello-view.fxml - gridPane added">
-      <option name="closed" value="true" />
-      <created>1712754276384</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1712754276384</updated>
-    </task>
-    <task id="LOCAL-00010" summary="GameController - computerMove added">
-      <option name="closed" value="true" />
-      <created>1712754359297</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1712754359297</updated>
-    </task>
-    <task id="LOCAL-00011" summary="GameController - computerMove boosted by checking a potentially winning move">
-      <option name="closed" value="true" />
-      <created>1712757451840</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1712757451840</updated>
-    </task>
-    <task id="LOCAL-00012" summary="GameController - computerMove enhanced with a best move search function">
-      <option name="closed" value="true" />
-      <created>1712791877941</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1712791877941</updated>
-    </task>
-    <task id="LOCAL-00013" summary="GameController - code cleaning">
-      <option name="closed" value="true" />
-      <created>1712792483882</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1712792483882</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Constants code cleaning">
-      <option name="closed" value="true" />
-      <created>1712792633955</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1712792633955</updated>
     </task>
     <task id="LOCAL-00015" summary="GameController messages translated">
       <option name="closed" value="true" />
@@ -350,10 +268,338 @@
       <option name="project" value="LOCAL" />
       <updated>1713284797689</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="EndGameDialogController is remastered after a failed rollback">
+      <option name="closed" value="true" />
+      <created>1714559358857</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1714559358857</updated>
+    </task>
+    <task id="LOCAL-00026" summary="EndGameDialog is remastered after a failed rollback">
+      <option name="closed" value="true" />
+      <created>1714559583926</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1714559583926</updated>
+    </task>
+    <task id="LOCAL-00027" summary="SQLiteDBManager - Added a check in case there are no records in the database">
+      <option name="closed" value="true" />
+      <created>1714562510686</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1714562510686</updated>
+    </task>
+    <task id="LOCAL-00028" summary="module-info.java saved">
+      <option name="closed" value="true" />
+      <created>1714563805019</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1714563805019</updated>
+    </task>
+    <task id="LOCAL-00029" summary="FXML - MenuBar added. Defined method names for MenuItems">
+      <option name="closed" value="true" />
+      <created>1714565185902</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1714565185902</updated>
+    </task>
+    <task id="LOCAL-00030" summary="MenuController - is created to accommodate menu event handlers">
+      <option name="closed" value="true" />
+      <created>1714566344466</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1714566344466</updated>
+    </task>
+    <task id="LOCAL-00031" summary="FXML - Overridden method names for MenuItems">
+      <option name="closed" value="true" />
+      <created>1714567062096</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1714567062096</updated>
+    </task>
+    <task id="LOCAL-00032" summary="FXML - Menu items have been regrouped">
+      <option name="closed" value="true" />
+      <created>1714568470288</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1714568470288</updated>
+    </task>
+    <task id="LOCAL-00033" summary="GameController - Added handlers for menu items and logic for RadioMenuItem with RadioMenuItem state display in dynamic HBox string.">
+      <option name="closed" value="true" />
+      <created>1714574797540</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1714574797540</updated>
+    </task>
+    <task id="LOCAL-00034" summary="GameController - Added dynamic centering of HBox relative to AnchorPaine.">
+      <option name="closed" value="true" />
+      <created>1714579697406</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1714579697406</updated>
+    </task>
+    <task id="LOCAL-00035" summary="GameController - code is optimized with the best practices of clean Java code">
+      <option name="closed" value="true" />
+      <created>1714581073372</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1714581073372</updated>
+    </task>
+    <task id="LOCAL-00036" summary="FXML - HBox with two Text added">
+      <option name="closed" value="true" />
+      <created>1714581402518</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1714581402518</updated>
+    </task>
+    <task id="LOCAL-00037" summary="README.md - Dependency injection and Project structure drafts added">
+      <option name="closed" value="true" />
+      <created>1714607079703</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1714607079703</updated>
+    </task>
+    <task id="LOCAL-00038" summary="GameResultContainer is created">
+      <option name="closed" value="true" />
+      <created>1714607197076</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1714607197076</updated>
+    </task>
+    <task id="LOCAL-00039" summary="GameResult interface created; it will serve as a basis for creating GameResultWithDialog and GameResultWithLogging classes">
+      <option name="closed" value="true" />
+      <created>1714609888388</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1714609888388</updated>
+    </task>
+    <task id="LOCAL-00040" summary="EndGameDialogController - improved code readability and structure">
+      <option name="closed" value="true" />
+      <created>1714619510266</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1714619510266</updated>
+    </task>
+    <task id="LOCAL-00041" summary="GraphicsManager - improved code readability and structure">
+      <option name="closed" value="true" />
+      <created>1714620377858</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1714620377858</updated>
+    </task>
+    <task id="LOCAL-00042" summary="GameEngine - improved code readability and structure">
+      <option name="closed" value="true" />
+      <created>1714621872736</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1714621872736</updated>
+    </task>
+    <task id="LOCAL-00043" summary="AIStrategy - improved code readability and structure">
+      <option name="closed" value="true" />
+      <created>1714622439103</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1714622439103</updated>
+    </task>
+    <task id="LOCAL-00044" summary="GameController - ComboBox deleted. Difficulty level choice realized via RadioMenuItem">
+      <option name="closed" value="true" />
+      <created>1714662531433</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1714662531433</updated>
+    </task>
+    <task id="LOCAL-00045" summary="FXML - ComboBox deleted. Difficulty level choice realized via RadioMenuItem">
+      <option name="closed" value="true" />
+      <created>1714662571331</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1714662571331</updated>
+    </task>
+    <task id="LOCAL-00046" summary="MenuActions created. It will be used to store methods that implement menu activities">
+      <option name="closed" value="true" />
+      <created>1714663985963</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1714663985963</updated>
+    </task>
+    <task id="LOCAL-00047" summary="AboutWindow created. It uses the text from ReadMe.md">
+      <option name="closed" value="true" />
+      <created>1714667105085</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1714667105085</updated>
+    </task>
+    <task id="LOCAL-00048" summary="GameController - code is optimized in accordance with the best Java clean code practices">
+      <option name="closed" value="true" />
+      <created>1714667909846</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1714667909846</updated>
+    </task>
+    <task id="LOCAL-00049" summary="HowToWindow created">
+      <option name="closed" value="true" />
+      <created>1714669151015</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1714669151015</updated>
+    </task>
+    <task id="LOCAL-00050" summary="HowToWindow code cleaned">
+      <option name="closed" value="true" />
+      <created>1714669207598</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1714669207598</updated>
+    </task>
+    <task id="LOCAL-00051" summary="README - How To Play added">
+      <option name="closed" value="true" />
+      <created>1714669300680</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1714669300680</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Main - AnchorPaine to 600x600">
+      <option name="closed" value="true" />
+      <created>1714690334671</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1714690334671</updated>
+    </task>
+    <task id="LOCAL-00053" summary="FXML - AnchorPaine to 600x600">
+      <option name="closed" value="true" />
+      <created>1714692289733</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1714692289733</updated>
+    </task>
+    <task id="LOCAL-00054" summary="EndGameDialog.fxml - size changed">
+      <option name="closed" value="true" />
+      <created>1714692443754</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1714692443754</updated>
+    </task>
+    <task id="LOCAL-00055" summary="GameResultHandler - centerStage refined">
+      <option name="closed" value="true" />
+      <created>1714692740812</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1714692740812</updated>
+    </task>
+    <task id="LOCAL-00056" summary="GameResultHandler - сode readability enhanced">
+      <option name="closed" value="true" />
+      <created>1714693348622</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1714693348622</updated>
+    </task>
+    <task id="LOCAL-00057" summary="EndGameDialog created. Method show relocated out of GameResultHandler">
+      <option name="closed" value="true" />
+      <created>1714698500524</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1714698500524</updated>
+    </task>
+    <task id="LOCAL-00058" summary="NewGame created. Method start relocated out of EndGameDialog">
+      <option name="closed" value="true" />
+      <created>1714699686147</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1714699686147</updated>
+    </task>
+    <task id="LOCAL-00059" summary="EndGameDialog - method start relocated to NewGame class">
+      <option name="closed" value="true" />
+      <created>1714699754485</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1714699754485</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Constants - colors added">
+      <option name="closed" value="true" />
+      <created>1714700333007</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1714700333007</updated>
+    </task>
+    <task id="LOCAL-00061" summary="EndGameDialogController - color constants implemented">
+      <option name="closed" value="true" />
+      <created>1714700428258</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1714700428258</updated>
+    </task>
+    <task id="LOCAL-00062" summary="GameResultHandler endGameDialog show relocated to EndGameDialog class">
+      <option name="closed" value="true" />
+      <created>1714700587759</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1714700587759</updated>
+    </task>
+    <task id="LOCAL-00063" summary="GameController - Code Readability Enhanced">
+      <option name="closed" value="true" />
+      <created>1714701410362</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1714701410362</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="5a999253-7cc1-48e3-9268-ee5e02829418" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="RECENT_FILTERS">
       <map>
         <entry key="User">
@@ -369,31 +615,63 @@
         </entry>
       </map>
     </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="5a999253-7cc1-48e3-9268-ee5e02829418">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="HelloController start improving" />
-    <MESSAGE value="Package renamed" />
-    <MESSAGE value=" GameController renamed from HelloController" />
-    <MESSAGE value="Constants created" />
-    <MESSAGE value="GameController  - checkForWin() and checkForDraw() implemented" />
-    <MESSAGE value="GameController  - resetGame fix intention 1.0" />
-    <MESSAGE value="GameController  - resetGame fix  intention 2.0.&#10; resetGame renamed to startNewGame" />
-    <MESSAGE value="hello-view.fxml - gridPane added" />
-    <MESSAGE value="GameController - computerMove added" />
-    <MESSAGE value="GameController - computerMove boosted by checking a potentially winning move" />
-    <MESSAGE value="GameController - computerMove enhanced with a best move search function" />
-    <MESSAGE value="GameController - code cleaning" />
-    <MESSAGE value="Constants code cleaning" />
-    <MESSAGE value="GameController messages translated" />
-    <MESSAGE value="GameController ComboBox added; Game mode choosing realized" />
-    <MESSAGE value="Main improved" />
-    <MESSAGE value="Code cleaning done. EasyStrategy working correctly now" />
-    <MESSAGE value="GameHandler working well with hard strategy" />
-    <MESSAGE value="GameLogic working well with hard strategy" />
-    <MESSAGE value="HardStrategy implemented correctly" />
-    <MESSAGE value="HardStrategy code refactored" />
-    <MESSAGE value="GameController code refactored" />
-    <option name="LAST_COMMIT_MESSAGE" value="GameController code refactored" />
+    <MESSAGE value="GameResult interface created; it will serve as a basis for creating GameResultWithDialog and GameResultWithLogging classes" />
+    <MESSAGE value="EndGameDialogController - improved code readability and structure" />
+    <MESSAGE value="GraphicsManager - improved code readability and structure" />
+    <MESSAGE value="GameEngine - improved code readability and structure" />
+    <MESSAGE value="AIStrategy - improved code readability and structure" />
+    <MESSAGE value="GameController - ComboBox deleted. Difficulty level choice realized via RadioMenuItem" />
+    <MESSAGE value="FXML - ComboBox deleted. Difficulty level choice realized via RadioMenuItem" />
+    <MESSAGE value="MenuActions created. It will be used to store methods that implement menu activities" />
+    <MESSAGE value="AboutWindow created. It uses the text from ReadMe.md" />
+    <MESSAGE value="GameController - code is optimized in accordance with the best Java clean code practices" />
+    <MESSAGE value="HowToWindow created" />
+    <MESSAGE value="HowToWindow code cleaned" />
+    <MESSAGE value="README - How To Play added" />
+    <MESSAGE value="Main - AnchorPaine to 600x600" />
+    <MESSAGE value="FXML - AnchorPaine to 600x600" />
+    <MESSAGE value="EndGameDialog.fxml - size changed" />
+    <MESSAGE value="GameResultHandler - centerStage refined" />
+    <MESSAGE value="GameResultHandler - сode readability enhanced" />
+    <MESSAGE value="EndGameDialog created. Method show relocated out of GameResultHandler" />
+    <MESSAGE value="NewGame created. Method start relocated out of EndGameDialog" />
+    <MESSAGE value="EndGameDialog - method start relocated to NewGame class" />
+    <MESSAGE value="Constants - colors added" />
+    <MESSAGE value="EndGameDialogController - color constants implemented" />
+    <MESSAGE value="GameResultHandler endGameDialog show relocated to EndGameDialog class" />
+    <MESSAGE value="GameController - Code Readability Enhanced" />
+    <option name="LAST_COMMIT_MESSAGE" value="GameController - Code Readability Enhanced" />
   </component>
 </project>

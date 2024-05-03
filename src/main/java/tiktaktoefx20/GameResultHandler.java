@@ -1,11 +1,12 @@
 package tiktaktoefx20;
 
+import javafx.fxml.*;
 import javafx.scene.layout.*;
 import tiktaktoefx20.database.*;
+
 import java.util.*;
+
 import static tiktaktoefx20.GameEngine.*;
-import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
 
 public class GameResultHandler {
 
@@ -19,7 +20,7 @@ public class GameResultHandler {
     public GameResultHandler() {
     }
 
-    public void setGameController(GameController gameController) {
+    public void setGameController() {
     }
 
     @FXML

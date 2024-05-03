@@ -63,12 +63,8 @@ public class AIStrategy implements MoveStrategy {
                 .max(Comparator.comparingInt(move -> move[2]))
                 .orElse(null);
 
-        if (bestMove != null) {
-            // Возвращаем координаты лучшего хода (первые два элемента)
-            return new int[]{bestMove[0], bestMove[1]};
-        } else {
-            return null;
-        }
+        // Возвращаем координаты лучшего хода (первые два элемента)
+        return new int[]{bestMove[0], bestMove[1]};
     }
 
 }

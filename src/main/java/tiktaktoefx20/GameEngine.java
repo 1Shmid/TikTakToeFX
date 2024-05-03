@@ -6,7 +6,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.util.*;
-import java.util.stream.*;
 
 public class GameEngine extends GameResultHandler {
 
@@ -36,7 +35,7 @@ public class GameEngine extends GameResultHandler {
     }
 
     // Определение координат выигрышных ячеек в строках
-    static List<int[]> getRowsWinningCellsCoordinates(char[][] gameField, int row) {
+    static List<int[]> getRowsWinningCellsCoordinates(int row) {
         List<int[]> coordinates = new ArrayList<>();
         for (int j = 0; j < Constants.FIELD_SIZE; j++) {
             coordinates.add(new int[]{row, j});
@@ -45,7 +44,7 @@ public class GameEngine extends GameResultHandler {
     }
 
     // Определение координат выигрышных ячеек в столбцах
-    static List<int[]> getColumnWinningCellsCoordinates(char[][] gameField, int col) {
+    static List<int[]> getColumnWinningCellsCoordinates(int col) {
         List<int[]> coordinates = new ArrayList<>();
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
             coordinates.add(new int[]{i, col});
@@ -73,7 +72,7 @@ public class GameEngine extends GameResultHandler {
                     (gameField[i][0] == Constants.X_SYMBOL || gameField[i][0] == Constants.O_SYMBOL)) {
                 //winningCells = getRowsWinningCellsCoordinates(gameField, i);
                 winningCells.clear();
-                winningCells.addAll(getRowsWinningCellsCoordinates(gameField, i));
+                winningCells.addAll(getRowsWinningCellsCoordinates(i));
                 return true;
             }
         }
@@ -85,7 +84,7 @@ public class GameEngine extends GameResultHandler {
             if (gameField[0][i] == gameField[1][i] &&
                     gameField[0][i] == gameField[2][i] &&
                     (gameField[0][i] == Constants.X_SYMBOL || gameField[0][i] == Constants.O_SYMBOL)) {
-                winningCells = getColumnWinningCellsCoordinates(gameField, i);
+                winningCells = getColumnWinningCellsCoordinates(i);
                 columnWinFound = true; // Устанавливаем флаг, что выигрыш в столбце найден
                 break; // Прерываем цикл, так как выигрыш найден
             }
