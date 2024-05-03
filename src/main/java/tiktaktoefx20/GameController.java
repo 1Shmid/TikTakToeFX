@@ -5,6 +5,7 @@ import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import tiktaktoefx20.database.*;
 import tiktaktoefx20.menu.*;
@@ -31,11 +32,10 @@ public class GameController extends GameEngine {
     private static long startTime;
     private ToggleGroup difficultyNewGame;
 
-    @FXML
-    private AnchorPane anchorPane;
+    private final GraphicsManager graphicsManager = new GraphicsManager();
 
     @FXML
-    private MenuBar menuBar;
+    private AnchorPane anchorPane;
 
     @FXML
     private Text dynamicText;
@@ -45,6 +45,12 @@ public class GameController extends GameEngine {
 
     @FXML
     private HBox hbox;
+
+    @FXML
+    private MenuBar menuBar;
+
+    @FXML
+    private Rectangle shade;
 
     @FXML
     void btnClick(ActionEvent event) {
@@ -64,6 +70,8 @@ public class GameController extends GameEngine {
         initializeMenuBar();
 
         initializeGameResultHandler();
+
+        Platform.runLater(() -> graphicsManager.animateShade(shade, gridPane));
 
         // Запускаем таймер
         startGameTimer();
