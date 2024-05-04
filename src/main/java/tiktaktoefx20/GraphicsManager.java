@@ -2,9 +2,9 @@ package tiktaktoefx20;
 
 import javafx.animation.*;
 import javafx.geometry.*;
-import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.util.*;
 
@@ -13,6 +13,54 @@ import java.util.*;
 public class GraphicsManager extends GameResultHandler {
 
     private final Canvas winningLineCanvas = new Canvas();
+
+    protected static void animateVLine(Line line, double startY, double endY, Duration speed) {
+        double newStartY = startY + (1.0 / 2) * (endY - startY); // Двигаем начальную точку влево от центра
+        double newEndY = endY - (1.0 / 2) * (endY - startY); // Двигаем конечную точку вправо от центра
+
+        line.setStartY(newStartY);
+        line.setEndY(newEndY);
+
+        // Создаем анимацию для изменения координаты X начальной точки
+        Timeline startAnimation = new Timeline();
+        startAnimation.getKeyFrames().add(
+                new KeyFrame(speed, new KeyValue(line.startYProperty(), startY))
+        );
+
+        // Создаем анимацию для изменения координаты X конечной точки
+        Timeline endAnimation = new Timeline();
+        endAnimation.getKeyFrames().add(
+                new KeyFrame(speed, new KeyValue(line.endYProperty(), endY))
+        );
+
+        // Запускаем анимации
+        startAnimation.play();
+        endAnimation.play();
+    }
+
+    protected static void animateHLine(Line line, double startX, double endX, Duration speed) {
+        double newStartX = startX + (1.0 / 2) * (endX - startX); // Двигаем начальную точку влево от центра
+        double newEndX = endX - (1.0 / 2) * (endX - startX); // Двигаем конечную точку вправо от центра
+
+        line.setStartX(newStartX);
+        line.setEndX(newEndX);
+
+        // Создаем анимацию для изменения координаты X начальной точки
+        Timeline startAnimation = new Timeline();
+        startAnimation.getKeyFrames().add(
+                new KeyFrame(speed, new KeyValue(line.startXProperty(), startX))
+        );
+
+        // Создаем анимацию для изменения координаты X конечной точки
+        Timeline endAnimation = new Timeline();
+        endAnimation.getKeyFrames().add(
+                new KeyFrame(speed, new KeyValue(line.endXProperty(), endX))
+        );
+
+        // Запускаем анимации
+        startAnimation.play();
+        endAnimation.play();
+    }
 
     private void setupCanvas(AnchorPane anchorPane) {
         if (!anchorPane.getChildren().contains(winningLineCanvas)) {
@@ -99,7 +147,7 @@ public class GraphicsManager extends GameResultHandler {
         drawLine(startX, startY, endX, endY, winner);
     }
 
-    public void animateShade(Rectangle shade, GridPane gridPane) {
+    static void animateShade(Rectangle shade, GridPane gridPane) {
         // Вызываем метод установки позиции
         centeringShade(shade, gridPane);
 
@@ -113,13 +161,25 @@ public class GraphicsManager extends GameResultHandler {
         scaleTransition.setOnFinished(event -> {
             // Установка цвета прямоугольника на прозрачный
             shade.setFill(Color.TRANSPARENT);
+
+            // Создаем анимацию для возврата прямоугольника к исходным размерам
+            ScaleTransition reverseTransition = new ScaleTransition();
+            reverseTransition.setNode(shade);
+            reverseTransition.setDuration(Duration.millis(300)); // Время анимации (300 миллисекунд)
+            reverseTransition.setToX(1); // Масштабирование по оси X до исходного размера
+            reverseTransition.setToY(1); // Масштабирование по оси Y до исходного размера
+
+            // Запуск анимации возврата
+            reverseTransition.play();
         });
 
         // Запуск анимации
         scaleTransition.play();
     }
 
-    private void centeringShade(Rectangle shade, GridPane gridPane) {
+
+
+    private static void centeringShade(Rectangle shade, GridPane gridPane) {
         // Получаем размеры прямоугольника
         double shadeWidth = shade.getWidth();
         double shadeHeight = shade.getHeight();
@@ -135,7 +195,7 @@ public class GraphicsManager extends GameResultHandler {
         AnchorPane.setTopAnchor(shade, topLeftY);
     }
 
-    private Point2D getCenterCoordinates(GridPane gridPane) {
+    private static Point2D getCenterCoordinates(GridPane gridPane) {
         // Получаем координаты верхнего левого угла GridPane относительно AnchorPane
         double gridPaneLayoutX = gridPane.getLocalToParentTransform().getTx();
         double gridPaneLayoutY = gridPane.getLocalToParentTransform().getTy();
@@ -149,5 +209,27 @@ public class GraphicsManager extends GameResultHandler {
         double centerY = gridPaneLayoutY + gridPaneHeight / 2;
 
         return new Point2D(centerX, centerY);
+    }
+
+    protected void animateLine(Line line) {
+
+        // Получаем текущие координаты X начальной и конечной точек линии
+        double startX = line.getStartX();
+        double endX = line.getEndX();
+
+        double startY = line.getStartY();
+        double endY = line.getEndY();
+
+        Duration speed = Duration.millis(500);
+
+        if (startY == endY){
+            // Задаем новые координаты для начальной и конечной точек
+            animateHLine(line, startX, endX, speed);
+        }
+
+        if (startX == endX){
+            // Задаем новые координаты для начальной и конечной точек
+            animateVLine(line, startY, endY, speed);
+        }
     }
 }
