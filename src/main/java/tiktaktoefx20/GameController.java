@@ -6,7 +6,6 @@ import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.*;
@@ -225,8 +224,8 @@ public class GameController extends GameEngine {
                     computerMovesCounter,
                     stopGameTimer(),
                     selectedLevel,
-                    anchorPane,
-                    shade);
+                    anchorPane
+            );
 
             System.out.println();
 
@@ -263,15 +262,8 @@ public class GameController extends GameEngine {
                         computerMovesCounter,
                         stopGameTimer(),
                         selectedLevel,
-                        anchorPane,
-                        shade);
-
-
-                System.out.println();
-
-                System.out.println("endGame Comp finished");
-
-                System.out.println();
+                        anchorPane
+                );
             }
         }
     }

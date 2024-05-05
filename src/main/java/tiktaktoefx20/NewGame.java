@@ -1,22 +1,17 @@
 package tiktaktoefx20;
 
-import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.canvas.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
-import javafx.scene.shape.*;
 import javafx.stage.*;
 import tiktaktoefx20.database.*;
-
-import java.io.*;
 
 
 public class NewGame {
 
 
-    protected void start(char[][] gameField, AnchorPane anchorPane, GridPane gridPane, Rectangle shade) {
+    protected void start(char[][] gameField, AnchorPane anchorPane, GridPane gridPane) {
 
         clearCanvas(anchorPane);
         clearGridPaine(gridPane);

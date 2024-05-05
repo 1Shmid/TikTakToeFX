@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="GameController - line animation moved to GraphicsManager">
+    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="Project code readability enhanced">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TTTFX 2.0.db" beforeDir="false" afterPath="$PROJECT_DIR$/TTTFX 2.0.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GraphicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GraphicsManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/TTTFXback_WidePaine.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,14 +175,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712580090347</updated>
-    </task>
-    <task id="LOCAL-00022" summary="HardStrategy implemented correctly">
-      <option name="closed" value="true" />
-      <created>1713282487286</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1713282487286</updated>
     </task>
     <task id="LOCAL-00023" summary="HardStrategy code refactored">
       <option name="closed" value="true" />
@@ -573,7 +560,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714831844596</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Project code readability enhanced">
+      <option name="closed" value="true" />
+      <created>1714908078630</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1714908078631</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -591,6 +586,7 @@
     <option name="OPEN_GENERIC_TABS">
       <map>
         <entry key="5a999253-7cc1-48e3-9268-ee5e02829418" value="TOOL_WINDOW" />
+        <entry key="f703d83d-9789-4c37-8a72-d26d13af0717" value="TOOL_WINDOW" />
       </map>
     </option>
     <option name="RECENT_FILTERS">
@@ -635,12 +631,36 @@
             </State>
           </value>
         </entry>
+        <entry key="f703d83d-9789-4c37-8a72-d26d13af0717">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="FXML - ComboBox deleted. Difficulty level choice realized via RadioMenuItem" />
     <MESSAGE value="MenuActions created. It will be used to store methods that implement menu activities" />
     <MESSAGE value="AboutWindow created. It uses the text from ReadMe.md" />
     <MESSAGE value="GameController - code is optimized in accordance with the best Java clean code practices" />
@@ -665,6 +685,7 @@
     <MESSAGE value="GraphicsManager - animate Shade added" />
     <MESSAGE value="GameController - line animation added" />
     <MESSAGE value="GameController - line animation moved to GraphicsManager" />
-    <option name="LAST_COMMIT_MESSAGE" value="GameController - line animation moved to GraphicsManager" />
+    <MESSAGE value="Project code readability enhanced" />
+    <option name="LAST_COMMIT_MESSAGE" value="Project code readability enhanced" />
   </component>
 </project>
