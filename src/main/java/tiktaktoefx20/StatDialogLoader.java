@@ -53,7 +53,11 @@ public class StatDialogLoader {
 
         // Устанавливаем обработчик события на клик мышкой
         root.setOnMouseClicked(mouseEvent -> {
+            // Получаем контроллер окна
+            StatDialogController controller = loader.getController();
+            // Закрываем окно
             stage.close();
+            controller.stopTimer();
         });
     }
     // Метод для центрирования окна относительно другого окна с учетом высоты MenuBar
