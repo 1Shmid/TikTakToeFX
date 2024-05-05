@@ -1,35 +1,32 @@
 package tiktaktoefx20;
 
+import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.canvas.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.scene.shape.*;
 import javafx.stage.*;
 import tiktaktoefx20.database.*;
 
+import java.io.*;
+
+
 public class NewGame {
 
-    protected void start(char[][] gameField, AnchorPane anchorPane, GridPane gridPane) {
+
+    protected void start(char[][] gameField, AnchorPane anchorPane, GridPane gridPane, Rectangle shade) {
 
         clearCanvas(anchorPane);
-
         clearGridPaine(gridPane);
-
         clearGameField(gameField);
-
-        // Обнуляем счетчики ходов
         GameController.resetMoveCounters();
-
-        // Включаем таймер игры
         GameController.startGameTimer();
-
-        // Получаем новый номер игры из базы данных
         int newGameId = SQLiteDBManager.getGameIdFromDatabase();
-
-        // Обновляем заголовок окна с новым номером игры
         setNewTitleGameNumber(newGameId, gridPane);
-
     }
+
 
     private void setNewTitleGameNumber(int newGameId, GridPane gridPane) {
 

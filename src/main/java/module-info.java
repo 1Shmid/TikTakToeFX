@@ -5,6 +5,7 @@ module org.example.tiktaktoefx {
     requires com.dlsc.formsfx;
     requires java.logging;
     requires java.sql;
+    requires java.desktop;
 
     opens tiktaktoefx20 to javafx.fxml;
     exports tiktaktoefx20;

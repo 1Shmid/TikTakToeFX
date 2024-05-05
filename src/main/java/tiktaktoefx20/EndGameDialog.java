@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.*;
+import javafx.scene.shape.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -17,7 +19,7 @@ public class EndGameDialog {
 
     NewGame newGame = new NewGame();
 
-    void show(char[][] gameField, String winnerSymbol, AnchorPane anchorPane, GridPane gridPane, String result) {
+    void show(char[][] gameField, String winnerSymbol, AnchorPane anchorPane, GridPane gridPane, String result, Rectangle shade) {
         // Загрузите FXML-файл для диалогового окна
         FXMLLoader loader = new FXMLLoader(getClass().getResource("EndGameDialog.fxml"));
         EndGameDialogController controller = new EndGameDialogController();
@@ -64,7 +66,7 @@ public class EndGameDialog {
         // Устанавливаем обработчик события на клик мышкой
         root.setOnMouseClicked(mouseEvent -> {
             stage.close();
-            newGame.start(gameField, anchorPane, gridPane);
+            newGame.start(gameField, anchorPane, gridPane, shade);
         });
     }
 
@@ -115,7 +117,6 @@ public class EndGameDialog {
         fadeTransition.setToValue(1.0); // Конечное значение прозрачности
 
         // Создаем параллельную анимацию для выполнения обеих анимаций одновременно
-
         return new ParallelTransition(scaleTransition, fadeTransition);
     }
 

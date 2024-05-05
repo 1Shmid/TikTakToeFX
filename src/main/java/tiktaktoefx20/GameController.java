@@ -1,12 +1,15 @@
 package tiktaktoefx20;
 
+import javafx.animation.*;
 import javafx.application.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
+import javafx.util.*;
 import tiktaktoefx20.database.*;
 import tiktaktoefx20.menu.*;
 import tiktaktoefx20.strategies.*;
@@ -31,22 +34,20 @@ public class GameController extends GameEngine {
     private static long startTime;
     private ToggleGroup difficultyNewGame;
 
-    private final GraphicsManager graphicsManager = new GraphicsManager();
-
     @FXML
     private AnchorPane anchorPane;
 
     @FXML
-    private Text dynamicText;
+    protected Text dynamicText;
 
     @FXML
-    private Text staticText;
+    protected Text staticText;
 
     @FXML
-    private HBox hbox;
+    protected HBox hbox;
 
     @FXML
-    private MenuBar menuBar;
+    protected MenuBar menuBar;
 
     @FXML
     private Rectangle shade;
@@ -74,29 +75,15 @@ public class GameController extends GameEngine {
     @FXML
     void initialize() {
 
-        Platform.runLater(this::initializeLines);
-
         initializeGameField();
 
         initializeLevelInfoLine();
 
         initializeMenuBar();
 
-        initializeGameResultHandler();
-
         startGameTimer();
-    }
 
-    private void initializeLines() {
-        graphicsManager.animateLine(bottomHLine);
-        graphicsManager.animateLine(rightVLine);
-        graphicsManager.animateLine(upHLine);
-        graphicsManager.animateLine(leftVLine);
-    }
-
-    private void initializeGameResultHandler() {
-        GameResultHandler gameResultHandler = new GameResultHandler(); // Передаем ссылку на текущий объект GameController
-        gameResultHandler.setGameController(); // Установка контроллера в gameResultHandler
+        Platform.runLater(this::initializeLines);
     }
 
     private void magicOn(ClickResult clickResult) {
@@ -126,6 +113,93 @@ public class GameController extends GameEngine {
         return new ClickResult(row, col);
     }
 
+    protected void initializeLines() {
+
+        animateLine(bottomHLine);
+        animateLine(rightVLine);
+        animateLine(upHLine);
+        animateLine(leftVLine);
+
+    }
+
+    protected void animateLine(Line line) {
+
+        if (line == null) {
+            System.out.println("Line is null!");
+            return;
+        }
+
+        // Получаем текущие координаты X начальной и конечной точек линии
+        double startX = line.getStartX();
+        double endX = line.getEndX();
+
+        double startY = line.getStartY();
+        double endY = line.getEndY();
+
+        Duration speed = Duration.millis(500);
+
+        if (startY == endY){
+            // Задаем новые координаты для начальной и конечной точек
+            animateHLine(line, startX, endX, speed);
+        }
+
+        if (startX == endX){
+            // Задаем новые координаты для начальной и конечной точек
+            animateVLine(line, startY, endY, speed);
+        }
+    }
+
+    protected void animateVLine(Line line, double startY, double endY, Duration speed) {
+        double newStartY = startY + (1.0 / 2) * (endY - startY); // Двигаем начальную точку влево от центра
+        double newEndY = endY - (1.0 / 2) * (endY - startY); // Двигаем конечную точку вправо от центра
+
+        line.setStartY(newStartY);
+        line.setEndY(newEndY);
+
+        // Создаем анимацию для изменения координаты X начальной точки
+        Timeline startAnimation = new Timeline();
+        startAnimation.getKeyFrames().add(
+                new KeyFrame(speed, new KeyValue(line.startYProperty(), startY))
+        );
+
+        // Создаем анимацию для изменения координаты X конечной точки
+        Timeline endAnimation = new Timeline();
+        endAnimation.getKeyFrames().add(
+                new KeyFrame(speed, new KeyValue(line.endYProperty(), endY))
+        );
+
+        // Запускаем анимации
+        startAnimation.play();
+        endAnimation.play();
+    }
+
+    protected void animateHLine(Line line, double startX, double endX, Duration speed) {
+
+        double newStartX = startX + (1.0 / 2) * (endX - startX); // Двигаем начальную точку влево от центра
+        double newEndX = endX - (1.0 / 2) * (endX - startX); // Двигаем конечную точку вправо от центра
+
+        line.setStartX(newStartX);
+        line.setEndX(newEndX);
+
+        // Создаем анимацию для изменения координаты X начальной точки
+        Timeline startAnimation = new Timeline();
+        startAnimation.getKeyFrames().add(
+                new KeyFrame(speed, new KeyValue(line.startXProperty(), startX))
+        );
+
+        // Создаем анимацию для изменения координаты X конечной точки
+        Timeline endAnimation = new Timeline();
+        endAnimation.getKeyFrames().add(
+                new KeyFrame(speed, new KeyValue(line.endXProperty(), endX))
+        );
+
+        // Запускаем анимации
+        startAnimation.play();
+        endAnimation.play();
+    }
+
+
+
     private record ClickResult(int row, int col) {
     }
 
@@ -153,6 +227,12 @@ public class GameController extends GameEngine {
                     selectedLevel,
                     anchorPane,
                     shade);
+
+            System.out.println();
+
+            System.out.println("endGame Player finished");
+
+            System.out.println();
         } else {
 
             // Делаем ход компьютера с выбранной стратегией
@@ -185,6 +265,13 @@ public class GameController extends GameEngine {
                         selectedLevel,
                         anchorPane,
                         shade);
+
+
+                System.out.println();
+
+                System.out.println("endGame Comp finished");
+
+                System.out.println();
             }
         }
     }

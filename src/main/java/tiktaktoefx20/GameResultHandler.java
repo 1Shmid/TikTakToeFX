@@ -2,6 +2,7 @@ package tiktaktoefx20;
 
 import javafx.fxml.*;
 import javafx.scene.layout.*;
+import javafx.scene.shape.*;
 import tiktaktoefx20.database.*;
 
 import java.util.*;
@@ -15,22 +16,29 @@ public class GameResultHandler {
     @FXML
     protected GridPane gridPane;
 
+
     EndGameDialog endGameDialog = new EndGameDialog();
 
     public GameResultHandler() {
     }
 
-    public void setGameController() {
-    }
+//    public void setGameController() {
+//    }
 
     @FXML
-    public void endGame(List<int[]> winningCells, char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel, AnchorPane anchorPane) {
+    public void endGame(List<int[]> winningCells, char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel, AnchorPane anchorPane, Rectangle shade) {
         
         final String result = gameResult(winningCells, gameField, winnerSymbol, anchorPane);
 
         recordGameResult(moves, totalMoves, playerMoves, computerMoves, duration, selectedLevel, result);
 
-        endGameDialog.show(gameField, winnerSymbol, anchorPane, gridPane, result);
+        endGameDialog.show(gameField, winnerSymbol, anchorPane, gridPane, result, shade);
+
+        System.out.println();
+
+        System.out.println("endGameDialog.show finished");
+
+        System.out.println();
     }
 
     private String gameResult(List<int[]> winningCells, char[][] gameField, String winnerSymbol, AnchorPane anchorPane) {

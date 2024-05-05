@@ -4,34 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="GameController - Code Readability Enhanced">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/TTTFXback_WidePaine.fxml" afterDir="false" />
+    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="GameController - line animation moved to GraphicsManager">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TTTFX 2.0.db" beforeDir="false" afterPath="$PROJECT_DIR$/TTTFX 2.0.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialogController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameHistory.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/MenuActions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/MenuController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameStats.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/SQLiteDBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/SQLiteDBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/AboutWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/AboutWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/HowToWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/HowToWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AIStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AIStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GraphicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GraphicsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/TTTFXback_WidePaine.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="CodeInsightWorkspaceSettings">
-    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -53,6 +42,9 @@
     <option name="RESET_MODE" value="HARD" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -71,30 +63,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameControllerTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameControllerTest.testComputerMove.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;TestNG.GameControllerTest.testComputerMove.executor&quot;: &quot;Run&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;version-2.2&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Asus/IdeaProjects/tetris&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.folding&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.HelloApplication.executor": "Run",
+    "Application.Main.executor": "Run",
+    "JUnit.GameControllerTest.executor": "Run",
+    "JUnit.GameControllerTest.testComputerMove.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TestNG.GameControllerTest.testComputerMove.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "version-2.2",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Asus/IdeaProjects/tetris",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "editor.preferences.import"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="tiktaktoefx20" />
@@ -105,6 +97,7 @@
       <recent name="" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="tiktaktoefx20.GraphicsManager" />
       <recent name="tiktaktoefx20.Restart" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -187,62 +180,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712580090347</updated>
-    </task>
-    <task id="LOCAL-00015" summary="GameController messages translated">
-      <option name="closed" value="true" />
-      <created>1712793483772</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1712793483772</updated>
-    </task>
-    <task id="LOCAL-00016" summary="GameController ComboBox added; Game mode choosing realized">
-      <option name="closed" value="true" />
-      <created>1712806796381</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1712806796381</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Main improved">
-      <option name="closed" value="true" />
-      <created>1712833049328</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1712833049328</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Code cleaning done. EasyStrategy working correctly now">
-      <option name="closed" value="true" />
-      <created>1713273275330</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1713273275330</updated>
-    </task>
-    <task id="LOCAL-00019" summary="GameHandler working well with hard strategy">
-      <option name="closed" value="true" />
-      <created>1713279823570</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1713279823570</updated>
-    </task>
-    <task id="LOCAL-00020" summary="GameLogic working well with hard strategy">
-      <option name="closed" value="true" />
-      <created>1713281072318</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1713281072318</updated>
-    </task>
-    <task id="LOCAL-00021" summary="GameLogic working well with hard strategy">
-      <option name="closed" value="true" />
-      <created>1713281105358</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1713281105358</updated>
     </task>
     <task id="LOCAL-00022" summary="HardStrategy implemented correctly">
       <option name="closed" value="true" />
@@ -580,7 +517,63 @@
       <option name="project" value="LOCAL" />
       <updated>1714701410362</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Code Readability Enhanced">
+      <option name="closed" value="true" />
+      <created>1714702347901</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1714702347901</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Main - Code Readability Enhanced">
+      <option name="closed" value="true" />
+      <created>1714740904317</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1714740904317</updated>
+    </task>
+    <task id="LOCAL-00066" summary="GameController - animate Shade added">
+      <option name="closed" value="true" />
+      <created>1714741073608</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1714741073608</updated>
+    </task>
+    <task id="LOCAL-00067" summary="GraphicsManager - animate Shade added">
+      <option name="closed" value="true" />
+      <created>1714741130485</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1714741130485</updated>
+    </task>
+    <task id="LOCAL-00068" summary="GameController - line animation added">
+      <option name="closed" value="true" />
+      <created>1714831168895</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1714831168895</updated>
+    </task>
+    <task id="LOCAL-00069" summary="GameController - line animation moved to GraphicsManager">
+      <option name="closed" value="true" />
+      <created>1714831768969</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1714831768969</updated>
+    </task>
+    <task id="LOCAL-00070" summary="GameController - line animation moved to GraphicsManager">
+      <option name="closed" value="true" />
+      <created>1714831844596</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1714831844596</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -647,12 +640,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="GameResult interface created; it will serve as a basis for creating GameResultWithDialog and GameResultWithLogging classes" />
-    <MESSAGE value="EndGameDialogController - improved code readability and structure" />
-    <MESSAGE value="GraphicsManager - improved code readability and structure" />
-    <MESSAGE value="GameEngine - improved code readability and structure" />
-    <MESSAGE value="AIStrategy - improved code readability and structure" />
-    <MESSAGE value="GameController - ComboBox deleted. Difficulty level choice realized via RadioMenuItem" />
     <MESSAGE value="FXML - ComboBox deleted. Difficulty level choice realized via RadioMenuItem" />
     <MESSAGE value="MenuActions created. It will be used to store methods that implement menu activities" />
     <MESSAGE value="AboutWindow created. It uses the text from ReadMe.md" />
@@ -672,6 +659,12 @@
     <MESSAGE value="EndGameDialogController - color constants implemented" />
     <MESSAGE value="GameResultHandler endGameDialog show relocated to EndGameDialog class" />
     <MESSAGE value="GameController - Code Readability Enhanced" />
-    <option name="LAST_COMMIT_MESSAGE" value="GameController - Code Readability Enhanced" />
+    <MESSAGE value="Code Readability Enhanced" />
+    <MESSAGE value="Main - Code Readability Enhanced" />
+    <MESSAGE value="GameController - animate Shade added" />
+    <MESSAGE value="GraphicsManager - animate Shade added" />
+    <MESSAGE value="GameController - line animation added" />
+    <MESSAGE value="GameController - line animation moved to GraphicsManager" />
+    <option name="LAST_COMMIT_MESSAGE" value="GameController - line animation moved to GraphicsManager" />
   </component>
 </project>
