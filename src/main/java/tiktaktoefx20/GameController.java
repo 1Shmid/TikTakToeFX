@@ -226,12 +226,6 @@ public class GameController extends GameEngine {
                     selectedLevel,
                     anchorPane
             );
-
-            System.out.println();
-
-            System.out.println("endGame Player finished");
-
-            System.out.println();
         } else {
 
             // Делаем ход компьютера с выбранной стратегией
@@ -388,6 +382,14 @@ public class GameController extends GameEngine {
         return (int) ((endTime - startTime) / 1000);
     }
 
+    public static int getCurrentGameTime() {
+        // Получаем текущее время в миллисекундах
+        long currentTime = System.currentTimeMillis();
+        // Вычисляем разницу между текущим временем и началом игры в секундах
+        int currentGameTimeInSeconds = (int) ((currentTime - startTime) / 1000);
+        return currentGameTimeInSeconds;
+    }
+
     // Обработчики событий для меню
 
     public void handleOptionsMenuItem() {
@@ -404,9 +406,10 @@ public class GameController extends GameEngine {
         HowToWindow.displayHowToDialog();
     }
 
+    StatDialogLoader statDialogLoader = new StatDialogLoader();
+
     public void handleStatisticMenuItem() {
-        // Ваш код для статистики
-        System.out.println("You selected Statistic menu item");
+        statDialogLoader.showDialog(anchorPane);
     }
 
     public void handleAboutMenuItem() {

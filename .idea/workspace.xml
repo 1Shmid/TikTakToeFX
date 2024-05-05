@@ -4,13 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="Project code readability enhanced">
+    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="StatDialog.fxml created">
+      <change afterPath="$PROJECT_DIR$/error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TTTFX 2.0.db" beforeDir="false" afterPath="$PROJECT_DIR$/TTTFX 2.0.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Context.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Context.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/MoveStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/MoveStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/StatDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/StatDialogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/StatDialogLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/StatDialogLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/SQLiteDBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/SQLiteDBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/HowToWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/HowToWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/StatDialogController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/StatDialogLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AIStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AIStrategy.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +105,9 @@
       <recent name="tiktaktoefx20.Restart" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="tiktaktoefx20" />
+      <recent name="tiktaktoefx20.menu" />
+      <recent name="tiktaktoefx20.strategies" />
       <recent name="tiktaktoefx20.database" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
@@ -107,7 +119,7 @@
       <module name="TikTakToeFX" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tiktaktoefx20.menu.*" />
+          <option name="PATTERN" value="tiktaktoefx20.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -122,7 +134,7 @@
       <module name="TikTakToeFX" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tiktaktoefx20.menu.*" />
+          <option name="PATTERN" value="tiktaktoefx20.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -138,7 +150,7 @@
       <module name="TikTakToeFX" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tiktaktoefx20.menu.*" />
+          <option name="PATTERN" value="tiktaktoefx20.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -175,62 +187,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712580090347</updated>
-    </task>
-    <task id="LOCAL-00023" summary="HardStrategy code refactored">
-      <option name="closed" value="true" />
-      <created>1713283107422</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1713283107422</updated>
-    </task>
-    <task id="LOCAL-00024" summary="GameController code refactored">
-      <option name="closed" value="true" />
-      <created>1713284797689</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1713284797689</updated>
-    </task>
-    <task id="LOCAL-00025" summary="EndGameDialogController is remastered after a failed rollback">
-      <option name="closed" value="true" />
-      <created>1714559358857</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1714559358857</updated>
-    </task>
-    <task id="LOCAL-00026" summary="EndGameDialog is remastered after a failed rollback">
-      <option name="closed" value="true" />
-      <created>1714559583926</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1714559583926</updated>
-    </task>
-    <task id="LOCAL-00027" summary="SQLiteDBManager - Added a check in case there are no records in the database">
-      <option name="closed" value="true" />
-      <created>1714562510686</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1714562510686</updated>
-    </task>
-    <task id="LOCAL-00028" summary="module-info.java saved">
-      <option name="closed" value="true" />
-      <created>1714563805019</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1714563805019</updated>
-    </task>
-    <task id="LOCAL-00029" summary="FXML - MenuBar added. Defined method names for MenuItems">
-      <option name="closed" value="true" />
-      <created>1714565185902</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1714565185902</updated>
     </task>
     <task id="LOCAL-00030" summary="MenuController - is created to accommodate menu event handlers">
       <option name="closed" value="true" />
@@ -568,7 +524,63 @@
       <option name="project" value="LOCAL" />
       <updated>1714908078631</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Project code readability enhanced">
+      <option name="closed" value="true" />
+      <created>1714908461441</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1714908461441</updated>
+    </task>
+    <task id="LOCAL-00073" summary="StatDialogController created">
+      <option name="closed" value="true" />
+      <created>1714912095585</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1714912095585</updated>
+    </task>
+    <task id="LOCAL-00074" summary="StatDialogLoader created">
+      <option name="closed" value="true" />
+      <created>1714912920305</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1714912920305</updated>
+    </task>
+    <task id="LOCAL-00075" summary="StatDialogController created">
+      <option name="closed" value="true" />
+      <created>1714917568963</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1714917568963</updated>
+    </task>
+    <task id="LOCAL-00076" summary="StatDialogLoader - added launching and centering">
+      <option name="closed" value="true" />
+      <created>1714917857341</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1714917857341</updated>
+    </task>
+    <task id="LOCAL-00077" summary="StatDialogLoader - added stopTimer">
+      <option name="closed" value="true" />
+      <created>1714925556679</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1714925556679</updated>
+    </task>
+    <task id="LOCAL-00078" summary="StatDialog.fxml created">
+      <option name="closed" value="true" />
+      <created>1714927250147</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1714927250147</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -661,11 +673,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="MenuActions created. It will be used to store methods that implement menu activities" />
-    <MESSAGE value="AboutWindow created. It uses the text from ReadMe.md" />
-    <MESSAGE value="GameController - code is optimized in accordance with the best Java clean code practices" />
-    <MESSAGE value="HowToWindow created" />
-    <MESSAGE value="HowToWindow code cleaned" />
     <MESSAGE value="README - How To Play added" />
     <MESSAGE value="Main - AnchorPaine to 600x600" />
     <MESSAGE value="FXML - AnchorPaine to 600x600" />
@@ -686,6 +693,11 @@
     <MESSAGE value="GameController - line animation added" />
     <MESSAGE value="GameController - line animation moved to GraphicsManager" />
     <MESSAGE value="Project code readability enhanced" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project code readability enhanced" />
+    <MESSAGE value="StatDialogLoader created" />
+    <MESSAGE value="StatDialogController created" />
+    <MESSAGE value="StatDialogLoader - added launching and centering" />
+    <MESSAGE value="StatDialogLoader - added stopTimer" />
+    <MESSAGE value="StatDialog.fxml created" />
+    <option name="LAST_COMMIT_MESSAGE" value="StatDialog.fxml created" />
   </component>
 </project>

@@ -13,7 +13,6 @@ public class HowToWindow {
 
         Alert howDialog = new Alert(Alert.AlertType.INFORMATION);
         howDialog.setTitle("How to Play");
-        // aboutDialog.setHeaderText("Welcome to Tic-Tac-Toe 2.0!");
         howDialog.setContentText(contentTextBuilder);
 
         // Убираем иконку и текст

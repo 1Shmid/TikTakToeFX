@@ -11,4 +11,6 @@ module org.example.tiktaktoefx {
     exports tiktaktoefx20;
     exports tiktaktoefx20.menu;
     opens tiktaktoefx20.menu to javafx.fxml;
+    exports tiktaktoefx20.strategies;
+    opens tiktaktoefx20.strategies to javafx.fxml;
 }

@@ -1,7 +1,6 @@
 package tiktaktoefx20.strategies;
 
 import tiktaktoefx20.Constants;
-import tiktaktoefx20.MoveStrategy;
 
 import java.util.ArrayList;
 import java.util.Comparator;

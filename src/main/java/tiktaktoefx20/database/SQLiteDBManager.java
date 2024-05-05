@@ -7,42 +7,30 @@ import java.util.logging.Logger;
 
 public class SQLiteDBManager {
 
-    public static final String DB_URL = "jdbc:sqlite:TTTFX 2.0.db";
+    private static final String DB_URL = "jdbc:sqlite:TTTFX 2.0.db";
     private static final Logger LOGGER = Logger.getLogger(SQLiteDBManager.class.getName());
 
     private static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL);
     }
 
-    public static void addGame(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, String result, int duration, String level) {
-        createTables();
+    public static int getCountWins(String result) {
+        String sql = "SELECT COUNT(*) FROM games WHERE result LIKE ?";
+        int wins = 0;
 
         try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO games (total_moves, player_moves, computer_moves, result, duration, level, game_state) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
-
-            conn.setAutoCommit(false);
-
-            for (GameMove move : moves) {
-                recordMove(conn, move.moveNumber(), move.player(), move.row(), move.col());
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "%" + result + "%");
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                wins = rs.getInt(1);
             }
-
-            pstmt.setInt(1, totalMoves);
-            pstmt.setInt(2, playerMoves);
-            pstmt.setInt(3, computerMoves);
-            pstmt.setString(4, result);
-            pstmt.setInt(5, duration);
-            pstmt.setString(6, level);
-            pstmt.setString(7, serializeGameState(moves)); // Serialize game state and store it
-
-            pstmt.executeUpdate();
-            conn.commit();
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error adding game to database", e);
+            LOGGER.log(Level.SEVERE, "Error counting wins", e);
         }
+
+        return wins;
     }
-
-
-
     private static void recordMove(Connection conn, int moveNumber, String player, int row, int col) {
         try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO moves (move_number, player, row, col) VALUES (?, ?, ?, ?)")) {
             pstmt.setInt(1, moveNumber);
@@ -95,7 +83,32 @@ public class SQLiteDBManager {
         return serializedState.toString();
     }
 
+    public static void addGame(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, String result, int duration, String level) {
+        createTables();
 
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO games (total_moves, player_moves, computer_moves, result, duration, level, game_state) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+
+            conn.setAutoCommit(false);
+
+            for (GameMove move : moves) {
+                recordMove(conn, move.moveNumber(), move.player(), move.row(), move.col());
+            }
+
+            pstmt.setInt(1, totalMoves);
+            pstmt.setInt(2, playerMoves);
+            pstmt.setInt(3, computerMoves);
+            pstmt.setString(4, result);
+            pstmt.setInt(5, duration);
+            pstmt.setString(6, level);
+            pstmt.setString(7, serializeGameState(moves)); // Serialize game state and store it
+
+            pstmt.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error adding game to database", e);
+        }
+    }
     public static int getTotalGames() {
         String sql = "SELECT COUNT(*) FROM games";
         int totalGames = 0;
@@ -129,7 +142,6 @@ public class SQLiteDBManager {
 
         return longestDuration;
     }
-
 
     // Общее игровое время
     public static int getTotalGameDuration() {

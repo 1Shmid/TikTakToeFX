@@ -1,6 +1,8 @@
 package tiktaktoefx20;
 
 
+import tiktaktoefx20.strategies.*;
+
 public class Context {
     private final MoveStrategy moveStrategy;
 

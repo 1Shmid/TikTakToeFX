@@ -8,11 +8,36 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.util.*;
-import tiktaktoefx20.*;
 
 import java.io.*;
 
 public class StatDialogLoader {
+
+    private void centerStage(Stage stage, Bounds gameBounds, double menuBarHeight) {
+
+        double parentHeaderHeight = 27;
+
+        // Получаем размеры диалогового окна
+        double dialogWidth = stage.getWidth();
+        double dialogHeight = stage.getHeight();
+
+        // Получаем размеры окна игры за вычетом высоты MenuBar
+        double gameWidth = gameBounds.getWidth();
+        double gameHeight = gameBounds.getHeight() - menuBarHeight;
+
+        // Вычисляем координаты середины окна игры
+        double gameCenterX = gameBounds.getMinX() + gameWidth / 2;
+        double gameCenterY = gameBounds.getMinY() + parentHeaderHeight + gameHeight / 2;
+
+        // Вычисляем новые координаты для центрирования диалогового окна
+        double newDialogX = gameCenterX - dialogWidth / 2;
+        double newDialogY = gameCenterY - dialogHeight / 2;
+
+        // Устанавливаем новые координаты для диалогового окна
+        stage.setX(newDialogX);
+        stage.setY(newDialogY);
+    }
+
     public void showDialog(AnchorPane anchorPane) {
 
         // Загрузите FXML-файл для диалогового окна
@@ -60,30 +85,4 @@ public class StatDialogLoader {
             controller.stopTimer();
         });
     }
-    // Метод для центрирования окна относительно другого окна с учетом высоты MenuBar
-    private void centerStage(Stage stage, Bounds gameBounds, double menuBarHeight) {
-
-        double parentHeaderHeight = 27;
-
-        // Получаем размеры диалогового окна
-        double dialogWidth = stage.getWidth();
-        double dialogHeight = stage.getHeight();
-
-        // Получаем размеры окна игры за вычетом высоты MenuBar
-        double gameWidth = gameBounds.getWidth();
-        double gameHeight = gameBounds.getHeight() - menuBarHeight;
-
-        // Вычисляем координаты середины окна игры
-        double gameCenterX = gameBounds.getMinX() + gameWidth / 2;
-        double gameCenterY = gameBounds.getMinY() + parentHeaderHeight + gameHeight / 2;
-
-        // Вычисляем новые координаты для центрирования диалогового окна
-        double newDialogX = gameCenterX - dialogWidth / 2;
-        double newDialogY = gameCenterY - dialogHeight / 2;
-
-        // Устанавливаем новые координаты для диалогового окна
-        stage.setX(newDialogX);
-        stage.setY(newDialogY);
-    }
-
 }

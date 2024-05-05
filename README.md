@@ -4,8 +4,11 @@
 
 ## Overview
 
-In this version of the game, the logic of difficulty levels has been overhauled using the Strategy pattern. I had to rewrite many of the classes almost from scratch, but the combination of interfaces and the Strategy pattern ultimately reduced the time needed to reconfigure existing logic and implement and debug new logic based on past game experience. SQLite database support was integrated to save games. I extensively utilized ChatGPT at this stage and found it to be very useful.
-I've also redesigned the playing field. Everyone's tastes are different, but I like this one better.
+In this iteration of the game, I revamped the difficulty level logic by adopting the Strategy pattern. This required a significant overhaul of several classes, but leveraging a combination of interfaces and the Strategy pattern notably streamlined the process of adjusting existing logic and introducing new logic based on insights from previous iterations. Additionally, I seamlessly integrated support for SQLite database to facilitate game saves.
+
+During this phase, I extensively utilized ChatGPT, finding it remarkably beneficial in guiding development decisions. Moreover, I revamped the game board, striking a balance between moderate animation and exhaustive information presentation. While individual preferences vary, I personally favor this approach.
+
+Furthermore, I introduced menus and windows that dynamically fetch data from ReadMe.md and the database. Notably, players can now adjust the difficulty level on the fly via a checkbox conveniently placed in the menu.
 ## Computer Moves Logic
 
 Now, the logic of computer moves is organized as follows:
@@ -49,17 +52,11 @@ Logging has been implemented using the standard Java Logging Framework. Errors a
 
 Although I know graphic packages, I have no artistic education, so I took the top one from Google as a basis for the new game design.
 
-Graphical elements and their animation are placed in a separate class `GraphicsManager`
-
-## Dependency injection
-As the project grows, methods with skyscrapers of parameters began to appear. To make the code easier to read, I applied dependency injection through the container implementation.
-
-- `GameResultContainer`
-- `Container2`
-- `Container3`
 
 
 ## Project structure
+
+//TODO
 - `src`: contains the source code of the project
 - `package1]`: [Description of package contents].
 - `[package2]`: [Package Content Description].
