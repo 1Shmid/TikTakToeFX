@@ -1,6 +1,7 @@
 package tiktaktoefx20;
 
 import javafx.animation.*;
+import javafx.fxml.*;
 import javafx.geometry.*;
 import javafx.scene.canvas.*;
 import javafx.scene.layout.*;
@@ -10,7 +11,13 @@ import javafx.util.*;
 
 import java.util.*;
 
-public class GraphicsManager extends GameResultHandler {
+public class GraphicsManager {
+
+//    @FXML
+//    protected GridPane gridPane;
+
+    GameController gameController = new GameController();
+
 
     private final Canvas winningLineCanvas = new Canvas();
 

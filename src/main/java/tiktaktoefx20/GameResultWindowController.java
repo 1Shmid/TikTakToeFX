@@ -6,9 +6,11 @@ import javafx.scene.control.*;
 import javafx.scene.paint.*;
 import javafx.scene.text.*;
 
+import java.util.*;
+
 import static tiktaktoefx20.Constants.*;
 
-public class EndGameDialogController {
+public class GameResultWindowController {
 
     @FXML
     private Label resultLabel;
@@ -51,4 +53,38 @@ public class EndGameDialogController {
     public void setStage() {
     }
 
-}
+//    private GameController gameController;
+//
+//    // Метод для регистрации GameController в качестве наблюдателя
+//    public void registerObserver(GameController gameController) {
+//        this.gameController = gameController;
+//        gameController.registerObserver(this); // Регистрируем текущий объект как наблюдателя
+//    }
+
+
+//    @Override
+//    public void updateDialogState(boolean isOpen) {
+//
+//        System.out.println("GameResultWindowController @Override updateDialogState:" + isOpen);
+
+//        // Здесь вызываем метод GameController
+//        if (!isOpen && gameController != null) {
+//            gameController.notifyObservers(false);
+//        }
+    }
+
+//    @Override
+//    public void registerObserver() {
+//        observers.add(observer);
+//    }
+//
+//    @Override
+//    public void removeObserver() {
+//
+//    }
+//
+//    @Override
+//    public void notifyObservers() {
+
+
+

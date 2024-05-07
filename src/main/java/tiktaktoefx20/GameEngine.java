@@ -119,21 +119,19 @@ public class GameEngine extends GameResultHandler {
         return false;
     }
 
-    public Button getButtonByIndexes(int row, int col) {
-        ObservableList<Node> children = gridPane.getChildren(); // Получаем список детей GridPane
-        for (Node node : children) {
-            if (node instanceof Button button) { // Проверяем, является ли дочерний элемент кнопкой
-                // Получаем индексы кнопки
-                int rowIndex = GridPane.getRowIndex(button) == null ? 0 : GridPane.getRowIndex(button);
-                int colIndex = GridPane.getColumnIndex(button) == null ? 0 : GridPane.getColumnIndex(button);
-                // Если индексы совпадают с переданными, возвращаем кнопку
-                if (rowIndex == row && colIndex == col) {
-                    return button;
-                }
-            }
-        }
-        return null; // Возвращаем null, если кнопка не найдена
-    }
-
-
+//    public Button getButtonByIndexes(int row, int col) {
+//        ObservableList<Node> children = gridPane.getChildren(); // Получаем список детей GridPane
+//        for (Node node : children) {
+//            if (node instanceof Button button) { // Проверяем, является ли дочерний элемент кнопкой
+//                // Получаем индексы кнопки
+//                int rowIndex = GridPane.getRowIndex(button) == null ? 0 : GridPane.getRowIndex(button);
+//                int colIndex = GridPane.getColumnIndex(button) == null ? 0 : GridPane.getColumnIndex(button);
+//                // Если индексы совпадают с переданными, возвращаем кнопку
+//                if (rowIndex == row && colIndex == col) {
+//                    return button;
+//                }
+//            }
+//        }
+//        return null; // Возвращаем null, если кнопка не найдена
+//    }
 }

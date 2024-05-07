@@ -1,25 +1,50 @@
 package tiktaktoefx20;
 
+import javafx.application.*;
 import javafx.scene.*;
 import javafx.scene.canvas.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.shape.*;
 import javafx.stage.*;
 import tiktaktoefx20.database.*;
+import javafx.concurrent.Task;
 
 
 public class NewGame {
 
+    protected void cleanGameResult(char[][] gameField, AnchorPane anchorPane, GridPane gridPane){
 
-    protected void start(char[][] gameField, AnchorPane anchorPane, GridPane gridPane) {
+        Task<Void> backgroundTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                Platform.runLater(() -> clearCanvas(anchorPane));
+                Platform.runLater(() -> clearGridPane(gridPane));
+                clearGameField(gameField);
+                GameController.resetMoveCounters();
+                return null;
+            }
+        };
 
-        clearCanvas(anchorPane);
-        clearGridPaine(gridPane);
-        clearGameField(gameField);
-        GameController.resetMoveCounters();
+        Thread thread = new Thread(backgroundTask);
+        thread.start();
+
+    }
+
+    protected void start(GridPane gridPane, Line bottomHLine, Line rightVLine, Line upHLine,Line leftVLine) {
+
+        GameController gameController = GameController.getInstance();
+
         GameController.startGameTimer();
         int newGameId = SQLiteDBManager.getGameIdFromDatabase();
         setNewTitleGameNumber(newGameId, gridPane);
+
+        gameController.animateLine(bottomHLine);
+        gameController.animateLine(rightVLine);
+        gameController.animateLine(upHLine);
+        gameController.animateLine(leftVLine);
+
+
     }
 
 
@@ -30,7 +55,7 @@ public class NewGame {
         stage.setTitle(newTitle);
     }
 
-    private void clearGridPaine(GridPane gridPane) {
+    private void clearGridPane(GridPane gridPane) {
 
         // Очищаем игровое поле и включаем все кнопки
         for (Node node : gridPane.getChildren()) {

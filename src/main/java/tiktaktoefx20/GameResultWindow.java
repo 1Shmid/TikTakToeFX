@@ -6,22 +6,91 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.*;
 import javafx.scene.layout.*;
+import javafx.scene.shape.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.beans.*;
 import java.io.IOException;
+import java.util.*;
 
-public class EndGameDialog {
+public class GameResultWindow {
+
+    //GameController gameController = new GameController();
+
+    private final List<PropertyChangeListener> listeners = new ArrayList<>();
+
+    private boolean isOpen;
+    private final PropertyChangeSupport support;
+    public GameResultWindow() {
+        support = new PropertyChangeSupport(this);
+    }
+    public boolean getValue() {
+        return isOpen;
+    }
+
+    public boolean setValue(boolean newValue) {
+        boolean oldValue = isOpen;
+        isOpen = newValue;
+        support.firePropertyChange("isOpen", oldValue, newValue);
+        return isOpen;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
+    }
+
+    public void updateWindowState(boolean isOpen) {
+
+        support.firePropertyChange("isOpen", this.isOpen, isOpen); // String propertyName, boolean oldValue, boolean newValue
+
+        System.out.println("updateWindowState: " + isOpen);
+
+        this.isOpen = isOpen;
+
+
+        // Создание объекта PropertyChangeEvent
+        PropertyChangeEvent evt = new PropertyChangeEvent(new GameResultWindow(), "isOpen", this.isOpen, isOpen);
+
+
+       // gameController.propertyChange(evt);
+
+    }
+
 
     NewGame newGame = new NewGame();
 
-    void show(char[][] gameField, String winnerSymbol, AnchorPane anchorPane, GridPane gridPane, String result) {
-        // Загрузите FXML-файл для диалогового окна
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("EndGameDialog.fxml"));
-        EndGameDialogController controller = new EndGameDialogController();
+    void show(char[][] gameField, String winnerSymbol, AnchorPane anchorPane, GridPane gridPane, String result, Line bottomHLine, Line rightVLine, Line upHLine, Line leftVLine) {
+
+        GameController gameController = GameController.getInstance();
+
+        updateWindowState(setValue(true));
+
+        addPropertyChangeListener(evt -> {
+            System.out.println("GameController-у отправлено сообщение об открытии");
+            gameController.propertyChange(evt);
+        });
+
+
+
+
+
+
+
+        // Загружаем FXML-файл для диалогового окна
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameResultWindow.fxml"));
+        GameResultWindowController controller = new GameResultWindowController();
+
+        //gameController.registerObserver(this);
+
         loader.setController(controller); // Устанавливаем контроллер
+
         Parent root;
         try {
             root = loader.load();
@@ -55,16 +124,35 @@ public class EndGameDialog {
         pause.setOnFinished(event -> {
             // После завершения паузы, показываем диалоговое окно
             Platform.runLater(stage::showAndWait);
+            newGame.cleanGameResult(gameField, anchorPane, gridPane);
         });
         pause.play();
 
         // Устанавливаем обработчик события на отображение окна
         stage.setOnShown(event -> centerStage(stage, gameBounds, menuBarHeight));
 
-        // Устанавливаем обработчик события на клик мышкой
+        addPropertyChangeListener(evt -> {
+            System.out.println("GameController-у успешно отпарвлено сообщение о закрытии");
+            System.out.println();
+            gameController.propertyChange(evt);
+            });
+
+
+
+
         root.setOnMouseClicked(mouseEvent -> {
+
+            updateWindowState(false);
+
+
+//            System.out.println("GameController-у отправлено сообщение о закрытии");
+
+            newGame.start(gridPane, bottomHLine, rightVLine, upHLine,leftVLine);
+
             stage.close();
-            newGame.start(gameField, anchorPane, gridPane);
+
+
+
         });
     }
 

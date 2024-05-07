@@ -2,8 +2,10 @@ package tiktaktoefx20;
 
 import javafx.animation.*;
 import javafx.application.*;
+import javafx.collections.*;
 import javafx.event.*;
 import javafx.fxml.*;
+import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
@@ -13,10 +15,14 @@ import tiktaktoefx20.database.*;
 import tiktaktoefx20.menu.*;
 import tiktaktoefx20.strategies.*;
 
+import javax.sound.midi.*;
+import java.beans.*;
 import java.util.*;
 
+import static tiktaktoefx20.GameEngine.*;
 
-public class GameController extends GameEngine {
+
+public class GameController implements PropertyChangeListener {
 
     private final MoveStrategy easyStrategy = new EasyStrategy();
     private final MoveStrategy hardStrategy = new HardStrategy();
@@ -33,11 +39,24 @@ public class GameController extends GameEngine {
     private static long startTime;
     private ToggleGroup difficultyNewGame;
 
+    GameEngine gameEngine = new GameEngine();
+
+    public GridPane getGridPane() {
+        return gridPane;
+    }
+
+    @FXML
+    protected GridPane gridPane;
+
     @FXML
     private AnchorPane anchorPane;
 
     @FXML
     protected Text dynamicText;
+
+    public Text getStaticText() {
+        return staticText;
+    }
 
     @FXML
     protected Text staticText;
@@ -48,8 +67,9 @@ public class GameController extends GameEngine {
     @FXML
     protected MenuBar menuBar;
 
-    @FXML
-    private Rectangle shade;
+    public Line getBottomHLine() {
+        return bottomHLine;
+    }
 
     @FXML
     protected Line bottomHLine;
@@ -63,6 +83,8 @@ public class GameController extends GameEngine {
     @FXML
     protected Line leftVLine;
 
+
+
     @FXML
     void btnClick(ActionEvent event) {
 
@@ -71,8 +93,14 @@ public class GameController extends GameEngine {
         magicOn(clickResult);
     }
 
+    Line line;
     @FXML
     void initialize() {
+
+        Text staticText = getStaticText();
+
+        System.out.println(staticText);
+
 
         initializeGameField();
 
@@ -197,12 +225,66 @@ public class GameController extends GameEngine {
         endAnimation.play();
     }
 
+// =========================================================================================================
+
+    private static GameController instance;
+
+    // Приватный конструктор, чтобы предотвратить создание экземпляров через оператор new
+//    private GameController() {
+//        // Ваша логика инициализации здесь
+//    }
+
+    // Метод для получения экземпляра класса GameController
+    public static GameController getInstance() {
+        if (instance == null) {
+            instance = new GameController();
+        }
+        return instance;
+    }
+
+    @Override
+
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("isOpen".equals(evt.getPropertyName())) {
+            boolean isOpen = (boolean) evt.getNewValue();
+            if (isOpen) {
+                System.out.println("GameController: Window is open");
+            } else {
+                System.out.println("GameController: Window is closed");
+
+                Line line = getBottomHLine();
+
+                System.out.println(line);
+
+                //initialize();
+            }
+        }
+    }
+
+
+    private void setNews(String newValue) {
+
+        //GameResultWindow observable = new GameResultWindow();
+
+        System.out.println("Window open: " + newValue);
+
+    }
+
+
+
+
+
+
+
+
 
 
     private record ClickResult(int row, int col) {
     }
 
     private void checkAndUpdateGameState() {
+
+        // gameController = GameController.getInstance();
 
         // Получаем выбранный RadioMenuItem уровня сложности
         RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyNewGame.getSelectedToggle();
@@ -215,7 +297,7 @@ public class GameController extends GameEngine {
 
             List<int[]> winningCells = GameEngine.winningCells;
 
-            endGame(winningCells,
+            gameEngine.endGame(winningCells,
                     gameField,
                     winnerSymbol,
                     convertMovesToGameMovesList(),
@@ -224,8 +306,12 @@ public class GameController extends GameEngine {
                     computerMovesCounter,
                     stopGameTimer(),
                     selectedLevel,
-                    anchorPane
+                    anchorPane,
+                    gridPane, bottomHLine, rightVLine, upHLine,leftVLine
             );
+
+            //updateDialogState(isDialogOpen);
+
         } else {
 
             // Делаем ход компьютера с выбранной стратегией
@@ -247,7 +333,7 @@ public class GameController extends GameEngine {
 
             if (checkForWin(gameField) || checkForDraw(gameField)) {
                 String winnerSymbol = checkForWin(gameField) ? "The computer" : "It's a draw";
-                endGame(winningCells,
+                gameEngine.endGame(winningCells,
                         gameField,
                         winnerSymbol,
                         convertMovesToGameMovesList(),
@@ -256,8 +342,11 @@ public class GameController extends GameEngine {
                         computerMovesCounter,
                         stopGameTimer(),
                         selectedLevel,
-                        anchorPane
+                        anchorPane,
+                        gridPane, bottomHLine, rightVLine, upHLine,leftVLine
                 );
+
+                //updateDialogState(isDialogOpen);
             }
         }
     }
@@ -268,6 +357,22 @@ public class GameController extends GameEngine {
         button.setDisable(true);
         gameField[row][col] = Constants.COMPUTER_SYMBOL;
         button.setStyle("-fx-text-fill: white; -fx-opacity: 1.0; -fx-background-color: transparent ;");
+    }
+
+    public Button getButtonByIndexes(int row, int col) {
+        ObservableList<Node> children = gridPane.getChildren(); // Получаем список детей GridPane
+        for (Node node : children) {
+            if (node instanceof Button button) { // Проверяем, является ли дочерний элемент кнопкой
+                // Получаем индексы кнопки
+                int rowIndex = GridPane.getRowIndex(button) == null ? 0 : GridPane.getRowIndex(button);
+                int colIndex = GridPane.getColumnIndex(button) == null ? 0 : GridPane.getColumnIndex(button);
+                // Если индексы совпадают с переданными, возвращаем кнопку
+                if (rowIndex == row && colIndex == col) {
+                    return button;
+                }
+            }
+        }
+        return null; // Возвращаем null, если кнопка не найдена
     }
 
     private List<GameMove> convertMovesToGameMovesList() {
@@ -370,6 +475,15 @@ public class GameController extends GameEngine {
 
     void setStage() {
     }
+
+//    public static GameController instance;
+//    GameController gameController;
+//    public static synchronized GameController getInstance() {
+//        if (instance == null) {
+//            instance = new GameController();
+//        }
+//        return instance;
+//    }
 
     // Метод для старта отсчета времени игры
     public static void startGameTimer() {
