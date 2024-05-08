@@ -303,67 +303,66 @@ public class GameController implements PropertyChangeListener {
 
     private void updateGameState() {
 
-        // Получаем выбранный RadioMenuItem уровня сложности
         RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyNewGame.getSelectedToggle();
 
-        // Получаем текст выбранного элемента
         String selectedLevel = selectedMenuItem.getText();
 
-
-
-        if (checkForWin(gameField) || checkForDraw(gameField)) {
-            String winnerSymbol = checkForWin(gameField) ? "The player" : "It's a draw";
+        if (checkForWinOrDraw()) {
 
             List<int[]> winningCells = GameEngine.winningCells;
 
-            gameEngine.endGame(winningCells,
-                    gameField,
-                    winnerSymbol,
-                    convertMovesToGameMovesList(),
-                    moveCounter,
-                    playerMovesCounter,
-                    computerMovesCounter,
-                    stopGameTimer(),
-                    selectedLevel,
-                    anchorPane,
-                    gridPane, bottomHLine, rightVLine, upHLine,leftVLine
-            );
+            endGame("The player", winningCells, selectedLevel);
 
         } else {
 
-            // Делаем ход компьютера с выбранной стратегией
-            int[] computerMove = switch (selectedLevel) {
-                case "EASY" -> easyMoveHandler.makeMove(gameField, selectedLevel);
-                case "HARD" -> hardMoveHandler.makeMove(gameField, selectedLevel);
-                case "AI" -> aiMoveHandler.makeMove(gameField, selectedLevel);
-                default -> easyMoveHandler.makeMove(gameField, selectedLevel); // По умолчанию используем случайную стратегию
-            };
+            performComputerMove(selectedLevel);
 
-            updateGameField(computerMove[0], computerMove[1]);
-
-            // Увеличиваем счетчик ходов
-            moveCounter++;
-            computerMovesCounter++;
-
-            // Записываем ход компьютера
-            GameMove.addMove(moveCounter, "computer", computerMove[0], computerMove[1]); // Записываем ход компьютера
-
-            if (checkForWin(gameField) || checkForDraw(gameField)) {
-                String winnerSymbol = checkForWin(gameField) ? "The computer" : "It's a draw";
-                gameEngine.endGame(winningCells,
-                        gameField,
-                        winnerSymbol,
-                        convertMovesToGameMovesList(),
-                        moveCounter,
-                        playerMovesCounter,
-                        computerMovesCounter,
-                        stopGameTimer(),
-                        selectedLevel,
-                        anchorPane,
-                        gridPane, bottomHLine, rightVLine, upHLine,leftVLine
-                );
+            if (checkForWinOrDraw()) {
+                endGame("The computer", winningCells, selectedLevel);
             }
         }
+    }
+
+    private void performComputerMove(String selectedLevel) {
+        int[] computerMove = switch (selectedLevel) {
+            case "EASY" -> easyMoveHandler.makeMove(gameField, selectedLevel);
+            case "HARD" -> hardMoveHandler.makeMove(gameField, selectedLevel);
+            case "AI" -> aiMoveHandler.makeMove(gameField, selectedLevel);
+            default -> easyMoveHandler.makeMove(gameField, selectedLevel); // По умолчанию используем случайную стратегию
+        };
+
+        updateGameField(computerMove[0], computerMove[1]);
+
+        // Увеличиваем счетчик ходов
+        moveCounter++;
+        computerMovesCounter++;
+
+        // Записываем ход компьютера
+        GameMove.addMove(moveCounter, "computer", computerMove[0], computerMove[1]); // Записываем ход компьютера
+    }
+
+    private void endGame(String winningPlayer, List<int[]> winningCells, String selectedLevel) {
+        String winnerSymbol = checkForWin(gameField) ? winningPlayer : "It's a draw";
+        gameEngine.endGame(winningCells,
+                gameField,
+                winnerSymbol,
+                convertMovesToGameMovesList(),
+                moveCounter,
+                playerMovesCounter,
+                computerMovesCounter,
+                stopGameTimer(),
+                selectedLevel,
+                anchorPane,
+                gridPane,
+                bottomHLine,
+                rightVLine,
+                upHLine,
+                leftVLine
+        );
+    }
+
+    private boolean checkForWinOrDraw() {
+        return checkForWin(gameField) || checkForDraw(gameField);
     }
 
     private List<GameMove> convertMovesToGameMovesList() {
@@ -391,38 +390,44 @@ public class GameController implements PropertyChangeListener {
 
     private void initializeMenuBar() {
         difficultyNewGame = new ToggleGroup();
+        findAndInitializeDifficultyMenu(difficultyNewGame);
+    }
 
-        // Перебираем все меню в MenuBar
+    private void findAndInitializeDifficultyMenu(ToggleGroup difficultyNewGame) {
         for (Menu menu : menuBar.getMenus()) {
-            // Находим меню "Game"
             if ("Game".equals(menu.getText())) {
-                // Перебираем все пункты меню в меню "Game"
-                for (MenuItem menuItem : menu.getItems()) {
-                    // Находим меню "Difficulty Level"
-                    if (menuItem instanceof Menu && "Difficulty Level".equals(menuItem.getText())) {
-                        initializeDifficultyMenu((Menu) menuItem, difficultyNewGame);
-                        break; // Нет смысла продолжать искать другие меню "Difficulty Level"
-                    }
-                }
+                findAndInitializeSubMenu(menu, difficultyNewGame);
+                break;
             }
         }
     }
 
-    private void initializeDifficultyMenu(Menu difficultyMenu, ToggleGroup toggleGroup) {
-        // Перебираем все пункты меню в меню "Difficulty Level"
-        for (MenuItem subMenuItem : difficultyMenu.getItems()) {
-            // Находим RadioMenuItem EASY
-            if (subMenuItem instanceof RadioMenuItem && "AI".equals(subMenuItem.getText())) {
-                ((RadioMenuItem) subMenuItem).setSelected(true); // Устанавливаем EASY по умолчанию
-                updateLevelInfoLine((RadioMenuItem) subMenuItem);
-            }
-            // Устанавливаем обработчик событий для RadioMenuItem
-            if (subMenuItem instanceof RadioMenuItem) {
-                ((RadioMenuItem) subMenuItem).setToggleGroup(toggleGroup);
-                subMenuItem.setOnAction(event -> updateLevelInfoLine((RadioMenuItem) subMenuItem));
+    private void findAndInitializeSubMenu(Menu menu, ToggleGroup difficultyNewGame) {
+        for (MenuItem menuItem : menu.getItems()) {
+            if (menuItem instanceof Menu && "Difficulty Level".equals(menuItem.getText())) {
+                initializeDifficultyMenu((Menu) menuItem, difficultyNewGame);
+                break;
             }
         }
     }
+
+    private void initializeDifficultyMenu(Menu difficultyMenu, ToggleGroup difficultyNewGame) {
+        for (MenuItem subMenuItem : difficultyMenu.getItems()) {
+            if (subMenuItem instanceof RadioMenuItem) {
+                initializeRadioMenuItem((RadioMenuItem) subMenuItem, difficultyNewGame);
+            }
+        }
+    }
+
+    private void initializeRadioMenuItem(RadioMenuItem radioMenuItem, ToggleGroup toggleGroup) {
+        if ("AI".equals(radioMenuItem.getText())) {
+            radioMenuItem.setSelected(true);
+            updateLevelInfoLine(radioMenuItem);
+        }
+        radioMenuItem.setToggleGroup(toggleGroup);
+        radioMenuItem.setOnAction(event -> updateLevelInfoLine(radioMenuItem));
+    }
+
 
     private void initializeGameField() {
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
