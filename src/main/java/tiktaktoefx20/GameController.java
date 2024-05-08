@@ -39,7 +39,7 @@ public class GameController implements PropertyChangeListener {
     private long startTime;
     private ToggleGroup difficultyNewGame;
 
-    GameEngine gameEngine = new GameEngine();
+    private final GameResultHandler gameResultHandler = new GameResultHandler();
 
     @FXML
     protected GridPane gridPane;
@@ -49,7 +49,6 @@ public class GameController implements PropertyChangeListener {
 
     @FXML
     protected Text dynamicText;
-
 
     @FXML
     protected Text staticText;
@@ -302,25 +301,73 @@ public class GameController implements PropertyChangeListener {
     }
 
     private void updateGameState() {
-
         RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyNewGame.getSelectedToggle();
-
         String selectedLevel = selectedMenuItem.getText();
 
         if (checkForWinOrDraw()) {
-
-            List<int[]> winningCells = GameEngine.winningCells;
-
-            endGame("The player", winningCells, selectedLevel);
-
+            String winner = checkForWin(gameField) ? "The player" : "It's a draw";
+            endGame(new GameEndParams(
+                    winner,
+                    winningCells,
+                    selectedLevel,
+                    convertMovesToGameMovesList(),
+                    moveCounter,
+                    playerMovesCounter,
+                    computerMovesCounter,
+                    stopGameTimer(),
+                    anchorPane,
+                    gridPane,
+                    gameField,
+                    bottomHLine,
+                    rightVLine,
+                    upHLine,
+                    leftVLine
+            ));
         } else {
-
             performComputerMove(selectedLevel);
-
             if (checkForWinOrDraw()) {
-                endGame("The computer", winningCells, selectedLevel);
+                endGame(new GameEndParams(
+                        "The computer",
+                        winningCells,
+                        selectedLevel,
+                        convertMovesToGameMovesList(),
+                        moveCounter,
+                        playerMovesCounter,
+                        computerMovesCounter,
+                        stopGameTimer(),
+                        anchorPane,
+                        gridPane,
+                        gameField,
+                        bottomHLine,
+                        rightVLine,
+                        upHLine,
+                        leftVLine
+                ));
             }
         }
+    }
+
+    private void endGame(GameEndParams params) {
+
+        String winnerSymbol = checkForWin(gameField) ? params.winningPlayer() : "It's a draw";
+
+        gameResultHandler.endGame(new GameEndParams(
+                winnerSymbol,
+                winningCells,
+                params.selectedLevel(),
+                convertMovesToGameMovesList(),
+                params.moveCounter(),
+                params.playerMovesCounter(),
+                params.computerMovesCounter(),
+                params.gameTime(),
+                params.anchorPane(),
+                params.gridPane(),
+                gameField,
+                params.bottomHLine(),
+                params.rightVLine(),
+                params.upHLine(),
+                params.leftVLine()
+        ));
     }
 
     private void performComputerMove(String selectedLevel) {
@@ -339,26 +386,6 @@ public class GameController implements PropertyChangeListener {
 
         // Записываем ход компьютера
         GameMove.addMove(moveCounter, "computer", computerMove[0], computerMove[1]); // Записываем ход компьютера
-    }
-
-    private void endGame(String winningPlayer, List<int[]> winningCells, String selectedLevel) {
-        String winnerSymbol = checkForWin(gameField) ? winningPlayer : "It's a draw";
-        gameEngine.endGame(winningCells,
-                gameField,
-                winnerSymbol,
-                convertMovesToGameMovesList(),
-                moveCounter,
-                playerMovesCounter,
-                computerMovesCounter,
-                stopGameTimer(),
-                selectedLevel,
-                anchorPane,
-                gridPane,
-                bottomHLine,
-                rightVLine,
-                upHLine,
-                leftVLine
-        );
     }
 
     private boolean checkForWinOrDraw() {
@@ -427,7 +454,6 @@ public class GameController implements PropertyChangeListener {
         radioMenuItem.setToggleGroup(toggleGroup);
         radioMenuItem.setOnAction(event -> updateLevelInfoLine(radioMenuItem));
     }
-
 
     private void initializeGameField() {
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
