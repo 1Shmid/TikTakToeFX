@@ -18,7 +18,7 @@ import java.util.*;
 
 public class GameResultWindow {
 
-    //GameController gameController = new GameController();
+    private final NewGame newGame = new NewGame();
 
     private final List<PropertyChangeListener> listeners = new ArrayList<>();
 
@@ -50,21 +50,9 @@ public class GameResultWindow {
 
         support.firePropertyChange("isOpen", this.isOpen, isOpen); // String propertyName, boolean oldValue, boolean newValue
 
-        System.out.println("updateWindowState: " + isOpen);
-
         this.isOpen = isOpen;
 
-
-        // Создание объекта PropertyChangeEvent
-        PropertyChangeEvent evt = new PropertyChangeEvent(new GameResultWindow(), "isOpen", this.isOpen, isOpen);
-
-
-       // gameController.propertyChange(evt);
-
     }
-
-
-    NewGame newGame = new NewGame();
 
     void show(char[][] gameField, String winnerSymbol, AnchorPane anchorPane, GridPane gridPane, String result, Line bottomHLine, Line rightVLine, Line upHLine, Line leftVLine) {
 
@@ -73,15 +61,8 @@ public class GameResultWindow {
         updateWindowState(setValue(true));
 
         addPropertyChangeListener(evt -> {
-            System.out.println("GameController-у отправлено сообщение об открытии");
             gameController.propertyChange(evt);
         });
-
-
-
-
-
-
 
         // Загружаем FXML-файл для диалогового окна
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameResultWindow.fxml"));
@@ -132,26 +113,20 @@ public class GameResultWindow {
         stage.setOnShown(event -> centerStage(stage, gameBounds, menuBarHeight));
 
         addPropertyChangeListener(evt -> {
-            System.out.println("GameController-у успешно отпарвлено сообщение о закрытии");
-            System.out.println();
+//            System.out.println("GameController-у успешно отпарвлено сообщение о закрытии");
+//            System.out.println();
             gameController.propertyChange(evt);
             });
-
-
-
 
         root.setOnMouseClicked(mouseEvent -> {
 
             updateWindowState(false);
-
 
 //            System.out.println("GameController-у отправлено сообщение о закрытии");
 
             newGame.start(gridPane, bottomHLine, rightVLine, upHLine,leftVLine);
 
             stage.close();
-
-
 
         });
     }
