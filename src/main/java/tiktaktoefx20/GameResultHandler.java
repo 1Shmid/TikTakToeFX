@@ -7,61 +7,40 @@ import tiktaktoefx20.database.*;
 
 import java.util.*;
 
-import static tiktaktoefx20.GameEngine.*;
-
 public class GameResultHandler {
 
-    private int gameNumber = 1; // Инициализируем начальное значение счетчика игр
-
-//    @FXML
-//    protected GridPane gridPane;
-
-
+    private final int gameNumber = 1; // Инициализируем начальное значение счетчика игр
     GameResultWindow gameResultWindow = new GameResultWindow();
 
-    public GameResultHandler() {
-    }
-
-//    public void setGameController() {
-//    }
-
-//    Line line;
-    //GameController gameController;
-
-
     @FXML
-    public void endGame(List<int[]> winningCells, char[][] gameField, String winnerSymbol, List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel, AnchorPane anchorPane, GridPane gridPane, Line bottomHLine, Line rightVLine, Line upHLine,Line leftVLine) {
-        
-        final String result = gameResult(winningCells, gameField, winnerSymbol, anchorPane, gridPane);
+    public void endGame(GameEndParams params) {
 
-        recordGameResult(moves, totalMoves, playerMoves, computerMoves, duration, selectedLevel, result);
-
-        gameResultWindow.show(gameField, winnerSymbol, anchorPane, gridPane, result, bottomHLine, rightVLine, upHLine,leftVLine);
+        final String result = gameResult(params);
+        recordGameResult(params, result);
+        gameResultWindow.show(params, result);
     }
 
-    private String gameResult(List<int[]> winningCells, char[][] gameField, String winnerSymbol, AnchorPane anchorPane, GridPane gridPane) {
-        Constants.Winner winner;
-        String result = "";
-
-        if (checkForWin(gameField)) {
-            result = winnerSymbol + " wins!";
-            winner = winnerSymbol.equals("The player") ? Constants.Winner.PLAYER : Constants.Winner.COMPUTER;
+    private String gameResult(GameEndParams params) {
+        if (GameEngine.checkForWin(params.gameField())) {
+            Constants.Winner winner = params.winningPlayer().equals("The player") ? Constants.Winner.PLAYER : Constants.Winner.COMPUTER;
 
             // Рисуем линию победы
             GraphicsManager graphicsManager = new GraphicsManager();
-            graphicsManager.drawWinningLine(winningCells, anchorPane, winner, gridPane);
+            graphicsManager.drawWinningLine(params.winningCells(), params.anchorPane(), winner, params.gridPane());
 
-        } else if (checkForDraw(gameField)) {
-            result = "It's a draw!!";
+            return params.winningPlayer() + " wins!";
+        } else if (GameEngine.checkForDraw(params.gameField())) {
+            return "It's a draw!!";
+        } else {
+            return "";
         }
-        return result;
     }
 
-    private void recordGameResult(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves, int duration, String selectedLevel, String result) {
+    private void recordGameResult(GameEndParams params, String result) {
         // Записываем результат игры
-        Game game = new Game(moves, totalMoves, playerMoves, computerMoves, result, duration, selectedLevel);
+        Game game = new Game(params.moves(), params.moveCounter(), params.playerMovesCounter(), params.computerMovesCounter(), result, params.gameTime(), params.selectedLevel());
         game.recordGame();
-        gameNumber++;
     }
+
 }
 
