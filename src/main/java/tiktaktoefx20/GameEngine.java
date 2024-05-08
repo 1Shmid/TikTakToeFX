@@ -1,21 +1,15 @@
 package tiktaktoefx20;
 
-import javafx.collections.*;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-
 import java.util.*;
 
-public class GameEngine extends GameResultHandler {
-
+public class GameEngine {
     // Статическая переменная для хранения координат выигрышных ячеек
     protected static List<int[]> winningCells = new ArrayList<>();
 
     // Проверка на победу
     public static boolean checkForWin(char[][] gameField) {
 
-        return  checkRowsForWin(gameField) ||
+        return checkRowsForWin(gameField) ||
                 checkColumnsForWin(gameField) ||
                 checkDiagonalsForWin(gameField);
     }
@@ -78,6 +72,7 @@ public class GameEngine extends GameResultHandler {
         }
         return false;
     }
+
     static boolean checkColumnsForWin(char[][] gameField) {
         boolean columnWinFound = false; // Добавляем флаг для отслеживания нахождения выигрыша в столбце
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {
@@ -118,20 +113,4 @@ public class GameEngine extends GameResultHandler {
 
         return false;
     }
-
-//    public Button getButtonByIndexes(int row, int col) {
-//        ObservableList<Node> children = gridPane.getChildren(); // Получаем список детей GridPane
-//        for (Node node : children) {
-//            if (node instanceof Button button) { // Проверяем, является ли дочерний элемент кнопкой
-//                // Получаем индексы кнопки
-//                int rowIndex = GridPane.getRowIndex(button) == null ? 0 : GridPane.getRowIndex(button);
-//                int colIndex = GridPane.getColumnIndex(button) == null ? 0 : GridPane.getColumnIndex(button);
-//                // Если индексы совпадают с переданными, возвращаем кнопку
-//                if (rowIndex == row && colIndex == col) {
-//                    return button;
-//                }
-//            }
-//        }
-//        return null; // Возвращаем null, если кнопка не найдена
-//    }
 }
