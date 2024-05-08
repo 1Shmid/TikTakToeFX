@@ -24,18 +24,7 @@ public class Main extends Application {
         GameController controller = fxmlLoader.getController();
         controller.setStage(); // Передача объекта Stage в контроллер
 
-        //GameController gameController = new GameController();
-
-        //fxmlLoader.setController(controller);
-
         gameResultWindow.addPropertyChangeListener(controller);
-        System.out.println("GameController успешно зарегистрирован как слушатель");
-
-
-//        gameResultWindow.addPropertyChangeListener(evt -> {
-//            System.out.println("GameController успешно зарегистрирован как слушатель");
-//            controller.propertyChange(evt);
-//        });
 
         Scene scene = new Scene(root, 600, 600);
         stage.setTitle(title); // Устанавливаем заголовок окна с номером игры

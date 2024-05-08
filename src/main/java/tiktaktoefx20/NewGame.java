@@ -1,9 +1,7 @@
 package tiktaktoefx20;
 
 import javafx.application.*;
-import javafx.scene.*;
 import javafx.scene.canvas.*;
-import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
 import javafx.stage.*;
@@ -15,11 +13,14 @@ public class NewGame {
 
     protected void cleanGameResult(char[][] gameField, AnchorPane anchorPane, GridPane gridPane){
 
-        Task<Void> backgroundTask = new Task<Void>() {
+        GameController gameController = new GameController();
+
+        Task<Void> backgroundTask = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
+
                 Platform.runLater(() -> clearCanvas(anchorPane));
-                Platform.runLater(() -> clearGridPane(gridPane));
+                Platform.runLater(() -> gameController.clearGridPane(gridPane));
                 clearGameField(gameField);
                 GameController.resetMoveCounters();
                 return null;
@@ -43,8 +44,6 @@ public class NewGame {
         gameController.animateLine(rightVLine);
         gameController.animateLine(upHLine);
         gameController.animateLine(leftVLine);
-
-
     }
 
 
@@ -55,16 +54,6 @@ public class NewGame {
         stage.setTitle(newTitle);
     }
 
-    private void clearGridPane(GridPane gridPane) {
-
-        // Очищаем игровое поле и включаем все кнопки
-        for (Node node : gridPane.getChildren()) {
-            if (node instanceof Button button) {
-                button.setText("");
-                button.setDisable(false);
-            }
-        }
-    }
     private void clearGameField(char[][] gameField) {
         // Обнуляем состояние полей массива игры
         for (int i = 0; i < Constants.FIELD_SIZE; i++) {

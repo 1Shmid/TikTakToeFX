@@ -4,21 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="GIF updated">
-      <change afterPath="$PROJECT_DIR$/mouseDobleClick.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mouseDobleClick.wav" afterDir="false" />
+    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="Project Changes:&#10;&#10; - Removed redundant inheritance of GameController, GameResultHandler, GameEngine and GraphicsManager classes &#10;&#10;- EndGameDialor renamed to GameResultWindow&#10;&#10;- Cleanup of the playing field has been moved to background mode&#10;&#10;- Added animation of lines at the start of a new game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TTTFX 2.0.db" beforeDir="false" afterPath="$PROJECT_DIR$/TTTFX 2.0.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/EndGameDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultWindowController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GraphicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GraphicsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/EndGameDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/GameResultWindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.gif" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/GameResultWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/GameResultWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/StatDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/StatDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,14 +185,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712580090347</updated>
-    </task>
-    <task id="LOCAL-00032" summary="FXML - Menu items have been regrouped">
-      <option name="closed" value="true" />
-      <created>1714568470288</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1714568470288</updated>
     </task>
     <task id="LOCAL-00033" summary="GameController - Added handlers for menu items and logic for RadioMenuItem with RadioMenuItem state display in dynamic HBox string.">
       <option name="closed" value="true" />
@@ -582,7 +570,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714931770120</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="Project Changes:&#10;&#10; - Removed redundant inheritance of GameController, GameResultHandler, GameEngine and GraphicsManager classes &#10;&#10;- EndGameDialor renamed to GameResultWindow&#10;&#10;- Cleanup of the playing field has been moved to background mode&#10;&#10;- Added animation of lines at the start of a new game">
+      <option name="closed" value="true" />
+      <created>1715090347010</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1715090347010</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -675,7 +671,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="FXML - AnchorPaine to 600x600" />
     <MESSAGE value="EndGameDialog.fxml - size changed" />
     <MESSAGE value="GameResultHandler - centerStage refined" />
     <MESSAGE value="GameResultHandler - сode readability enhanced" />
@@ -700,17 +695,7 @@
     <MESSAGE value="StatDialog.fxml created" />
     <MESSAGE value="Code readability enhanced" />
     <MESSAGE value="GIF updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="GIF updated" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tiktaktoefx20/Main.java</url>
-          <line>30</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Project Changes:&#10;&#10; - Removed redundant inheritance of GameController, GameResultHandler, GameEngine and GraphicsManager classes &#10;&#10;- EndGameDialor renamed to GameResultWindow&#10;&#10;- Cleanup of the playing field has been moved to background mode&#10;&#10;- Added animation of lines at the start of a new game" />
+    <option name="LAST_COMMIT_MESSAGE" value="Project Changes:&#10;&#10; - Removed redundant inheritance of GameController, GameResultHandler, GameEngine and GraphicsManager classes &#10;&#10;- EndGameDialor renamed to GameResultWindow&#10;&#10;- Cleanup of the playing field has been moved to background mode&#10;&#10;- Added animation of lines at the start of a new game" />
   </component>
 </project>
