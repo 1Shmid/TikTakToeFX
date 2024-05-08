@@ -2,12 +2,11 @@ package tiktaktoefx20;
 
 import javafx.animation.*;
 import javafx.application.*;
-import javafx.collections.*;
-import javafx.event.*;
 import javafx.fxml.*;
-import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.*;
@@ -15,10 +14,11 @@ import tiktaktoefx20.database.*;
 import tiktaktoefx20.menu.*;
 import tiktaktoefx20.strategies.*;
 
-import javax.sound.midi.*;
 import java.beans.*;
 import java.util.*;
 
+import static tiktaktoefx20.Constants.OColor;
+import static tiktaktoefx20.Constants.XColor;
 import static tiktaktoefx20.GameEngine.*;
 
 
@@ -41,10 +41,6 @@ public class GameController implements PropertyChangeListener {
 
     GameEngine gameEngine = new GameEngine();
 
-    public GridPane getGridPane() {
-        return gridPane;
-    }
-
     @FXML
     protected GridPane gridPane;
 
@@ -54,9 +50,6 @@ public class GameController implements PropertyChangeListener {
     @FXML
     protected Text dynamicText;
 
-    public Text getStaticText() {
-        return staticText;
-    }
 
     @FXML
     protected Text staticText;
@@ -66,10 +59,6 @@ public class GameController implements PropertyChangeListener {
 
     @FXML
     protected MenuBar menuBar;
-
-    public Line getBottomHLine() {
-        return bottomHLine;
-    }
 
     @FXML
     protected Line bottomHLine;
@@ -83,24 +72,112 @@ public class GameController implements PropertyChangeListener {
     @FXML
     protected Line leftVLine;
 
-
-
     @FXML
-    void btnClick(ActionEvent event) {
-
-        final ClickResult clickResult = getClickResult(event);
-
-        magicOn(clickResult);
+    protected void clearGridPane(GridPane gridPane) {
+        gridPane.getChildren().clear();
     }
 
-    Line line;
+    @FXML
+    void mouseClick(MouseEvent event) {
+        final ClickResult clickResult = getMouseClickResult(event);
+        if (clickResult != null) {
+            magicOn(clickResult);
+        }
+    }
+
+    private ClickResult getMouseClickResult(MouseEvent event) {
+
+        int clickedRow = getRowIndex(event.getY());
+        int clickedColumn = getColumnIndex(event.getX());
+
+        // Проверяем, что в ячейке нет символа, перед добавлением нового текста
+        if (gameField[clickedRow][clickedColumn] != Constants.EMPTY_SYMBOL) {
+            // Ячейка уже занята, игнорируем клик
+            return null; // Возвращаем null, чтобы показать, что клик игнорируется
+        }
+
+        final Text text = setSymbol(Constants.PLAYER_SYMBOL, clickedRow, clickedColumn);
+
+        // Добавляем текстовый элемент в GridPane
+        gridPane.getChildren().add(text);
+
+        final PauseTransition pause = getPauseTransition(text);
+        pause.play();
+
+        // Возвращаем результат клика (индексы строки и столбца)
+        return new ClickResult(clickedRow, clickedColumn);
+    }
+
+    private Text setSymbol(char symbol, int clickedRow, int clickedColumn) {
+        // Создаем текстовый элемент для отображения символа
+        Text text = new Text(String.valueOf(symbol));
+        text.setFont(Font.font("Gill Sans MT", getCellFontSize()));
+        // Выбираем цвет в зависимости от символа
+        Paint color = (symbol == Constants.PLAYER_SYMBOL) ? Paint.valueOf(XColor) : Paint.valueOf(OColor);
+        text.setFill(color);
+
+        // Устанавливаем позицию текста в GridPane
+        GridPane.setColumnIndex(text, clickedColumn);
+        GridPane.setRowIndex(text, clickedRow);
+        GridPane.setHalignment(text, javafx.geometry.HPos.CENTER);
+
+        // Устанавливаем альфа-канал на 0 (текст полностью прозрачен)
+        text.setOpacity(0);
+
+        return text;
+    }
+
+    private void updateGameField(int row, int col) {
+
+        final Text text = setSymbol(Constants.COMPUTER_SYMBOL, row, col);
+
+        gridPane.getChildren().add(text);
+
+        final PauseTransition pause = getPauseTransition(text);
+
+        pause.play();
+
+        gameField [row][col] = Constants.COMPUTER_SYMBOL;
+
+    }
+
+    private static PauseTransition getPauseTransition(Text text) {
+        PauseTransition pause = new PauseTransition(Duration.millis(1));
+
+        // Устанавливаем действие, которое будет выполнено после паузы
+        pause.setOnFinished(e -> {
+            // Добавляем анимацию появления после паузы
+            FadeTransition ft = new FadeTransition(Duration.millis(200), text);
+            ft.setFromValue(0); // Начальное значение альфа-канала (прозрачность)
+            ft.setToValue(1); // Конечное значение альфа-канала (полная видимость)
+            ft.play();
+        });
+        return pause;
+    }
+
+    private int getColumnIndex(double x) {
+        int numColumns = gridPane.getColumnConstraints().size();
+        double totalWidth = gridPane.getWidth();
+        double columnWidth = totalWidth / numColumns;
+        return (int) (x / columnWidth);
+    }
+
+    private int getRowIndex(double y) {
+        int numRows = gridPane.getRowConstraints().size();
+        double totalHeight = gridPane.getHeight();
+        double rowHeight = totalHeight / numRows;
+        return (int) (y / rowHeight);
+    }
+
+    private double getCellFontSize() {
+        int numColumns = gridPane.getColumnConstraints().size();
+        double totalWidth = gridPane.getWidth();
+        double columnWidth = totalWidth / numColumns;
+        return columnWidth * 0.8;
+    }
+
     @FXML
     void initialize() {
-
-        Text staticText = getStaticText();
-
-        System.out.println(staticText);
-
 
         initializeGameField();
 
@@ -114,37 +191,32 @@ public class GameController implements PropertyChangeListener {
     }
 
     private void magicOn(ClickResult clickResult) {
-        // Обновляем поле игры
-        gameField[clickResult.row()][clickResult.col()] = Constants.PLAYER_SYMBOL;
+        // Проверяем, что в ячейке нет символа, перед обработкой клика
+        if (gameField[clickResult.row()][clickResult.col()] == Constants.EMPTY_SYMBOL) {
+            // Обновляем поле игры
+            gameField[clickResult.row()][clickResult.col()] = Constants.PLAYER_SYMBOL;
 
-        // Увеличиваем счетчик ходов
-        moveCounter++;
-        playerMovesCounter++;
+            // Увеличиваем счетчик ходов
+            moveCounter++;
 
-        // Записываем ход игрока
-        GameMove.addMove(moveCounter, "player", clickResult.row(), clickResult.col());
+            playerMovesCounter++;
 
-        checkAndUpdateGameState();
-    }
+            // Записываем ход игрока
+            GameMove.addMove(moveCounter, "player", clickResult.row(), clickResult.col());
 
-    private static ClickResult getClickResult(ActionEvent event) {
-        Button clickedButton = (Button) event.getSource(); // Получаем кнопку, на которую было нажато
-        clickedButton.setText(String.valueOf(Constants.PLAYER_SYMBOL));
-        clickedButton.setStyle("-fx-text-fill: #545454; -fx-opacity: 1.0; -fx-background-color: transparent;"); // Устанавливаем черный цвет текста для кнопки
-
-        clickedButton.setDisable(true);
-
-        // Получаем индексы кнопки
-        int row = GridPane.getRowIndex(clickedButton) == null ? 0 : GridPane.getRowIndex(clickedButton);
-        int col = GridPane.getColumnIndex(clickedButton) == null ? 0 : GridPane.getColumnIndex(clickedButton);
-        return new ClickResult(row, col);
+            // Проверяем состояние игры
+            updateGameState();
+        }
     }
 
     protected void initializeLines() {
 
         animateLine(bottomHLine);
+
         animateLine(rightVLine);
+
         animateLine(upHLine);
+
         animateLine(leftVLine);
 
     }
@@ -225,72 +297,19 @@ public class GameController implements PropertyChangeListener {
         endAnimation.play();
     }
 
-// =========================================================================================================
-
-    private static GameController instance;
-
-    // Приватный конструктор, чтобы предотвратить создание экземпляров через оператор new
-//    private GameController() {
-//        // Ваша логика инициализации здесь
-//    }
-
-    // Метод для получения экземпляра класса GameController
-    public static GameController getInstance() {
-        if (instance == null) {
-            instance = new GameController();
-        }
-        return instance;
-    }
-
-    @Override
-
-    public void propertyChange(PropertyChangeEvent evt) {
-        if ("isOpen".equals(evt.getPropertyName())) {
-            boolean isOpen = (boolean) evt.getNewValue();
-            if (isOpen) {
-                System.out.println("GameController: Window is open");
-            } else {
-                System.out.println("GameController: Window is closed");
-
-                Line line = getBottomHLine();
-
-                System.out.println(line);
-
-                //initialize();
-            }
-        }
-    }
-
-
-    private void setNews(String newValue) {
-
-        //GameResultWindow observable = new GameResultWindow();
-
-        System.out.println("Window open: " + newValue);
-
-    }
-
-
-
-
-
-
-
-
-
 
     private record ClickResult(int row, int col) {
     }
 
-    private void checkAndUpdateGameState() {
-
-        // gameController = GameController.getInstance();
+    private void updateGameState() {
 
         // Получаем выбранный RadioMenuItem уровня сложности
         RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyNewGame.getSelectedToggle();
 
         // Получаем текст выбранного элемента
         String selectedLevel = selectedMenuItem.getText();
+
+
 
         if (checkForWin(gameField) || checkForDraw(gameField)) {
             String winnerSymbol = checkForWin(gameField) ? "The player" : "It's a draw";
@@ -309,8 +328,6 @@ public class GameController implements PropertyChangeListener {
                     anchorPane,
                     gridPane, bottomHLine, rightVLine, upHLine,leftVLine
             );
-
-            //updateDialogState(isDialogOpen);
 
         } else {
 
@@ -345,34 +362,8 @@ public class GameController implements PropertyChangeListener {
                         anchorPane,
                         gridPane, bottomHLine, rightVLine, upHLine,leftVLine
                 );
-
-                //updateDialogState(isDialogOpen);
             }
         }
-    }
-
-    private void updateGameField(int row, int col) {
-        Button button = getButtonByIndexes(row, col);
-        button.setText(String.valueOf(Constants.COMPUTER_SYMBOL));
-        button.setDisable(true);
-        gameField[row][col] = Constants.COMPUTER_SYMBOL;
-        button.setStyle("-fx-text-fill: white; -fx-opacity: 1.0; -fx-background-color: transparent ;");
-    }
-
-    public Button getButtonByIndexes(int row, int col) {
-        ObservableList<Node> children = gridPane.getChildren(); // Получаем список детей GridPane
-        for (Node node : children) {
-            if (node instanceof Button button) { // Проверяем, является ли дочерний элемент кнопкой
-                // Получаем индексы кнопки
-                int rowIndex = GridPane.getRowIndex(button) == null ? 0 : GridPane.getRowIndex(button);
-                int colIndex = GridPane.getColumnIndex(button) == null ? 0 : GridPane.getColumnIndex(button);
-                // Если индексы совпадают с переданными, возвращаем кнопку
-                if (rowIndex == row && colIndex == col) {
-                    return button;
-                }
-            }
-        }
-        return null; // Возвращаем null, если кнопка не найдена
     }
 
     private List<GameMove> convertMovesToGameMovesList() {
@@ -421,7 +412,7 @@ public class GameController implements PropertyChangeListener {
         // Перебираем все пункты меню в меню "Difficulty Level"
         for (MenuItem subMenuItem : difficultyMenu.getItems()) {
             // Находим RadioMenuItem EASY
-            if (subMenuItem instanceof RadioMenuItem && "EASY".equals(subMenuItem.getText())) {
+            if (subMenuItem instanceof RadioMenuItem && "AI".equals(subMenuItem.getText())) {
                 ((RadioMenuItem) subMenuItem).setSelected(true); // Устанавливаем EASY по умолчанию
                 updateLevelInfoLine((RadioMenuItem) subMenuItem);
             }
@@ -476,15 +467,6 @@ public class GameController implements PropertyChangeListener {
     void setStage() {
     }
 
-//    public static GameController instance;
-//    GameController gameController;
-//    public static synchronized GameController getInstance() {
-//        if (instance == null) {
-//            instance = new GameController();
-//        }
-//        return instance;
-//    }
-
     // Метод для старта отсчета времени игры
     public static void startGameTimer() {
         startTime = System.currentTimeMillis();
@@ -500,8 +482,7 @@ public class GameController implements PropertyChangeListener {
         // Получаем текущее время в миллисекундах
         long currentTime = System.currentTimeMillis();
         // Вычисляем разницу между текущим временем и началом игры в секундах
-        int currentGameTimeInSeconds = (int) ((currentTime - startTime) / 1000);
-        return currentGameTimeInSeconds;
+        return (int) ((currentTime - startTime) / 1000);
     }
 
     // Обработчики событий для меню
@@ -529,6 +510,35 @@ public class GameController implements PropertyChangeListener {
     public void handleAboutMenuItem() {
         AboutWindow.displayAboutDialog();
     }
+
+
+    // ===================================== Эксперимент с внедрением слушателя ====================================================================
+
+    private static GameController instance;
+
+    // Метод для получения экземпляра класса GameController
+    public static GameController getInstance() {
+        if (instance == null) {
+            instance = new GameController();
+        }
+        return instance;
+    }
+
+    @Override
+
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("isOpen".equals(evt.getPropertyName())) {
+            boolean isOpen = (boolean) evt.getNewValue();
+            if (isOpen) {
+                //System.out.println("GameController: Window is open");
+            } else {
+                //System.out.println("GameController: Window is closed");
+            }
+        }
+    }
+
+    // ===================================== Конец эксперимента с внедрением слушателя ====================================================================
+
 }
 
 
