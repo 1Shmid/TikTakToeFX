@@ -24,39 +24,11 @@ public class GameResultWindow {
 
     private boolean isOpen;
     private final PropertyChangeSupport support;
-    public GameResultWindow() {
-        support = new PropertyChangeSupport(this);
-    }
-    public boolean getValue() {
-        return isOpen;
-    }
 
-    public boolean setValue(boolean newValue) {
-        boolean oldValue = isOpen;
-        isOpen = newValue;
-        support.firePropertyChange("isOpen", oldValue, newValue);
-        return isOpen;
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
-
-    public void updateWindowState(boolean isOpen) {
-
-        support.firePropertyChange("isOpen", this.isOpen, isOpen); // String propertyName, boolean oldValue, boolean newValue
-
-        this.isOpen = isOpen;
-
-    }
-
-    void show(char[][] gameField, String winnerSymbol, AnchorPane anchorPane, GridPane gridPane, String result, Line bottomHLine, Line rightVLine, Line upHLine, Line leftVLine) {
-
+    void show(GameEndParams params, String result) {
         GameController gameController = GameController.getInstance();
+
+        GameResultWindowController controller = new GameResultWindowController();
 
         updateWindowState(setValue(true));
 
@@ -64,32 +36,56 @@ public class GameResultWindow {
             gameController.propertyChange(evt);
         });
 
-        // Загружаем FXML-файл для диалогового окна
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameResultWindow.fxml"));
-        GameResultWindowController controller = new GameResultWindowController();
+        final Parent root = getParent(controller);
+        if (root == null) return;
 
-        //gameController.registerObserver(this);
+        setupWindow(params, result, controller);
 
-        loader.setController(controller); // Устанавливаем контроллер
+        final Stage stage = createStage(root, controller);
 
-        Parent root;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
+        setupStage(params, stage);
 
-        // Устанавливаем символ победителя и результат игры
-        controller.setWinnerSymbol(winnerSymbol);
-        controller.setResultText(result);
+        createPauseTransition(params, stage);
 
+
+        addPropertyChangeListener(evt -> {
+            gameController.propertyChange(evt);
+        });
+
+        setupRootClickHandler(params, root, stage);
+    }
+
+    private void setupRootClickHandler(GameEndParams params, Parent root, Stage stage) {
+        root.setOnMouseClicked(mouseEvent -> {
+            updateWindowState(false);
+            newGame.start(params.gridPane(), params.bottomHLine(), params.rightVLine(), params.upHLine(), params.leftVLine());
+            stage.close();
+        });
+    }
+
+    private void createPauseTransition(GameEndParams params, Stage stage) {
+        // Создаем паузу в 1 секунду перед показом окна
+        PauseTransition pause = new PauseTransition(Duration.millis(300));
+        pause.setOnFinished(event -> {
+            // После завершения паузы, показываем диалоговое окно
+            Platform.runLater(stage::showAndWait);
+            newGame.cleanGameResult(params.gameField(), params.anchorPane(), params.gridPane());
+        });
+        pause.play();
+    }
+
+    private void setupStage(GameEndParams params, Stage stage) {
         // Получаем размеры окна игры
-        Bounds gameBounds = anchorPane.localToScreen(anchorPane.getBoundsInLocal());
+        Bounds gameBounds = params.anchorPane().localToScreen(params.anchorPane().getBoundsInLocal());
 
         // Получаем размеры объекта MenuBar
-        double menuBarHeight = anchorPane.lookup("#menuBar").getBoundsInLocal().getHeight();
+        double menuBarHeight = params.anchorPane().lookup("#menuBar").getBoundsInLocal().getHeight();
 
+        // Устанавливаем обработчик события на отображение окна
+        stage.setOnShown(event -> centerStage(stage, gameBounds, menuBarHeight));
+    }
+
+    private static Stage createStage(Parent root, GameResultWindowController controller) {
         // Создаем новое диалоговое окно
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -99,37 +95,31 @@ public class GameResultWindow {
         Scene dialogScene = new Scene(root);
         stage.setScene(dialogScene);
         controller.setStage(); // Устанавливаем Stage
-
-        // Создаем паузу в 1 секунду перед показом окна
-        PauseTransition pause = new PauseTransition(Duration.millis(300));
-        pause.setOnFinished(event -> {
-            // После завершения паузы, показываем диалоговое окно
-            Platform.runLater(stage::showAndWait);
-            newGame.cleanGameResult(gameField, anchorPane, gridPane);
-        });
-        pause.play();
-
-        // Устанавливаем обработчик события на отображение окна
-        stage.setOnShown(event -> centerStage(stage, gameBounds, menuBarHeight));
-
-        addPropertyChangeListener(evt -> {
-//            System.out.println("GameController-у успешно отпарвлено сообщение о закрытии");
-//            System.out.println();
-            gameController.propertyChange(evt);
-            });
-
-        root.setOnMouseClicked(mouseEvent -> {
-
-            updateWindowState(false);
-
-//            System.out.println("GameController-у отправлено сообщение о закрытии");
-
-            newGame.start(gridPane, bottomHLine, rightVLine, upHLine,leftVLine);
-
-            stage.close();
-
-        });
+        return stage;
     }
+
+    private static void setupWindow(GameEndParams params, String result, GameResultWindowController controller) {
+        // Устанавливаем символ победителя и результат игры
+        controller.setWinnerSymbol(params.winningPlayer());
+        controller.setResultText(result);
+    }
+
+    private Parent getParent(GameResultWindowController controller) {
+        // Загружаем FXML-файл для диалогового окна
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameResultWindow.fxml"));
+
+        loader.setController(controller); // Устанавливаем контроллер
+
+        Parent root;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return root;
+    }
+
 
     // Метод для центрирования окна относительно другого окна с учетом высоты MenuBar
     private void centerStage(Stage stage, Bounds gameBounds, double menuBarHeight) {
@@ -179,6 +169,36 @@ public class GameResultWindow {
 
         // Создаем параллельную анимацию для выполнения обеих анимаций одновременно
         return new ParallelTransition(scaleTransition, fadeTransition);
+    }
+
+    public GameResultWindow() {
+        support = new PropertyChangeSupport(this);
+    }
+    public boolean getValue() {
+        return isOpen;
+    }
+
+    public boolean setValue(boolean newValue) {
+        boolean oldValue = isOpen;
+        isOpen = newValue;
+        support.firePropertyChange("isOpen", oldValue, newValue);
+        return isOpen;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
+    }
+
+    public void updateWindowState(boolean isOpen) {
+
+        support.firePropertyChange("isOpen", this.isOpen, isOpen); // String propertyName, boolean oldValue, boolean newValue
+
+        this.isOpen = isOpen;
+
     }
 
 }
