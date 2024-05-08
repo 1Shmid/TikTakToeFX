@@ -1,6 +1,6 @@
 # TicTacToeFX 2.2
 
-![TikTakToeFX](src/main/resources/tiktaktoefx20/TTTFX 2.0.gif)
+![TikTakToeFX](src/main/resources/tiktaktoefx20/TTTFX%202.0.gif)
 
 ## Overview
 
