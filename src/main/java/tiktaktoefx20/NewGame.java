@@ -22,7 +22,7 @@ public class NewGame {
                 Platform.runLater(() -> clearCanvas(anchorPane));
                 Platform.runLater(() -> gameController.clearGridPane(gridPane));
                 clearGameField(gameField);
-                GameController.resetMoveCounters();
+                gameController.resetMoveCounters();
                 return null;
             }
         };
@@ -36,7 +36,7 @@ public class NewGame {
 
         GameController gameController = GameController.getInstance();
 
-        GameController.startGameTimer();
+        gameController.startGameTimer();
         int newGameId = SQLiteDBManager.getGameIdFromDatabase();
         setNewTitleGameNumber(newGameId, gridPane);
 

@@ -33,10 +33,10 @@ public class GameController implements PropertyChangeListener {
     private final Context hardMoveHandler = new Context(hardStrategy);
     private final Context aiMoveHandler = new Context(aiStrategy);
     private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
-    private static int moveCounter = 0; // Переменная для хранения счетчика ходов
-    private static int playerMovesCounter = 0; // Переменная для хранения счетчика ходов
-    private static int computerMovesCounter = 0; // Переменная для хранения счетчика ходов
-    private static long startTime;
+    private int moveCounter = 0; // Переменная для хранения счетчика ходов
+    private int playerMovesCounter = 0; // Переменная для хранения счетчика ходов
+    private int computerMovesCounter = 0; // Переменная для хранения счетчика ходов
+    private long startTime;
     private ToggleGroup difficultyNewGame;
 
     GameEngine gameEngine = new GameEngine();
@@ -458,7 +458,7 @@ public class GameController implements PropertyChangeListener {
         return helper.getLayoutBounds().getWidth();
     }
 
-    static void resetMoveCounters() {
+    void resetMoveCounters() {
         moveCounter = 0; // Переменная для хранения счетчика ходов
         playerMovesCounter = 0; // Переменная для хранения счетчика ходов
         computerMovesCounter = 0; // Переменная для хранения счетчика ходов
@@ -468,7 +468,7 @@ public class GameController implements PropertyChangeListener {
     }
 
     // Метод для старта отсчета времени игры
-    public static void startGameTimer() {
+    public void startGameTimer() {
         startTime = System.currentTimeMillis();
     }
 
@@ -478,7 +478,7 @@ public class GameController implements PropertyChangeListener {
         return (int) ((endTime - startTime) / 1000);
     }
 
-    public static int getCurrentGameTime() {
+    public int getCurrentGameTime() {
         // Получаем текущее время в миллисекундах
         long currentTime = System.currentTimeMillis();
         // Вычисляем разницу между текущим временем и началом игры в секундах

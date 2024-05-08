@@ -29,8 +29,9 @@ public class StatDialogController {
     }
 
     private void updateTotalTime() {
+        GameController gameController = GameController.getInstance();
         int totalGameDuration = SQLiteDBManager.getTotalGameDuration();
-        final int[] currentGameDuration = {GameController.getCurrentGameTime()};
+        final int[] currentGameDuration = {gameController.getCurrentGameTime()};
 
         // Выводим полученные данные в окне
         timer.scheduleAtFixedRate(new TimerTask() {
