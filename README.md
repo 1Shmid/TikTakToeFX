@@ -156,7 +156,7 @@ This project is licensed under the MIT (X11) License.
 
 # TikTakToeFX 2.01
 
-![TikTakToeFX](TTTFX%202.0.jpg)
+![TikTakToeFX](assets/TTTFX2.0.jpg)
 
 ## About the Project
 
@@ -206,9 +206,9 @@ This version represents a significant evolution from TikTakToeFX 2.0:
 
 ## Screenshots
 
-![Screenshot 1](TTTFX%202.01%20Screenshot_1.jpg)
-![Screenshot 2](TTTFX%202.01%20Screenshot_2.jpg)
-![Screenshot 2](TTTFX%202.01%20Screenshot_3.jpg)
+![Screenshot 1](assets/TTTFX2.01_Screenshot_1.jpg)
+![Screenshot 2](assets/TTTFX2.01_Screenshot_2.jpg)
+![Screenshot 2](assets/TTTFX2.01_Screenshot_2.jpg)
 
 ## License
 
