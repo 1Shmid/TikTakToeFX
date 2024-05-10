@@ -82,17 +82,52 @@ management in the application.
 
 Although I know graphic packages, I have no artistic education, so I took the top one from Google as
 a basis for the new gameRecorder design.
+[
 
 ## Project structure
 
-//TODO
-
-- `src`: contains the source code of the project
-- `package1]`: [Description of package contents].
-- `[package2]`: [Package Content Description].
-- `resources:` contains project resources such as FXML files, images and others
-- `docs`: contains project documentation
-- `[other directories]`: [Description of other project directories].
+- **constants**: Holds project-wide constant values
+    - `Constants.java`: Defines project constants
+- **controller**: Manages the application logic and user interactions
+    - `Context.java`: Initializes the interface and handles moves
+    - `GameController.java`: Controls the game interface and interactions
+    - `GameResultHandler.java`: Manages game results and database interactions
+    - `GameResultWindowController.java`: Controls the game result window
+    - `GraphicsManager.java`: Handles drawing of winning lines
+    - `NewGameSetter.java`: Resets the game and starts a new one
+    - `StatDialogController.java`: Manages the statistics window
+- **database**: Handles database operations
+    - `GameMove.java`: Stores game moves
+    - `GameRecorder.java`: Records game data in the database
+    - `SQLiteDBManager.java`: Manages SQLite database operations
+- **model**: Contains data structures and business logic
+    - `GameEndParams.java`: Stores parameters needed by other classes
+    - `GameEngine.java`: Computes game results and winning coordinates
+- **strategies**: Implements game playing strategies
+    - `AIStrategy.java`: Implements AI game strategy
+    - `EasyStrategy.java`: Implements easy level strategy
+    - `HardStrategy.java`: Implements hard level strategy
+    - `Strategic.java`: Defines the strategy interface
+- **view**: Handles presentation and UI components
+    - `AboutWindow.java`: Controls the about window
+    - `GameResultWindow.java`: Controls the game result window
+    - `HowToWindow.java`: Controls the how-to-play window
+    - `StatWindow.java`: Controls the statistics window
+- **resources**: Contains project resources such as FXML files and images
+    - `TTTFX.fxml`: Main game interface FXML file
+    - `GameResultWindow.fxml`: Game result window FXML file
+    - `StatDialog.fxml`: Statistics window FXML file
+    - `TTTFX2.0-ezgif.com-resize.gif`: Animated GIF for the game interface
+    - `TTTFX 2.0.gif`: Another animated GIF for the game interface
+    - `TTTFX_back.fxml`: Background FXML file for the game interface
+    - **assets**: Contains ReadeMe.md resources
+        - `TTTFX2.0-ezgif.com-resize.gif`
+        - `TTTFX 2.0.gif`
+        - `TTTFX 2.0.jpg`
+        - `TTTFX 2.01 Screenshot_1.jpg`
+        - `TTTFX 2.01 Screenshot_2.jpg`
+        - `TTTFX 2.01 Screenshot_3.jpg`
+        - `TTTFX 2.2 Screenshot_4.jpg`
 
 ## Usage
 
