@@ -100,7 +100,7 @@ a basis for the new gameRecorder design.
     - `GameMove.java`: Stores game moves
     - `GameRecorder.java`: Records game data in the database
     - `SQLiteDBManager.java`: Manages SQLite database operations
-- **model**: Contains data structures and business logic
+- **model**: Contains data structures and game logic
     - `GameEndParams.java`: Stores parameters needed by other classes
     - `GameEngine.java`: Computes game results and winning coordinates
 - **strategies**: Implements game playing strategies
