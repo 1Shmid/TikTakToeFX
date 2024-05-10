@@ -12,16 +12,14 @@ import javafx.util.*;
 import java.util.*;
 import tiktaktoefx20.controller.GameController;
 
+/**
+ * Класс, который рисует победную линию, зачеркивающую победившие ячейки. Class that draws the
+ * winning line that crosses out the winning cells.
+ */
+
 public class GraphicsManager {
 
-//    @FXML
-//    protected GridPane gridPane;
-
-  GameController gameController = new GameController();
-
-
   private final Canvas winningLineCanvas = new Canvas();
-
 
   private void setupCanvas(AnchorPane anchorPane) {
     if (!anchorPane.getChildren().contains(winningLineCanvas)) {

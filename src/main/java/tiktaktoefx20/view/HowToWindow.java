@@ -4,6 +4,12 @@ import javafx.scene.control.Alert;
 
 import java.io.*;
 
+/**
+ * Класс, отвечающий за содержимое окна "Как играть". Class responsible for the content of the "How
+ * to play" window.
+ */
+
+
 public class HowToWindow {
 
   public static void displayHowToDialog() {

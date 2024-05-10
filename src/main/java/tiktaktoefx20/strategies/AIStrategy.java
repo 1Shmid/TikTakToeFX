@@ -8,6 +8,14 @@ import java.util.List;
 
 import static tiktaktoefx20.database.SQLiteDBManager.getWinningGameStates;
 
+/**
+ * Класс, писпользует машинное обучение для принятия решений о следующем ходе на основе текущего
+ * состояния игрового поля и выбранного уровня сложности
+ * <p>
+ * Class, uses machine learning to make decisions about the next move based on the current state of
+ * the playing field and the selected difficulty level
+ */
+
 public class AIStrategy implements Strategic {
 
   @Override

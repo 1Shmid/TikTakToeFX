@@ -5,6 +5,11 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Класс, управляющий базой данных SQLite и создающий таблицы. Class managing the SQLite database
+ * and creating tables.
+ */
+
 public class SQLiteDBManager {
 
   private static final String DB_URL = "jdbc:sqlite:TTTFX 2.0.db";

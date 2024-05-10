@@ -3,6 +3,13 @@ package tiktaktoefx20.model;
 import tiktaktoefx20.constants.Constants;
 import java.util.*;
 
+/**
+ * Вычисляет результаты игры и координаты выигрышных ячеек
+ * <p>
+ * Computes game results and winning coordinates
+ */
+
+
 public class GameEngine {
 
   // Статическая переменная для хранения координат выигрышных ячеек

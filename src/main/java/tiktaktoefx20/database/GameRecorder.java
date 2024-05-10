@@ -2,6 +2,12 @@ package tiktaktoefx20.database;
 
 import java.util.*;
 
+/**
+ * Класс, содержащий методы для записи игры в базу данных. Class containing methods for recording
+ * the game in the database.
+ */
+
+
 public class GameRecorder {
 
   private final List<GameMove> moves;

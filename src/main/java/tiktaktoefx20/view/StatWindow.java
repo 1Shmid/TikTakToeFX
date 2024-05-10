@@ -12,6 +12,11 @@ import javafx.util.*;
 import java.io.*;
 import tiktaktoefx20.controller.StatDialogController;
 
+/**
+ * Класс, отвечающий за содержимое окна статистики. Class responsible for the content of the
+ * statistics window.
+ */
+
 public class StatWindow {
 
   private void centerStage(Stage stage, Bounds gameBounds, double menuBarHeight) {

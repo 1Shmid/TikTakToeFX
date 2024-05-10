@@ -6,6 +6,12 @@ import java.util.Random;
 import tiktaktoefx20.constants.Constants;
 import tiktaktoefx20.model.GameEngine;
 
+/**
+ * Класс, представляющий сложную реализацию стратегии.
+ * <p>
+ * A class representing the implementation of a easy strategy for a computer move.
+ */
+
 public class HardStrategy implements Strategic {
 
   private final Strategic easyStrategy = new EasyStrategy();

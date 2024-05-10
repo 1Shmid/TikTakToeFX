@@ -12,17 +12,19 @@ import javafx.util.Duration;
 
 import java.beans.*;
 import java.io.IOException;
-import java.util.*;
 import tiktaktoefx20.model.GameEndParams;
 import tiktaktoefx20.controller.GameController;
 import tiktaktoefx20.controller.GameResultWindowController;
 import tiktaktoefx20.controller.NewGameSetter;
 
+/**
+ * Класс, отвечающий за содержимое окна с результатами игры. Class responsible for the content of
+ * the game results window.
+ */
+
 public class GameResultWindow {
 
   private final NewGameSetter newGameSetter = new NewGameSetter();
-
-  private final List<PropertyChangeListener> listeners = new ArrayList<>();
 
   private boolean isOpen;
   private final PropertyChangeSupport support;

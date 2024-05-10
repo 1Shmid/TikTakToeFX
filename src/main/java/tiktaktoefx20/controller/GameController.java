@@ -26,6 +26,11 @@ import static tiktaktoefx20.constants.Constants.OColor;
 import static tiktaktoefx20.constants.Constants.XColor;
 import static tiktaktoefx20.model.GameEngine.*;
 
+/**
+ * Класс, отвечающий за управление игровым интерфейсом и взаимодействие с пользователем. Controls
+ * the game interface and interacts with the user.
+ */
+
 
 public class GameController implements PropertyChangeListener {
 

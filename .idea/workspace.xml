@@ -4,65 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="GIF renewed">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/constants/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/Context.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameResultHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameResultWindowController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GraphicsManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/NewGameSetter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/StatDialogController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/model/GameEngine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/GameResultWindow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/StatWindow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tst/tiktaktoefx20/database/GameRecorderTest.java" afterDir="false" />
+    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="assets added">
+      <change afterPath="$PROJECT_DIR$/assets/TTTFX2.0.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/TTTFX2.2_Screenshot_4.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTTFX 2.0.db" beforeDir="false" afterPath="$PROJECT_DIR$/TTTFX 2.0.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTTFX 2.0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.0.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTTFX 2.01 Screenshot_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.01 Screenshot_1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTTFX 2.01 Screenshot_2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.01 Screenshot_2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTTFX 2.01 Screenshot_3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.01 Screenshot_3.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTTFX 2.2 Screenshot_4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.2 Screenshot_4.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/error.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Constants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Context.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameEndParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/model/GameEndParams.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameEngine.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultWindowController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GraphicsManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/TTTFX 2.0.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/TTTFX 2.0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/TTTFX 2.01 Screenshot_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/TTTFX 2.01 Screenshot_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/TTTFX 2.01 Screenshot_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/TTTFX 2.2 Screenshot_4.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/StatDialogController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/StatDialogLoader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameRecorder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/constants/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/Context.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/Context.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameResultHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameResultHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameResultWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameResultWindowController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GraphicsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GraphicsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/NewGameSetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/NewGameSetter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameRecorder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameRecorder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/SQLiteDBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/SQLiteDBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameDataReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameDataStorage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameDataWriter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameHistory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameRecord.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameTurn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/AboutWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/AboutWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/HowToWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/HowToWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/model/GameEndParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/model/GameEndParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/model/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/model/GameEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AIStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AIStrategy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/EasyStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/EasyStrategy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/HardStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/HardStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/MoveStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/Strategic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/TTTFX_back.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/TTTFX_back.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/StatDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/StatDialog.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX 2.0.gif" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.0.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX2.0-ezgif.com-resize.gif" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX2.0-ezgif.com-resize.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/Strategic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/Strategic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/AboutWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/AboutWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/GameResultWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/GameResultWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/HowToWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/HowToWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/StatWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/StatWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,62 +166,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712580090347</updated>
-    </task>
-    <task id="LOCAL-00050" summary="HowToWindow code cleaned">
-      <option name="closed" value="true" />
-      <created>1714669207598</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1714669207598</updated>
-    </task>
-    <task id="LOCAL-00051" summary="README - How To Play added">
-      <option name="closed" value="true" />
-      <created>1714669300680</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1714669300680</updated>
-    </task>
-    <task id="LOCAL-00052" summary="Main - AnchorPaine to 600x600">
-      <option name="closed" value="true" />
-      <created>1714690334671</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1714690334671</updated>
-    </task>
-    <task id="LOCAL-00053" summary="FXML - AnchorPaine to 600x600">
-      <option name="closed" value="true" />
-      <created>1714692289733</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1714692289733</updated>
-    </task>
-    <task id="LOCAL-00054" summary="EndGameDialog.fxml - size changed">
-      <option name="closed" value="true" />
-      <created>1714692443754</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1714692443754</updated>
-    </task>
-    <task id="LOCAL-00055" summary="GameResultHandler - centerStage refined">
-      <option name="closed" value="true" />
-      <created>1714692740812</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1714692740812</updated>
-    </task>
-    <task id="LOCAL-00056" summary="GameResultHandler - сode readability enhanced">
-      <option name="closed" value="true" />
-      <created>1714693348622</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1714693348622</updated>
     </task>
     <task id="LOCAL-00057" summary="EndGameDialog created. Method show relocated out of GameResultHandler">
       <option name="closed" value="true" />
@@ -587,7 +503,63 @@
       <option name="project" value="LOCAL" />
       <updated>1715204599785</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="Project - this commit introduces the MVC (Model-View-Controller) structure to the project. The project structure is reorganized as follows:&#10;          &#10;            - `model/`: Contains the model classes responsible for representing data and business logic.&#10;            - `view/`: Contains the view classes responsible for presenting data to the user.&#10;            - `controller/`: Contains the controller classes responsible for handling user input and updating the model and view accordingly.&#10;          &#10;          This commit includes the following changes:&#10;          &#10;          - Added `model/`, `view/`, and `controller/` directories inside `src/`.&#10;          - Moved relevant classes to their respective directories according to the MVC structure.&#10;          - Updated import statements and package declarations accordingly.&#10;          - Updated class relationships and dependencies to adhere to the MVC architecture.">
+      <option name="closed" value="true" />
+      <created>1715353850563</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1715353850564</updated>
+    </task>
+    <task id="LOCAL-00100" summary="ReadeMe updated">
+      <option name="closed" value="true" />
+      <created>1715355601193</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1715355601193</updated>
+    </task>
+    <task id="LOCAL-00101" summary="ReadeMe updated">
+      <option name="closed" value="true" />
+      <created>1715355701952</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1715355701952</updated>
+    </task>
+    <task id="LOCAL-00102" summary="ReadeMe updated">
+      <option name="closed" value="true" />
+      <created>1715356026238</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1715356026238</updated>
+    </task>
+    <task id="LOCAL-00103" summary="assets added">
+      <option name="closed" value="true" />
+      <created>1715356162432</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1715356162432</updated>
+    </task>
+    <task id="LOCAL-00104" summary="assets added">
+      <option name="closed" value="true" />
+      <created>1715356179830</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1715356179830</updated>
+    </task>
+    <task id="LOCAL-00105" summary="assets added">
+      <option name="closed" value="true" />
+      <created>1715356247524</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1715356247525</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -706,9 +678,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="GameController - animate Shade added" />
-    <MESSAGE value="GraphicsManager - animate Shade added" />
-    <MESSAGE value="GameController - line animation added" />
     <MESSAGE value="GameController - line animation moved to GraphicsManager" />
     <MESSAGE value="StatDialogLoader created" />
     <MESSAGE value="StatDialogController created" />
@@ -731,6 +700,9 @@
     <MESSAGE value="GameController - code readability enhanced" />
     <MESSAGE value="ReadMe renewed" />
     <MESSAGE value="GIF renewed" />
-    <option name="LAST_COMMIT_MESSAGE" value="GIF renewed" />
+    <MESSAGE value="Project - this commit introduces the MVC (Model-View-Controller) structure to the project. The project structure is reorganized as follows:&#10;          &#10;            - `model/`: Contains the model classes responsible for representing data and business logic.&#10;            - `view/`: Contains the view classes responsible for presenting data to the user.&#10;            - `controller/`: Contains the controller classes responsible for handling user input and updating the model and view accordingly.&#10;          &#10;          This commit includes the following changes:&#10;          &#10;          - Added `model/`, `view/`, and `controller/` directories inside `src/`.&#10;          - Moved relevant classes to their respective directories according to the MVC structure.&#10;          - Updated import statements and package declarations accordingly.&#10;          - Updated class relationships and dependencies to adhere to the MVC architecture." />
+    <MESSAGE value="ReadeMe updated" />
+    <MESSAGE value="assets added" />
+    <option name="LAST_COMMIT_MESSAGE" value="assets added" />
   </component>
 </project>

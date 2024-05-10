@@ -7,6 +7,11 @@ import tiktaktoefx20.constants.Constants;
 import javafx.fxml.*;
 import tiktaktoefx20.database.*;
 
+/**
+ * Класс, который записывает результаты игры в базу данных и вызывает окно с результатами. Class
+ * that records game results in the database and opens a window with the results.
+ */
+
 public class GameResultHandler {
 
   private final int gameNumber = 1; // Инициализируем начальное значение счетчика игр

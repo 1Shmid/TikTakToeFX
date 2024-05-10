@@ -1,5 +1,9 @@
 package tiktaktoefx20.constants;
 
+/**
+ * Класс, содержащий константы проекта. Class containing project constants.
+ */
+
 public class Constants {
 
   public static final char PLAYER_SYMBOL = 'X';

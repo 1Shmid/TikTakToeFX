@@ -5,6 +5,11 @@ import javafx.scene.control.Alert.AlertType;
 
 import java.io.*;
 
+/**
+ * Класс, отвечающий за содержимое окна "О программе". Class responsible for the content of the
+ * "About" window.
+ */
+
 public class AboutWindow {
 
   public static void displayAboutDialog() {

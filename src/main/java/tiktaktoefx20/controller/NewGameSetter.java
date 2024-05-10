@@ -10,6 +10,10 @@ import javafx.stage.*;
 import tiktaktoefx20.database.*;
 import javafx.concurrent.Task;
 
+/**
+ * Класс, который запускает новую игру, очищая результаты предыдущей. Class that starts a new game
+ * by clearing the results of the previous one.
+ */
 
 public class NewGameSetter {
 

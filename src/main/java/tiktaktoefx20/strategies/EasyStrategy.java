@@ -4,6 +4,11 @@ import tiktaktoefx20.constants.Constants;
 
 import java.util.Random;
 
+/**
+ * Класс, представляющий реализацию простой стратегии ответного хода. A class representing the
+ * implementation of a easy strategy for a computer move.
+ */
+
 public class EasyStrategy implements Strategic {
 
   @Override

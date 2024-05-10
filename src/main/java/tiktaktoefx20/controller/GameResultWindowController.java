@@ -9,6 +9,14 @@ import javafx.scene.text.*;
 
 import static tiktaktoefx20.constants.Constants.*;
 
+
+/**
+ * Класс отвечает за управление окном результатов игры.
+ * <p>
+ * The class is responsible for controlling the game results window.
+ */
+
+
 public class GameResultWindowController {
 
   @FXML
@@ -52,6 +60,7 @@ public class GameResultWindowController {
 
   public void setStage() {
   }
+}
 
 //    private GameController gameController;
 //
@@ -70,7 +79,6 @@ public class GameResultWindowController {
 //        if (!isOpen && gameController != null) {
 //            gameController.notifyObservers(false);
 //        }
-}
 
 //    @Override
 //    public void registerObserver() {

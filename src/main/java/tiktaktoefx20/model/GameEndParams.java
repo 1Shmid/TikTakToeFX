@@ -7,6 +7,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import tiktaktoefx20.database.*;
 
+/**
+ * Класс, представляющий набор параметров для окончания игры, необходимых другим классам и методам.
+ * Class representing a set of game ending parameters needed by other classes and methods.
+ */
+
 public record GameEndParams(String winningPlayer,
                             List<int[]> winningCells,
                             String selectedLevel,

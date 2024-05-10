@@ -11,6 +11,11 @@ import tiktaktoefx20.database.*;
 import java.io.*;
 import tiktaktoefx20.view.GameResultWindow;
 
+/**
+ * Главный класс, запускающий игру. Main class that launches the game.
+ */
+
+
 public class Main extends Application {
 
   @Override
