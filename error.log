@@ -5,8 +5,8 @@ javafx.fxml.LoadException:
 	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2692)
 	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2555)
 	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2523)
-	at org.example.tiktaktoefx/tiktaktoefx20.StatDialogLoader.showDialog(StatDialogLoader.java:15)
-	at org.example.tiktaktoefx/tiktaktoefx20.GameController.handleStatisticMenuItem(GameController.java:406)
+	at org.example.tiktaktoefx/tiktaktoefx20.view.StatWindow.showDialog(StatDialogLoader.java:15)
+	at org.example.tiktaktoefx/tiktaktoefx20.controller.GameController.handleStatisticMenuItem(GameController.java:406)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -60,7 +60,7 @@ javafx.fxml.LoadException:
 	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
 	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
 	at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: java.lang.IllegalArgumentException: Can not set javafx.scene.control.Label field tiktaktoefx20.StatDialogController.totalGamesLabel to javafx.scene.text.Text
+Caused by: java.lang.IllegalArgumentException: Can not set javafx.scene.control.Label field tiktaktoefx20.controller.StatDialogController.totalGamesLabel to javafx.scene.text.Text
 	at java.base/jdk.internal.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:167)
 	at java.base/jdk.internal.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:171)
 	at java.base/jdk.internal.reflect.UnsafeObjectFieldAccessorImpl.set(UnsafeObjectFieldAccessorImpl.java:81)

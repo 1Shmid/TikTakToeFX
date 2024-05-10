@@ -4,17 +4,65 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="Project Changes:&#10;&#10; - Removed redundant inheritance of GameController, GameResultHandler, GameEngine and GraphicsManager classes &#10;&#10;- EndGameDialor renamed to GameResultWindow&#10;&#10;- Cleanup of the playing field has been moved to background mode&#10;&#10;- Added animation of lines at the start of a new game">
+    <list default="true" id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="GIF renewed">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/constants/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/Context.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameResultHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GameResultWindowController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/GraphicsManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/NewGameSetter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/controller/StatDialogController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/model/GameEngine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/GameResultWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/StatWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tst/tiktaktoefx20/database/GameRecorderTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TTTFX 2.0.db" beforeDir="false" afterPath="$PROJECT_DIR$/TTTFX 2.0.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTTFX 2.0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTTFX 2.01 Screenshot_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.01 Screenshot_1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTTFX 2.01 Screenshot_2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.01 Screenshot_2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTTFX 2.01 Screenshot_3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.01 Screenshot_3.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTTFX 2.2 Screenshot_4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.2 Screenshot_4.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Context.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameEndParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/model/GameEndParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameEngine.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GameResultWindowController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/GraphicsManager.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/GameResultWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/GameResultWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/NewGame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/StatDialogController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/StatDialogLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/GameRecorder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/SQLiteDBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/database/SQLiteDBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameDataReader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameDataStorage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameDataWriter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameHistory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameRecord.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/drafts/GameTurn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/AboutWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/AboutWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/menu/HowToWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/view/HowToWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AIStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/AIStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/EasyStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/EasyStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/HardStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/HardStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/MoveStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tiktaktoefx20/strategies/Strategic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/TTTFX_back.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/TTTFX_back.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/StatDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/StatDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX 2.0.gif" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX 2.0.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tiktaktoefx20/TTTFX2.0-ezgif.com-resize.gif" beforeDir="false" afterPath="$PROJECT_DIR$/assets/TTTFX2.0-ezgif.com-resize.gif" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,11 +73,14 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="JUnit4 Test Class" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -69,6 +120,8 @@
     "Application.Main.executor": "Run",
     "JUnit.GameControllerTest.executor": "Run",
     "JUnit.GameControllerTest.testComputerMove.executor": "Run",
+    "JUnit.GameEngineTest.executor": "Run",
+    "JUnit.GameTest.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -79,11 +132,12 @@
     "git-widget-placeholder": "version-2.2",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Asus/IdeaProjects/tetris",
+    "last_directory_selection": "C:/Users/Asus/IdeaProjects/TikTakToeFX 2.0/src/main/java/tiktaktoefx20",
+    "last_opened_file_path": "C:/Users/Asus/IdeaProjects/TikTakToeFX 2.0/assets",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editor.preferences.import"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -96,79 +150,31 @@
       <recent name="" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="tiktaktoefx20.GameEngine" />
       <recent name="tiktaktoefx20.GraphicsManager" />
       <recent name="tiktaktoefx20.Restart" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Asus\IdeaProjects\TikTakToeFX 2.0\assets" />
+      <recent name="C:\Users\Asus\IdeaProjects\TikTakToeFX 2.0\" />
+      <recent name="C:\Users\Asus\IdeaProjects\TikTakToeFX 2.0\database" />
+      <recent name="C:\Users\Asus\IdeaProjects\TikTakToeFX 2.0\src\main\java\tiktaktoefx20" />
       <recent name="C:\Users\Asus\IdeaProjects\TikTakToeFX 2.0\src\main\resources\tiktaktoefx20" />
     </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+    <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="tiktaktoefx20" />
-      <recent name="tiktaktoefx20.menu" />
-      <recent name="tiktaktoefx20.strategies" />
-      <recent name="tiktaktoefx20.database" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="tiktaktoefx20.model" />
+      <recent name="tiktaktoefx20.view" />
+      <recent name="tiktaktoefx20.controller" />
+      <recent name="" />
+      <recent name="tiktaktoefx20" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="tiktaktoefx20.database" />
       <recent name="tiktaktoefx20" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="GameControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TikTakToeFX" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tiktaktoefx20.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tiktaktoefx20" />
-      <option name="MAIN_CLASS_NAME" value="tiktaktoefx20.GameControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GameControllerTest.testComputerMove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TikTakToeFX" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tiktaktoefx20.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tiktaktoefx20" />
-      <option name="MAIN_CLASS_NAME" value="tiktaktoefx20.GameControllerTest" />
-      <option name="METHOD_NAME" value="testComputerMove" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GameControllerTest.testComputerMove" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="TikTakToeFX" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tiktaktoefx20.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tiktaktoefx20" />
-      <option name="MAIN_CLASS_NAME" value="tiktaktoefx20.GameControllerTest" />
-      <option name="METHOD_NAME" value="testComputerMove" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.GameControllerTest" />
-        <item itemvalue="TestNG.GameControllerTest.testComputerMove" />
-        <item itemvalue="JUnit.GameControllerTest.testComputerMove" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -178,6 +184,9 @@
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructuralSearchPlugin">
+    <searchConfiguration name="" created="1715321900593" uuid="db4b32bb-b2a1-36a8-a896-0d91c20dad28" text="" recursive="true" caseInsensitive="false" scope_type="PROJECT" scope_descriptor="" history="1" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="aa6881d8-5326-4acb-bac8-39eb605aa030" name="Changes" comment="" />
@@ -185,142 +194,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712580090347</updated>
-    </task>
-    <task id="LOCAL-00033" summary="GameController - Added handlers for menu items and logic for RadioMenuItem with RadioMenuItem state display in dynamic HBox string.">
-      <option name="closed" value="true" />
-      <created>1714574797540</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1714574797540</updated>
-    </task>
-    <task id="LOCAL-00034" summary="GameController - Added dynamic centering of HBox relative to AnchorPaine.">
-      <option name="closed" value="true" />
-      <created>1714579697406</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1714579697406</updated>
-    </task>
-    <task id="LOCAL-00035" summary="GameController - code is optimized with the best practices of clean Java code">
-      <option name="closed" value="true" />
-      <created>1714581073372</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1714581073372</updated>
-    </task>
-    <task id="LOCAL-00036" summary="FXML - HBox with two Text added">
-      <option name="closed" value="true" />
-      <created>1714581402518</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1714581402518</updated>
-    </task>
-    <task id="LOCAL-00037" summary="README.md - Dependency injection and Project structure drafts added">
-      <option name="closed" value="true" />
-      <created>1714607079703</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1714607079703</updated>
-    </task>
-    <task id="LOCAL-00038" summary="GameResultContainer is created">
-      <option name="closed" value="true" />
-      <created>1714607197076</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1714607197076</updated>
-    </task>
-    <task id="LOCAL-00039" summary="GameResult interface created; it will serve as a basis for creating GameResultWithDialog and GameResultWithLogging classes">
-      <option name="closed" value="true" />
-      <created>1714609888388</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1714609888388</updated>
-    </task>
-    <task id="LOCAL-00040" summary="EndGameDialogController - improved code readability and structure">
-      <option name="closed" value="true" />
-      <created>1714619510266</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1714619510266</updated>
-    </task>
-    <task id="LOCAL-00041" summary="GraphicsManager - improved code readability and structure">
-      <option name="closed" value="true" />
-      <created>1714620377858</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1714620377858</updated>
-    </task>
-    <task id="LOCAL-00042" summary="GameEngine - improved code readability and structure">
-      <option name="closed" value="true" />
-      <created>1714621872736</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1714621872736</updated>
-    </task>
-    <task id="LOCAL-00043" summary="AIStrategy - improved code readability and structure">
-      <option name="closed" value="true" />
-      <created>1714622439103</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1714622439103</updated>
-    </task>
-    <task id="LOCAL-00044" summary="GameController - ComboBox deleted. Difficulty level choice realized via RadioMenuItem">
-      <option name="closed" value="true" />
-      <created>1714662531433</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1714662531433</updated>
-    </task>
-    <task id="LOCAL-00045" summary="FXML - ComboBox deleted. Difficulty level choice realized via RadioMenuItem">
-      <option name="closed" value="true" />
-      <created>1714662571331</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1714662571331</updated>
-    </task>
-    <task id="LOCAL-00046" summary="MenuActions created. It will be used to store methods that implement menu activities">
-      <option name="closed" value="true" />
-      <created>1714663985963</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1714663985963</updated>
-    </task>
-    <task id="LOCAL-00047" summary="AboutWindow created. It uses the text from ReadMe.md">
-      <option name="closed" value="true" />
-      <created>1714667105085</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1714667105085</updated>
-    </task>
-    <task id="LOCAL-00048" summary="GameController - code is optimized in accordance with the best Java clean code practices">
-      <option name="closed" value="true" />
-      <created>1714667909846</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1714667909846</updated>
-    </task>
-    <task id="LOCAL-00049" summary="HowToWindow created">
-      <option name="closed" value="true" />
-      <created>1714669151015</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1714669151015</updated>
     </task>
     <task id="LOCAL-00050" summary="HowToWindow code cleaned">
       <option name="closed" value="true" />
@@ -578,7 +451,143 @@
       <option name="project" value="LOCAL" />
       <updated>1715090347010</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="GameResultWindow - Listeners added">
+      <option name="closed" value="true" />
+      <created>1715137316824</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1715137316824</updated>
+    </task>
+    <task id="LOCAL-00083" summary="GameController - Button deleted">
+      <option name="closed" value="true" />
+      <created>1715137487210</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1715137487210</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Project code readability enhanced">
+      <option name="closed" value="true" />
+      <created>1715137597115</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1715137597115</updated>
+    </task>
+    <task id="LOCAL-00085" summary="GameController + NewGame + StatDialogController - static variables moveCounter, playerMovesCounter, computerMovesCounter, startTime and instance are converted to instance variables">
+      <option name="closed" value="true" />
+      <created>1715169204383</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1715169204384</updated>
+    </task>
+    <task id="LOCAL-00086" summary="GameController + code readability enhanced">
+      <option name="closed" value="true" />
+      <created>1715171736804</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1715171736804</updated>
+    </task>
+    <task id="LOCAL-00087" summary="GameEndParams created and collected parameters">
+      <option name="closed" value="true" />
+      <created>1715173592678</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1715173592678</updated>
+    </task>
+    <task id="LOCAL-00088" summary="GameEngine refactored">
+      <option name="closed" value="true" />
+      <created>1715180028463</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1715180028463</updated>
+    </task>
+    <task id="LOCAL-00089" summary="GameEndParams refactored">
+      <option name="closed" value="true" />
+      <created>1715180160383</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1715180160383</updated>
+    </task>
+    <task id="LOCAL-00090" summary="GameResultWindow - code readability enhanced">
+      <option name="closed" value="true" />
+      <created>1715186120792</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1715186120792</updated>
+    </task>
+    <task id="LOCAL-00091" summary="GameResultHandler - code readability enhanced">
+      <option name="closed" value="true" />
+      <created>1715186178964</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1715186178964</updated>
+    </task>
+    <task id="LOCAL-00092" summary="GameController - code readability enhanced">
+      <option name="closed" value="true" />
+      <created>1715186203024</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1715186203024</updated>
+    </task>
+    <task id="LOCAL-00093" summary="GIF renewed">
+      <option name="closed" value="true" />
+      <created>1715186366495</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1715186366495</updated>
+    </task>
+    <task id="LOCAL-00094" summary="GIF renewed">
+      <option name="closed" value="true" />
+      <created>1715186710713</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1715186710714</updated>
+    </task>
+    <task id="LOCAL-00095" summary="GIF renewed">
+      <option name="closed" value="true" />
+      <created>1715186865903</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1715186865903</updated>
+    </task>
+    <task id="LOCAL-00096" summary="ReadMe renewed">
+      <option name="closed" value="true" />
+      <created>1715186892456</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1715186892456</updated>
+    </task>
+    <task id="LOCAL-00097" summary="ReadMe renewed">
+      <option name="closed" value="true" />
+      <created>1715204392267</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1715204392267</updated>
+    </task>
+    <task id="LOCAL-00098" summary="GIF renewed">
+      <option name="closed" value="true" />
+      <created>1715204599785</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1715204599785</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -596,6 +605,7 @@
     <option name="OPEN_GENERIC_TABS">
       <map>
         <entry key="5a999253-7cc1-48e3-9268-ee5e02829418" value="TOOL_WINDOW" />
+        <entry key="7602a75f-bfa2-4ca7-b077-9c843088b489" value="TOOL_WINDOW" />
         <entry key="f703d83d-9789-4c37-8a72-d26d13af0717" value="TOOL_WINDOW" />
       </map>
     </option>
@@ -617,6 +627,31 @@
     <option name="TAB_STATES">
       <map>
         <entry key="5a999253-7cc1-48e3-9268-ee5e02829418">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
+        <entry key="7602a75f-bfa2-4ca7-b077-9c843088b489">
           <value>
             <State>
               <option name="FILTERS">
@@ -671,23 +706,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="EndGameDialog.fxml - size changed" />
-    <MESSAGE value="GameResultHandler - centerStage refined" />
-    <MESSAGE value="GameResultHandler - сode readability enhanced" />
-    <MESSAGE value="EndGameDialog created. Method show relocated out of GameResultHandler" />
-    <MESSAGE value="NewGame created. Method start relocated out of EndGameDialog" />
-    <MESSAGE value="EndGameDialog - method start relocated to NewGame class" />
-    <MESSAGE value="Constants - colors added" />
-    <MESSAGE value="EndGameDialogController - color constants implemented" />
-    <MESSAGE value="GameResultHandler endGameDialog show relocated to EndGameDialog class" />
-    <MESSAGE value="GameController - Code Readability Enhanced" />
-    <MESSAGE value="Code Readability Enhanced" />
-    <MESSAGE value="Main - Code Readability Enhanced" />
     <MESSAGE value="GameController - animate Shade added" />
     <MESSAGE value="GraphicsManager - animate Shade added" />
     <MESSAGE value="GameController - line animation added" />
     <MESSAGE value="GameController - line animation moved to GraphicsManager" />
-    <MESSAGE value="Project code readability enhanced" />
     <MESSAGE value="StatDialogLoader created" />
     <MESSAGE value="StatDialogController created" />
     <MESSAGE value="StatDialogLoader - added launching and centering" />
@@ -696,6 +718,19 @@
     <MESSAGE value="Code readability enhanced" />
     <MESSAGE value="GIF updated" />
     <MESSAGE value="Project Changes:&#10;&#10; - Removed redundant inheritance of GameController, GameResultHandler, GameEngine and GraphicsManager classes &#10;&#10;- EndGameDialor renamed to GameResultWindow&#10;&#10;- Cleanup of the playing field has been moved to background mode&#10;&#10;- Added animation of lines at the start of a new game" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project Changes:&#10;&#10; - Removed redundant inheritance of GameController, GameResultHandler, GameEngine and GraphicsManager classes &#10;&#10;- EndGameDialor renamed to GameResultWindow&#10;&#10;- Cleanup of the playing field has been moved to background mode&#10;&#10;- Added animation of lines at the start of a new game" />
+    <MESSAGE value="GameResultWindow - Listeners added" />
+    <MESSAGE value="GameController - Button deleted" />
+    <MESSAGE value="Project code readability enhanced" />
+    <MESSAGE value="GameController + NewGame + StatDialogController - static variables moveCounter, playerMovesCounter, computerMovesCounter, startTime and instance are converted to instance variables" />
+    <MESSAGE value="GameController + code readability enhanced" />
+    <MESSAGE value="GameEndParams created and collected parameters" />
+    <MESSAGE value="GameEngine refactored" />
+    <MESSAGE value="GameEndParams refactored" />
+    <MESSAGE value="GameResultWindow - code readability enhanced" />
+    <MESSAGE value="GameResultHandler - code readability enhanced" />
+    <MESSAGE value="GameController - code readability enhanced" />
+    <MESSAGE value="ReadMe renewed" />
+    <MESSAGE value="GIF renewed" />
+    <option name="LAST_COMMIT_MESSAGE" value="GIF renewed" />
   </component>
 </project>

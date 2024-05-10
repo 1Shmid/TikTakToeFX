@@ -15,111 +15,134 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #99CCCC;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tiktaktoefx20.GameController">
-   <children>
-      <MenuBar id="menuBar" fx:id="menuBar" prefHeight="26.0" prefWidth="600.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Game">
-            <items>
-                  <Menu fx:id="newGameMenu" mnemonicParsing="false" text="Difficulty Level">
-                    <items>
-                        <RadioMenuItem mnemonicParsing="false" text="EASY" />
-                        <RadioMenuItem mnemonicParsing="false" text="HARD" />
-                        <RadioMenuItem mnemonicParsing="false" text="AI" />
-                    </items>
-                  </Menu>
-                  <MenuItem mnemonicParsing="false" onAction="#handleOptionsMenuItem" text="Options" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleExitMenuItem" text="Exit " />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleHowToMenuItem" text="How To" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleStatisticMenuItem" text="Statistic" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleAboutMenuItem" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <Line fx:id="bottomHLine" endX="227.4000244140625" layoutX="225.0" layoutY="330.0" startX="-79.0" stroke="#0e5fa1" strokeWidth="3.0" />
-      <Line fx:id="upHLine" endX="227.4000244140625" layoutX="225.0" layoutY="228.0" startX="-79.0" stroke="#0e5fa1" strokeWidth="3.0" />
-      <Line fx:id="leftVLine" endX="100.0" endY="41.79998779296875" layoutX="149.0" layoutY="392.0" startX="100.0" startY="-266.0" stroke="#0e5fa1" strokeWidth="3.0" />
-      <Line fx:id="rightVLine" endX="100.0" endY="45.79998779296875" layoutX="251.0" layoutY="387.0" startX="100.0" startY="-261.0" stroke="#0e5fa1" strokeWidth="3.0" />
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+  minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #99CCCC;"
+  xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="tiktaktoefx20.controller.GameController">
+  <children>
+    <MenuBar id="menuBar" fx:id="menuBar" prefHeight="26.0" prefWidth="600.0">
+      <menus>
+        <Menu mnemonicParsing="false" text="Game">
+          <items>
+            <Menu fx:id="newGameMenu" mnemonicParsing="false" text="Difficulty Level">
+              <items>
+                <RadioMenuItem mnemonicParsing="false" text="EASY"/>
+                <RadioMenuItem mnemonicParsing="false" text="HARD"/>
+                <RadioMenuItem mnemonicParsing="false" text="AI"/>
+              </items>
+            </Menu>
+            <MenuItem mnemonicParsing="false" onAction="#handleOptionsMenuItem" text="Options"/>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem mnemonicParsing="false" onAction="#handleExitMenuItem" text="Exit "/>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handleHowToMenuItem" text="How To"/>
+            <MenuItem mnemonicParsing="false" onAction="#handleStatisticMenuItem" text="Statistic"/>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem mnemonicParsing="false" onAction="#handleAboutMenuItem" text="About"/>
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <Line fx:id="bottomHLine" endX="227.4000244140625" layoutX="225.0" layoutY="330.0"
+      startX="-79.0" stroke="#0e5fa1" strokeWidth="3.0"/>
+    <Line fx:id="upHLine" endX="227.4000244140625" layoutX="225.0" layoutY="228.0" startX="-79.0"
+      stroke="#0e5fa1" strokeWidth="3.0"/>
+    <Line fx:id="leftVLine" endX="100.0" endY="41.79998779296875" layoutX="149.0" layoutY="392.0"
+      startX="100.0" startY="-266.0" stroke="#0e5fa1" strokeWidth="3.0"/>
+    <Line fx:id="rightVLine" endX="100.0" endY="45.79998779296875" layoutX="251.0" layoutY="387.0"
+      startX="100.0" startY="-261.0" stroke="#0e5fa1" strokeWidth="3.0"/>
 
-      <GridPane fx:id="gridPane" layoutX="146.0" layoutY="126.0" onMouseClicked="#mouseClick" prefHeight="306.0" prefWidth="306.0" style="-fx-background-color: white;">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0" style="-fx-background-color: transparent;" textFill="#545454" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Gill Sans MT" size="47.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0" style="-fx-background-color: transparent;" textFill="#545454">
-               <font>
-                  <Font name="Gill Sans MT" size="47.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0" style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="1">
-               <font>
-                  <Font name="Gill Sans MT" size="47.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0" style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="2">
-               <font>
-                  <Font name="Gill Sans MT" size="47.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0" style="-fx-background-color: transparent;" textFill="#545454" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Gill Sans MT" size="47.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0" style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Gill Sans MT" size="47.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0" style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Gill Sans MT" size="47.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0" style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Gill Sans MT" size="47.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0" style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Gill Sans MT" size="47.0" />
-               </font>
-            </Button>
-         </children>
-      </GridPane>
-      <HBox fx:id="hbox" layoutX="252.0" layoutY="501.0" prefHeight="26.0" prefWidth="102.0">
-         <children>
-            <Text fx:id="staticText" fill="#545454" strokeType="OUTSIDE" strokeWidth="0.0" text="Level:  " wrappingWidth="70.05355834960938">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="18.0" />
-               </font>
-            </Text>
-            <Text fx:id="dynamicText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="EASY" wrappingWidth="50.853607177734375">
-               <font>
-                  <Font name="Gill Sans MT Bold" size="18.0" />
-               </font>
-            </Text>
-         </children>
-      </HBox>
-   </children>
+    <GridPane fx:id="gridPane" layoutX="146.0" layoutY="126.0" onMouseClicked="#mouseClick"
+      prefHeight="306.0" prefWidth="306.0" style="-fx-background-color: white;">
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+      </rowConstraints>
+      <children>
+        <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0"
+          style="-fx-background-color: transparent;" textFill="#545454" GridPane.rowIndex="2">
+          <font>
+            <Font name="Gill Sans MT" size="47.0"/>
+          </font>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0"
+          style="-fx-background-color: transparent;" textFill="#545454">
+          <font>
+            <Font name="Gill Sans MT" size="47.0"/>
+          </font>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0"
+          style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="1">
+          <font>
+            <Font name="Gill Sans MT" size="47.0"/>
+          </font>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0"
+          style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="2">
+          <font>
+            <Font name="Gill Sans MT" size="47.0"/>
+          </font>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0"
+          style="-fx-background-color: transparent;" textFill="#545454" GridPane.rowIndex="1">
+          <font>
+            <Font name="Gill Sans MT" size="47.0"/>
+          </font>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0"
+          style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="1"
+          GridPane.rowIndex="1">
+          <font>
+            <Font name="Gill Sans MT" size="47.0"/>
+          </font>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0"
+          style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="2"
+          GridPane.rowIndex="1">
+          <font>
+            <Font name="Gill Sans MT" size="47.0"/>
+          </font>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0"
+          style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="1"
+          GridPane.rowIndex="2">
+          <font>
+            <Font name="Gill Sans MT" size="47.0"/>
+          </font>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="102.0"
+          style="-fx-background-color: transparent;" textFill="#545454" GridPane.columnIndex="2"
+          GridPane.rowIndex="2">
+          <font>
+            <Font name="Gill Sans MT" size="47.0"/>
+          </font>
+        </Button>
+      </children>
+    </GridPane>
+    <HBox fx:id="hbox" layoutX="252.0" layoutY="501.0" prefHeight="26.0" prefWidth="102.0">
+      <children>
+        <Text fx:id="staticText" fill="#545454" strokeType="OUTSIDE" strokeWidth="0.0"
+          text="Level:  " wrappingWidth="70.05355834960938">
+          <font>
+            <Font name="Gill Sans MT Bold" size="18.0"/>
+          </font>
+        </Text>
+        <Text fx:id="dynamicText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="EASY"
+          wrappingWidth="50.853607177734375">
+          <font>
+            <Font name="Gill Sans MT Bold" size="18.0"/>
+          </font>
+        </Text>
+      </children>
+    </HBox>
+  </children>
 </AnchorPane>

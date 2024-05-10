@@ -1,4 +1,4 @@
-package tiktaktoefx20;
+package tiktaktoefx20.model;
 
 import java.util.*;
 
@@ -22,5 +22,7 @@ public record GameEndParams(String winningPlayer,
                             Line rightVLine,
                             Line upHLine,
                             Line leftVLine
-                            ) {}
+) {
+
+}
 

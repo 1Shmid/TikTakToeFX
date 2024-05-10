@@ -1,5 +1,5 @@
 package tiktaktoefx20.strategies;
 
-public interface MoveStrategy {
+public interface Strategic {
     int[] makeMove(char[][] gameField, String selectedLevel);
 }
