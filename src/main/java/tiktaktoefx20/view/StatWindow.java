@@ -13,8 +13,9 @@ import java.io.*;
 import tiktaktoefx20.controller.StatWindowController;
 
 /**
- * Класс, отвечающий за содержимое окна статистики. Class responsible for the content of the
- * statistics window.
+ * Класс, отвечающий за показ окна статистики.
+ * <p>
+ * Class responsible for the show of the statistics window.
  */
 
 public class StatWindow {
