@@ -95,7 +95,7 @@ a basis for the new gameRecorder design.
     - `GameResultWindowController.java`: Controls the game result window
     - `GraphicsManager.java`: Handles drawing of winning lines
     - `NewGameSetter.java`: Resets the game and starts a new one
-    - `StatDialogController.java`: Manages the statistics window
+    - `StatWindowController.java`: Manages the content for statistics window
 - **database**: Handles database operations
     - `GameMove.java`: Stores game moves
     - `GameRecorder.java`: Records game data in the database
@@ -109,10 +109,10 @@ a basis for the new gameRecorder design.
     - `HardStrategy.java`: Implements hard level strategy
     - `Strategic.java`: Defines the strategy interface
 - **view**: Handles presentation and UI components
-    - `AboutWindow.java`: Controls the about window
-    - `GameResultWindow.java`: Controls the game result window
-    - `HowToWindow.java`: Controls the how-to-play window
-    - `StatWindow.java`: Controls the statistics window
+    - `AboutWindow.java`: Shows the about window
+    - `GameResultWindow.java`: Shows the game result window
+    - `HowToWindow.java`: Shows the how-to-play window
+    - `StatWindow.java`: Shows the statistics window
 - **resources**: Contains project resources such as FXML files and images
     - `TTTFX.fxml`: Main game interface FXML file
     - `GameResultWindow.fxml`: Game result window FXML file
