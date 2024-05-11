@@ -1,5 +1,6 @@
 package tiktaktoefx20.controller;
 
+import javafx.scene.Group;
 import tiktaktoefx20.model.GameEndParams;
 import tiktaktoefx20.model.GameEngine;
 import tiktaktoefx20.view.StatWindow;
@@ -25,6 +26,10 @@ import tiktaktoefx20.view.HowToWindow;
 import static tiktaktoefx20.constants.Constants.OColor;
 import static tiktaktoefx20.constants.Constants.XColor;
 import static tiktaktoefx20.model.GameEngine.*;
+
+import javafx.geometry.*;
+import javafx.stage.*;
+
 
 /**
  * Класс, отвечающий за управление игровым интерфейсом и взаимодействие с пользователем. Controls
@@ -572,9 +577,75 @@ public class GameController implements PropertyChangeListener {
 //	}
 	
 	public void handleStatisticMenuItem() {
-		// showStatWindow();
-		statWindow.showWindow(anchorPane, startTime);
+		showStatWindow(anchorPane);
+		//statWindow.showWindow(anchorPane, startTime);
 	}
+	
+	//============= эксперимент с выводом окна статистики в том же FXML ===========
+	
+	@FXML
+	private Text totalGamesLabel;
+	
+	@FXML
+	private Text computerWinsLabel;
+	
+	@FXML
+	private Text playerWinsLabel;
+	
+	@FXML
+	private Text totalTimeLabel;
+	
+	@FXML
+	private Group statGroup;
+	
+	public void showStatWindow(AnchorPane anchorPane) {
+		// Получаем размеры объекта MenuBar
+		MenuBar menuBar = (MenuBar) anchorPane.getScene().lookup("#menuBar");
+		double menuBarHeight = menuBar.getHeight();
+		
+		// Получаем высоту заголовка окна
+		double titleBarHeight =
+				anchorPane.getScene().getWindow().getHeight() - anchorPane.getScene().getHeight();
+		
+		// Создаем группу для группировки прямоугольника и текста
+		Group group = new Group();
+		
+		// Создаем прямоугольник с размерами AnchorPane и цветом таким же, как у AnchorPane
+		Rectangle rectangle = new Rectangle(anchorPane.getWidth(),
+				anchorPane.getHeight() - titleBarHeight - menuBarHeight);
+		rectangle.setFill(anchorPane.getBackground().getFills().get(0).getFill());
+		
+		// Создаем текстовое поле для вывода значений
+		Text text = new Text();
+		text.setFont(Font.font("Gill Sans MT Condensed", FontWeight.BOLD, 36));
+		text.setFill(Color.BLACK);
+		text.setTextAlignment(TextAlignment.CENTER);
+		text.setText("Total Games Played: 5\n" +
+				"Player Wins: 2\n" +
+				"Computer Wins: 1\n" +
+				"Total Time Played: 00:12:22");
+		
+		// Рассчитываем высоту текста
+		double textHeight = text.getLayoutBounds().getHeight();
+		
+		// Устанавливаем положение текста
+		text.setLayoutX((rectangle.getWidth() - text.getLayoutBounds().getWidth()) / 2);
+		text.setLayoutY((rectangle.getHeight() - textHeight) / 2);
+		
+		// Добавляем прямоугольник и текстовое поле в группу
+		group.getChildren().addAll(rectangle, text);
+		
+		// Располагаем группу по центру AnchorPane со смещением вниз на высоту окна и высоту MenuBar
+		group.setLayoutX(anchorPane.getLayoutX());
+		group.setLayoutY(anchorPane.getLayoutY() + titleBarHeight + menuBarHeight);
+		
+		// Добавляем группу на AnchorPane
+		anchorPane.getChildren().add(group);
+		
+		// Устанавливаем обработчик события на клик мышки для закрытия прямоугольника
+		group.setOnMouseClicked(event -> anchorPane.getChildren().remove(group));
+	}
+	
 	
 	public void handleAboutMenuItem() {
 		AboutWindow.displayAboutDialog();
