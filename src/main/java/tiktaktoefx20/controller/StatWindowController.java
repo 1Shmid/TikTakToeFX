@@ -6,6 +6,12 @@ import tiktaktoefx20.database.*;
 
 import java.util.*;
 
+/**
+ * Класс, отвечающий за содержимое окна статистики.
+ * <p>
+ * Class responsible for the content of the statistics window.
+ */
+
 public class StatWindowController {
 	
 	private static final int SECONDS_IN_HOUR = 3600;
