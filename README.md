@@ -4,15 +4,15 @@
 
 ## Overview
 
-In this game code iteration, I revamped the difficulty level logic by adopting the
+In this iteration of the game, I revamped the difficulty level logic by adopting the
 Strategy
 pattern. This required a significant overhaul of several classes, but leveraging a combination of
 interfaces and the Strategy pattern notably streamlined the process of adjusting existing logic and
 introducing new logic based on insights from previous iterations. Additionally, I seamlessly
-integrated support for SQLite database to facilitate gameRecorder saves.
+integrated support for SQLite database to facilitate game saves.
 
 During this phase, I extensively utilized ChatGPT, finding it remarkably beneficial in guiding
-development decisions. Moreover, I revamped the gameRecorder board, striking a balance between
+development decisions. Moreover, I revamped the game board, striking a balance between
 moderate
 animation and exhaustive information presentation. While individual preferences vary, I personally
 favor this approach.
@@ -31,7 +31,7 @@ Now, the logic of computer moves is organized as follows:
   corner positions if necessary.
 - **AI Level** (`class AIStrategy`): Using an evolutionary reinforcement learning algorithm, it
   analyzes saved games to check the current state of the playing field and compares it to past
-  gameRecorder
+  game
   experiences stored in the database. It evaluates each possible move by counting the number of
   matches with winning states from past games and selects the move with the most matches.
 
@@ -43,34 +43,34 @@ process more enjoyable and challenging for the player.
 ### Table `moves`:
 
 - `id`: Unique move identifier.
-- `move_number`: The move number within the gameRecorder.
+- `move_number`: The move number within the game.
 - `player`: The player who made the move.
-- `row`: The row number on the gameRecorder board (from 0 to 2).
-- `col`: The column number on the gameRecorder board (from 0 to 2).
+- `row`: The row number on the game board (from 0 to 2).
+- `col`: The column number on the game board (from 0 to 2).
 
 ### Table `games`:
 
-- `id`: Unique gameRecorder identifier.
-- `total_moves`: Total number of moves in the gameRecorder.
+- `id`: Unique game identifier.
+- `total_moves`: Total number of moves in the game.
 - `player_moves`: Number of moves made by the player.
 - `computer_moves`: Number of moves made by the computer.
-- `result`: The result of the gameRecorder (e.g., "Player wins" or "Computer wins").
-- `duration`: The duration of the gameRecorder in seconds.
-- `level`: The difficulty level of the gameRecorder (e.g., "EASY", "HARD", "AI").
-- `game_state`: The gameRecorder state represented as a string containing information about the
+- `result`: The result of the game (e.g., "Player wins" or "Computer wins").
+- `duration`: The duration of the game in seconds.
+- `level`: The difficulty level of the game (e.g., "EASY", "HARD", "AI").
+- `game_state`: The game state represented as a string containing information about the
   placement of
-  Xs and Os on the gameRecorder board.
+  Xs and Os on the game board.
 
 ## Data Access Methods
 
 - `getTotalGames`: Returns the total number of games played.
-- `getLongestGameDuration`: Returns the duration of the longest gameRecorder.
-- `getShortestGame`: Returns the duration of the shortest gameRecorder (in seconds) and the number
+- `getLongestGameDuration`: Returns the duration of the longest game.
+- `getShortestGame`: Returns the duration of the shortest game (in seconds) and the number
   of moves
   in it.
 - `getTotalWins`: Returns the total number of wins in the games.
 - `getPlayerWins`: Returns the number of wins for a specific player.
-- `getWinningGameStates`: Returns a list of winning gameRecorder states.
+- `getWinningGameStates`: Returns a list of winning game states.
 
 ## Logging
 
@@ -81,7 +81,7 @@ management in the application.
 ## Graphical interface
 
 Although I know graphic packages, I have no artistic education, so I took the top one from Google as
-a basis for the new gameRecorder design.
+a basis for the new game design.
 [
 
 ## Project structure
@@ -137,11 +137,11 @@ a basis for the new gameRecorder design.
 
 ## How to Play
 
-1. Start the application and using the top menu select the desired gameRecorder mode: EASY, HARD, or
+1. Start the application and using the top menu select the desired game mode: EASY, HARD, or
    AI.
-2. Make your move by clicking on a cell on the gameRecorder board.
-3. The gameRecorder continues until one of the players wins or a draw is recorded.
-4. To start a new gameRecorder, click any symbol in the gameRecorder results box.
+2. Make your move by clicking on a cell on the game board.
+3. The game continues until one of the players wins or a draw is recorded.
+4. To start a new game, click any symbol in the game results box.
 
 ## Credits
 
@@ -160,9 +160,9 @@ This project is licensed under the MIT (X11) License.
 
 ## About the Project
 
-TikTakToeFX 2.01 is a refined version of the classic Tic-Tac-Toe gameRecorder developed using JavaFX
+TikTakToeFX 2.01 is a refined version of the classic Tic-Tac-Toe game developed using JavaFX
 platform. This version introduces a more modular and organized code structure by separating the
-gameRecorder
+game
 logic into multiple classes.
 
 ## Evolution of the Project
@@ -170,7 +170,7 @@ logic into multiple classes.
 This version represents a significant evolution from TikTakToeFX 2.0:
 
 - **Refactored Code:** The codebase has been refactored to improve modularity and readability by
-  extracting gameRecorder logic into separate classes.
+  extracting game logic into separate classes.
 - **Enhanced Scalability:** The project architecture has been redesigned to support easier
   integration of new features and scalability.
 - **Streamlined Gameplay:** Unnecessary comments, variables, and methods have been removed to
@@ -180,7 +180,7 @@ This version represents a significant evolution from TikTakToeFX 2.0:
 
 ## Features
 
-- **Play against the computer:** Challenge the computer in Tic-Tac-Toe with improved gameRecorder
+- **Play against the computer:** Challenge the computer in Tic-Tac-Toe with improved game
   logic.
 - **Three difficulty levels:** Choose from easy, difficult, or impossible difficulty levels.
 - **Simplified Codebase:** The codebase is now more modular and organized, making it easier to
@@ -199,10 +199,10 @@ This version represents a significant evolution from TikTakToeFX 2.0:
 
 ## How to Play
 
-1. Start the application and select the desired gameRecorder mode: EASY, HARD, or IMPOSSIBLE.
-2. Make your move by clicking on a cell on the gameRecorder board.
-3. The gameRecorder continues until one of the players wins or a draw is recorded.
-4. To start a new gameRecorder, click the "New Game" button in the gameRecorder results dialog box.
+1. Start the application and select the desired game mode: EASY, HARD, or IMPOSSIBLE.
+2. Make your move by clicking on a cell on the game board.
+3. The game continues until one of the players wins or a draw is recorded.
+4. To start a new game, click the "New Game" button in the game results dialog box.
 
 ## Screenshots
 
