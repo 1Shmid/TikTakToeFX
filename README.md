@@ -98,7 +98,7 @@ a basis for the new game design.
     - `StatWindowController.java`: Manages the content for statistics window
 - **database**: Handles database operations
     - `GameMove.java`: Stores game moves
-    - `GameRecorder.java`: Records game data in the database
+    - `GameRecorder.java`: Records game data in the game database
     - `SQLiteDBManager.java`: Manages SQLite database operations
 - **model**: Contains data structures and game logic
     - `GameEndParams.java`: Stores parameters needed by other classes
