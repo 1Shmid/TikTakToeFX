@@ -4,7 +4,7 @@
 
 ## Overview
 
-In this iteration of the gameRecorder, I revamped the difficulty level logic by adopting the
+In this iteration, I revamped the difficulty level logic by adopting the
 Strategy
 pattern. This required a significant overhaul of several classes, but leveraging a combination of
 interfaces and the Strategy pattern notably streamlined the process of adjusting existing logic and
