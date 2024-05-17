@@ -27,9 +27,6 @@ import static tiktaktoefx20.constants.Constants.OColor;
 import static tiktaktoefx20.constants.Constants.XColor;
 import static tiktaktoefx20.model.GameEngine.*;
 
-import javafx.geometry.*;
-import javafx.stage.*;
-
 
 /**
  * Класс, отвечающий за управление игровым интерфейсом и взаимодействие с пользователем. Controls
@@ -47,14 +44,20 @@ public class GameController implements PropertyChangeListener {
 	private final Context easyMoveHandler = new Context(easyStrategy);
 	private final Context hardMoveHandler = new Context(hardStrategy);
 	private final Context aiMoveHandler = new Context(aiStrategy);
+	
+	private ToggleGroup difficultyLevel;
+	/*
+	ToggleGroup - Группа переключателей не является видимым элементом управления пользовательского интерфейса,
+	а представляет собой способ изменить поведение набора переключателей . Переключатели, принадлежащие к одной группе,
+	ограничены таким образом, что один из них можно включить в любое время — нажатие одного из них для его
+	включения автоматически отключает остальные.
+	 */
+	// =========== глобальные переменные игры =============
 	private final char[][] gameField = new char[Constants.FIELD_SIZE][Constants.FIELD_SIZE]; // добавляем игровое поле
 	private int moveCounter = 0; // Переменная для хранения счетчика ходов
 	private int playerMovesCounter = 0; // Переменная для хранения счетчика ходов
 	private int computerMovesCounter = 0; // Переменная для хранения счетчика ходов
 	private long startTime;
-	private ToggleGroup difficultyNewGame;
-	
-	private final GameResultHandler gameResultHandler = new GameResultHandler();
 	
 	@FXML
 	protected GridPane gridPane;
@@ -85,6 +88,8 @@ public class GameController implements PropertyChangeListener {
 	
 	@FXML
 	protected Line leftVLine;
+	
+	private final GameResultHandler gameResultHandler = new GameResultHandler();
 	
 	@FXML
 	protected void clearGridPane(GridPane gridPane) {
@@ -219,8 +224,11 @@ public class GameController implements PropertyChangeListener {
 			// Записываем ход игрока
 			GameMove.addMove(moveCounter, "player", clickResult.row(), clickResult.col());
 			
-			// Проверяем состояние игры
-			updateGameState();
+			RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyLevel.getSelectedToggle();
+			String selectedDifficulty = selectedMenuItem.getText();
+			
+			// Обновляем состояние игры
+			updateGameState(selectedDifficulty);
 		}
 	}
 	
@@ -318,16 +326,14 @@ public class GameController implements PropertyChangeListener {
 	
 	}
 	
-	private void updateGameState() {
-		RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyNewGame.getSelectedToggle();
-		String selectedLevel = selectedMenuItem.getText();
+	private void updateGameState(String selectedDifficulty) {
 		
 		if (checkForWinOrDraw()) {
 			String winner = checkForWin(gameField) ? "The player" : "It's a draw";
 			endGame(new GameEndParams(
 					winner,
 					GameEngine.winningCells,
-					selectedLevel,
+					selectedDifficulty,
 					convertMovesToGameMovesList(),
 					moveCounter,
 					playerMovesCounter,
@@ -342,12 +348,12 @@ public class GameController implements PropertyChangeListener {
 					leftVLine
 			));
 		} else {
-			performComputerMove(selectedLevel);
+			performComputerMove(selectedDifficulty);
 			if (checkForWinOrDraw()) {
 				endGame(new GameEndParams(
 						"The computer",
 						winningCells,
-						selectedLevel,
+						selectedDifficulty,
 						convertMovesToGameMovesList(),
 						moveCounter,
 						playerMovesCounter,
@@ -436,8 +442,8 @@ public class GameController implements PropertyChangeListener {
 	}
 	
 	private void initializeMenuBar() {
-		difficultyNewGame = new ToggleGroup();
-		findAndInitializeDifficultyMenu(difficultyNewGame);
+		difficultyLevel = new ToggleGroup();
+		findAndInitializeDifficultyMenu(difficultyLevel);
 		
 	}
 	
@@ -535,7 +541,7 @@ public class GameController implements PropertyChangeListener {
 		return (int) ((endTime - startTime) / 1000);
 	}
 	
-	public int getCurrentGameTime(long startTime) {
+	public int getCurrentGameTime() {
 		
 		// Получаем текущее время в миллисекундах
 		long currentTime = System.currentTimeMillis();
@@ -577,8 +583,8 @@ public class GameController implements PropertyChangeListener {
 //	}
 	
 	public void handleStatisticMenuItem() {
-		showStatWindow(anchorPane);
-		//statWindow.showWindow(anchorPane, startTime);
+		//showStatWindow(anchorPane);
+		statWindow.showWindow(anchorPane, startTime);
 	}
 	
 	//============= эксперимент с выводом окна статистики в том же FXML ===========
