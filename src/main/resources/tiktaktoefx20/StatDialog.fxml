@@ -6,81 +6,62 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  prefHeight="574.0" prefWidth="600.0" style="-fx-background-color: #5d9c9c;"
-  xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="tiktaktoefx20.controller.StatDialogController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="574.0" prefWidth="600.0" style="-fx-background-color: #5d9c9c;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tiktaktoefx20.controller.StatWindowController">
   <children>
-    <Text fill="WHITE" layoutX="172.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0"
-      text="Tic Tac Toe Stats ">
+    <Text fill="WHITE" layoutX="172.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tic Tac Toe Stats ">
       <font>
-        <Font name="Gill Sans MT Condensed" size="48.0"/>
+        <Font name="Gill Sans MT Condensed" size="48.0" />
       </font>
     </Text>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99cccc" height="449.0" layoutX="71.0"
-      layoutY="103.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="459.0"/>
-    <Line endX="100.0" layoutX="300.0" layoutY="86.0" startX="-100.0" stroke="WHITE"
-      strokeWidth="3.0"/>
-    <Text fill="#00727a" layoutX="114.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0"
-      text="Total Games Played:">
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99cccc" height="449.0" layoutX="71.0" layoutY="103.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="459.0" />
+    <Line endX="100.0" layoutX="300.0" layoutY="86.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
+    <Text fill="#00727a" layoutX="114.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Games Played:">
       <font>
-        <Font name="Gill Sans MT Condensed" size="36.0"/>
+        <Font name="Gill Sans MT Condensed" size="36.0" />
       </font>
     </Text>
-    <Text fill="#00727a" layoutX="114.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0"
-      text="Player Wins:">
+    <Text fill="#00727a" layoutX="114.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Wins:">
       <font>
-        <Font name="Gill Sans MT Condensed" size="36.0"/>
+        <Font name="Gill Sans MT Condensed" size="36.0" />
       </font>
     </Text>
-    <Text fill="#00727a" layoutX="114.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0"
-      text="Computer Wins:">
+    <Text fill="#00727a" layoutX="114.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Wins:">
       <font>
-        <Font name="Gill Sans MT Condensed" size="36.0"/>
+        <Font name="Gill Sans MT Condensed" size="36.0" />
       </font>
     </Text>
-    <Text fill="#00727a" layoutX="114.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0"
-      text="Total Time Played:">
+    <Text fill="#00727a" layoutX="114.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Time Played:">
       <font>
-        <Font name="Gill Sans MT Condensed" size="36.0"/>
+        <Font name="Gill Sans MT Condensed" size="36.0" />
       </font>
     </Text>
-    <Text fx:id="totalGamesLabel" fill="#545454" layoutX="392.0" layoutY="200.0" stroke="#18ff00"
-      strokeType="OUTSIDE" strokeWidth="0.0" text="20">
+    <Text fx:id="totalGamesLabel" fill="#545454" layoutX="392.0" layoutY="200.0" stroke="#18ff00" strokeType="OUTSIDE" strokeWidth="0.0" text="20">
       <font>
-        <Font name="Baskerville Old Face" size="40.0"/>
+        <Font name="Baskerville Old Face" size="40.0" />
       </font>
     </Text>
-    <Text fx:id="playerWinsLabel" fill="#545454" layoutX="392.0" layoutY="286.0" stroke="#18ff00"
-      strokeType="OUTSIDE" strokeWidth="0.0" text="20">
+    <Text fx:id="playerWinsLabel" fill="#545454" layoutX="392.0" layoutY="286.0" stroke="#18ff00" strokeType="OUTSIDE" strokeWidth="0.0" text="20">
       <font>
-        <Font name="Baskerville Old Face" size="40.0"/>
+        <Font name="Baskerville Old Face" size="40.0" />
       </font>
     </Text>
-    <Text fx:id="computerWinsLabel" fill="#545454" layoutX="392.0" layoutY="363.0" stroke="#18ff00"
-      strokeType="OUTSIDE" strokeWidth="0.0" text="20">
+    <Text fx:id="computerWinsLabel" fill="#545454" layoutX="392.0" layoutY="363.0" stroke="#18ff00" strokeType="OUTSIDE" strokeWidth="0.0" text="20">
       <font>
-        <Font name="Baskerville Old Face" size="40.0"/>
+        <Font name="Baskerville Old Face" size="40.0" />
       </font>
     </Text>
-    <Text fx:id="totalTimeLabel" fill="#545454" layoutX="343.0" layoutY="457.0" stroke="#18ff00"
-      strokeType="OUTSIDE" strokeWidth="0.0" text="20:20:20">
+    <Text fx:id="totalTimeLabel" fill="#545454" layoutX="343.0" layoutY="457.0" stroke="#18ff00" strokeType="OUTSIDE" strokeWidth="0.0" text="20:20:20">
       <font>
-        <Font name="Baskerville Old Face" size="40.0"/>
+        <Font name="Baskerville Old Face" size="40.0" />
       </font>
     </Text>
-    <Line endX="327.5999755859375" layoutX="191.0" layoutY="214.0" startX="-100.0"
-      stroke="#00fac2"/>
-    <Line endX="327.5999755859375" layoutX="190.0" layoutY="295.0" startX="-100.0"
-      stroke="#00fac2"/>
-    <Line endX="327.5999755859375" layoutX="192.0" layoutY="372.0" startX="-100.0"
-      stroke="#00fac2"/>
-    <Line endX="327.5999755859375" layoutX="190.0" layoutY="463.0" startX="-100.0"
-      stroke="#00fac2"/>
-    <Text fill="#545454" layoutX="269.0" layoutY="521.0" strokeType="OUTSIDE" strokeWidth="0.0"
-      text="~~~" textAlignment="CENTER">
+    <Line endX="327.5999755859375" layoutX="191.0" layoutY="214.0" startX="-100.0" stroke="#00fac2" />
+    <Line endX="327.5999755859375" layoutX="190.0" layoutY="295.0" startX="-100.0" stroke="#00fac2" />
+    <Line endX="327.5999755859375" layoutX="192.0" layoutY="372.0" startX="-100.0" stroke="#00fac2" />
+    <Line endX="327.5999755859375" layoutX="190.0" layoutY="463.0" startX="-100.0" stroke="#00fac2" />
+    <Text fill="#545454" layoutX="269.0" layoutY="521.0" strokeType="OUTSIDE" strokeWidth="0.0" text="~~~" textAlignment="CENTER">
       <font>
-        <Font name="Gill Sans MT Condensed" size="36.0"/>
+        <Font name="Gill Sans MT Condensed" size="36.0" />
       </font>
     </Text>
   </children>
