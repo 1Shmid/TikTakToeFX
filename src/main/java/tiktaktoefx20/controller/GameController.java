@@ -59,6 +59,8 @@ public class GameController implements PropertyChangeListener {
 	private int computerMovesCounter = 0; // Переменная для хранения счетчика ходов
 	private long startTime;
 	
+	private String difficultyLevel;
+	
 	@FXML
 	protected GridPane gridPane;
 	
@@ -104,28 +106,6 @@ public class GameController implements PropertyChangeListener {
 		}
 	}
 	
-	private ClickResult getMouseClickResult(MouseEvent event) {
-		
-		int clickedRow = getRowIndex(event.getY());
-		int clickedColumn = getColumnIndex(event.getX());
-		
-		// Проверяем, что в ячейке нет символа, перед добавлением нового текста
-		if (gameField[clickedRow][clickedColumn] != Constants.EMPTY_SYMBOL) {
-			// Ячейка уже занята, игнорируем клик
-			return null; // Возвращаем null, чтобы показать, что клик игнорируется
-		}
-		
-		final Text text = setSymbol(Constants.PLAYER_SYMBOL, clickedRow, clickedColumn);
-		
-		// Добавляем текстовый элемент в GridPane
-		gridPane.getChildren().add(text);
-		
-		final PauseTransition pause = getPauseTransition(text);
-		pause.play();
-		
-		// Возвращаем результат клика (индексы строки и столбца)
-		return new ClickResult(clickedRow, clickedColumn);
-	}
 	
 	private Text setSymbol(char symbol, int clickedRow, int clickedColumn) {
 		// Создаем текстовый элемент для отображения символа
@@ -210,26 +190,89 @@ public class GameController implements PropertyChangeListener {
 		Platform.runLater(this::initializeLines);
 	}
 	
+	
+	private ClickResult getMouseClickResult(MouseEvent event) {
+		
+		int clickedRow = getRowIndex(event.getY());
+		int clickedColumn = getColumnIndex(event.getX());
+		
+		// Возвращаем результат клика (индексы строки и столбца)
+		return new ClickResult(clickedRow, clickedColumn);
+	}
+	
+	
 	private void magicOn(ClickResult clickResult) {
-		// Проверяем, что в ячейке нет символа, перед обработкой клика
-		if (gameField[clickResult.row()][clickResult.col()] == Constants.EMPTY_SYMBOL) {
-			// Обновляем поле игры
-			gameField[clickResult.row()][clickResult.col()] = Constants.PLAYER_SYMBOL;
-			
-			// Увеличиваем счетчик ходов
-			moveCounter++;
-			
-			playerMovesCounter++;
-			
-			// Записываем ход игрока
-			GameMove.addMove(moveCounter, "player", clickResult.row(), clickResult.col());
-			
-			RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyLevels.getSelectedToggle();
-			String difficultyLevel = selectedMenuItem.getText();
-			
-			// Обновляем состояние игры
-			updateGameState(difficultyLevel);
+		
+		RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyLevels.getSelectedToggle();
+		difficultyLevel = selectedMenuItem.getText();
+		
+		GameParams params = new GameParams("",
+				null,
+				difficultyLevel,
+				null,
+				moveCounter,
+				playerMovesCounter,
+				computerMovesCounter,
+				stopGameTimer(),
+				anchorPane,
+				gridPane,
+				gameField,
+				bottomHLine,
+				rightVLine,
+				upHLine,
+				leftVLine
+		);
+		
+		// Проверяем, что в ячейке нет символа, перед добавлением нового текста
+		if (gameField[clickResult.row][clickResult.col] != Constants.EMPTY_SYMBOL) {
+			// Ячейка уже занята, игнорируем клик
+			return; // Возвращаем null, чтобы показать, что клик игнорируется
 		}
+		
+		// Пришел первый клик и теперь нужно вывести символ.
+		
+		char symbol = Constants.PLAYER_SYMBOL;
+		
+		final Text text = setSymbol(symbol, clickResult.row, clickResult.col);
+		
+		// Добавляем текстовый элемент в GridPane
+		gridPane.getChildren().add(text);
+		
+		final PauseTransition pause = getPauseTransition(text);
+		pause.play();
+		
+		gameField[clickResult.row()][clickResult.col()] = Constants.PLAYER_SYMBOL;
+		
+		// Увеличиваем счетчик ходов
+		moveCounter++;
+		
+		playerMovesCounter++;
+		
+		// Записываем ход игрока
+		GameMove.addMove(moveCounter, "player", clickResult.row(), clickResult.col());
+		
+		// Обновляем состояние игры
+		updateGameState(difficultyLevel);
+		
+		// Проверяем, что в ячейке нет символа, перед обработкой клика
+//		if (gameField[clickResult.row()][clickResult.col()] == Constants.EMPTY_SYMBOL) {
+//			// Обновляем поле игры
+//			gameField[clickResult.row()][clickResult.col()] = Constants.PLAYER_SYMBOL;
+//
+//			// Увеличиваем счетчик ходов
+//			moveCounter++;
+//
+//			playerMovesCounter++;
+//
+//			// Записываем ход игрока
+//			GameMove.addMove(moveCounter, "player", clickResult.row(), clickResult.col());
+//
+//			RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyLevels.getSelectedToggle();
+//			String difficultyLevel = selectedMenuItem.getText();
+//
+//			// Обновляем состояние игры
+//			updateGameState(difficultyLevel);
+//		}
 	}
 	
 	protected void initializeLines() {
@@ -348,7 +391,9 @@ public class GameController implements PropertyChangeListener {
 					leftVLine
 			));
 		} else {
+			
 			performComputerMove(difficultyLevel);
+			
 			if (checkForWinOrDraw()) {
 				endGame(new GameParams(
 						"The computer",
@@ -403,7 +448,7 @@ public class GameController implements PropertyChangeListener {
 					selectedLevel); // По умолчанию используем случайную стратегию
 		};
 		
-		updateGameField(computerMove[0], computerMove[1]);
+		updateGameField(computerMove[0], computerMove[1]); // Вывод символа О на поле
 		
 		// Увеличиваем счетчик ходов
 		moveCounter++;
