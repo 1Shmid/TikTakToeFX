@@ -27,7 +27,7 @@ public class GameResultWindow {
 	private final NewGameSetter newGameSetter = new NewGameSetter();
 	
 	private boolean isOpen;
-	private final PropertyChangeSupport support;
+	//private final PropertyChangeSupport support;
 	
 	private Parent getParent(GameResultWindowController controller) {
 		// Загружаем FXML-файл для диалогового окна
@@ -70,17 +70,17 @@ public class GameResultWindow {
 		setupStage(params, stage);
 		
 		showWindow(params, stage);
-		
-		addPropertyChangeListener(evt -> {
-			gameController.propertyChange(evt);
-		});
+
+//		addPropertyChangeListener(evt -> {
+//			gameController.propertyChange(evt);
+//		});
 		
 		setupRootClickHandler(params, root, stage);
 	}
 	
 	private void setupRootClickHandler(GameParams params, Parent root, Stage stage) {
 		root.setOnMouseClicked(mouseEvent -> {
-			updateWindowState(false);
+			//updateWindowState(false);
 			newGameSetter.startNewGame(
 					params.getGridPane(),
 					params.getBottomHLine(),
@@ -189,39 +189,39 @@ public class GameResultWindow {
 	}
 	
 	// ===================================== Эксперимент с внедрением слушателя ====================================================================
-	
-	
-	public GameResultWindow() {
-		support = new PropertyChangeSupport(this);
-	}
-	
-	public boolean getValue() {
-		return isOpen;
-	}
-	
-	public boolean setValue(boolean newValue) {
-		boolean oldValue = isOpen;
-		isOpen = newValue;
-		support.firePropertyChange("isOpen", oldValue, newValue);
-		return isOpen;
-	}
-	
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		support.addPropertyChangeListener(listener);
-	}
-	
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		support.removePropertyChangeListener(listener);
-	}
-	
-	public void updateWindowState(boolean isOpen) {
-		
-		support.firePropertyChange("isOpen", this.isOpen,
-				isOpen); // String propertyName, boolean oldValue, boolean newValue
-		
-		this.isOpen = isOpen;
-		
-	}
+
+//
+//	public GameResultWindow() {
+//		support = new PropertyChangeSupport(this);
+//	}
+//
+//	public boolean getValue() {
+//		return isOpen;
+//	}
+//
+//	public boolean setValue(boolean newValue) {
+//		boolean oldValue = isOpen;
+//		isOpen = newValue;
+//		support.firePropertyChange("isOpen", oldValue, newValue);
+//		return isOpen;
+//	}
+//
+//	public void addPropertyChangeListener(PropertyChangeListener listener) {
+//		support.addPropertyChangeListener(listener);
+//	}
+//
+//	public void removePropertyChangeListener(PropertyChangeListener listener) {
+//		support.removePropertyChangeListener(listener);
+//	}
+//
+//	public void updateWindowState(boolean isOpen) {
+//
+//		support.firePropertyChange("isOpen", this.isOpen,
+//				isOpen); // String propertyName, boolean oldValue, boolean newValue
+//
+//		this.isOpen = isOpen;
+//
+//	}
 	// ===================================== Конец эксперимента с внедрением слушателя ====================================================================
 	
 	
