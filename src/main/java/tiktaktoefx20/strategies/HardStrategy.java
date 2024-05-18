@@ -42,33 +42,7 @@ public class HardStrategy implements Strategic {
 		// Если ни одно из условий не выполнено, делаем ход по простой стратегии
 		return easyStrategy.makeMove(params);
 	}
-
-//  @Override
-//  public int[] makeMove(char[][] gameField, String selectedLevel) {
-//
-//    int[] move = findWinningMove(gameField);
-//    if (move != null) {
-//      return move;
-//    }
-//
-//    move = blockPlayerWin(gameField);
-//    if (move != null) {
-//      return move;
-//    }
-//
-//    move = occupyCorner(gameField);
-//    if (move != null) {
-//      return move;
-//    }
-//
-//    move = occupyCenter(gameField);
-//    if (move != null) {
-//      return move;
-//    }
-//
-//    // Если ни одно из условий не выполнено, делаем ход по простой стратегии
-//    return easyStrategy.makeMove(gameField, selectedLevel);
-//  }
+	
 	
 	public int[] findWinningMove(GameParams params) {
 		// Поиск выигрышного хода
