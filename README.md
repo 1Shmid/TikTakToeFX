@@ -4,22 +4,10 @@
 
 ## Overview
 
-In this iteration of the game, I revamped the difficulty level logic by adopting the
-Strategy
-pattern. This required a significant overhaul of several classes, but leveraging a combination of
-interfaces and the Strategy pattern notably streamlined the process of adjusting existing logic and
-introducing new logic based on insights from previous iterations. Additionally, I seamlessly
-integrated support for SQLite database to facilitate game saves.
-
-During this phase, I extensively utilized ChatGPT, finding it remarkably beneficial in guiding
-development decisions. Moreover, I revamped the game board, striking a balance between
-moderate
-animation and exhaustive information presentation. While individual preferences vary, I personally
-favor this approach.
-
-Furthermore, I introduced menus and windows that dynamically fetch data from ReadMe.md and the
-database. Notably, players can now adjust the difficulty level on the fly via a checkbox
-conveniently placed in the menu.
+In this iteration of the game, a major code refactoring was implemented. The logic of computer moves
+is now realized using the strategy pattern, and it is reinforced by dependency encapsulation. Game
+data is stored in a SQLite database and utilized for reinforcement learning purposes. This approach
+opens the door to comprehensive testing.
 
 ## Computer Moves Logic
 
@@ -72,6 +60,16 @@ process more enjoyable and challenging for the player.
 - `getPlayerWins`: Returns the number of wins for a specific player.
 - `getWinningGameStates`: Returns a list of winning game states.
 
+## Dependency injection approach
+
+In this version of the project, I have used a dependency injection approach
+to manage inter-component communication. The global variables of the project
+have been encapsulated in the GameParams class. Dependency injection involves
+passing dependencies encapsulated in a parameter object (e.g. params) to
+methods where they are required. By separating components from specific data
+structures or dependencies, this approach promotes modularity, testability,
+and maintainability of the entire codebase.
+
 ## Logging
 
 Logging has been implemented using the standard Java Logging Framework. Errors are logged at the
@@ -101,7 +99,8 @@ a basis for the new game design.
     - `GameRecorder.java`: Records game data in the game database
     - `SQLiteDBManager.java`: Manages SQLite database operations
 - **model**: Contains data structures and game logic
-    - `GameEndParams.java`: Stores parameters needed by other classes
+    - `GameParams.java`: Representing a set of game ending parameters needed by other classes and
+      methods.
     - `GameEngine.java`: Computes game results and winning coordinates
 - **strategies**: Implements game playing strategies
     - `AIStrategy.java`: Implements AI game strategy
