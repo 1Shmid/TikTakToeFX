@@ -15,17 +15,11 @@ import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.*;
-import tiktaktoefx20.database.*;
-import tiktaktoefx20.strategies.*;
-
-import java.beans.*;
-import java.util.*;
 import tiktaktoefx20.view.AboutWindow;
 import tiktaktoefx20.view.HowToWindow;
 
 import static tiktaktoefx20.constants.Constants.OColor;
 import static tiktaktoefx20.constants.Constants.XColor;
-import static tiktaktoefx20.model.GameEngine.*;
 
 
 /**
@@ -35,15 +29,6 @@ import static tiktaktoefx20.model.GameEngine.*;
 
 
 public class GameController {
-	
-	private final Strategic easyStrategy = new EasyStrategy();
-	private final Strategic hardStrategy = new HardStrategy();
-	private final Strategic aiStrategy = new AIStrategy();
-	
-	// Создаем объекты обработчиков хода с разными стратегиями
-	private final Context easyMoveHandler = new Context(easyStrategy);
-	private final Context hardMoveHandler = new Context(hardStrategy);
-	private final Context aiMoveHandler = new Context(aiStrategy);
 	
 	private ToggleGroup difficultyLevels;
 	/*
@@ -58,8 +43,6 @@ public class GameController {
 	private int playerMovesCounter = 0; // Переменная для хранения счетчика ходов
 	private int computerMovesCounter = 0; // Переменная для хранения счетчика ходов
 	private long startTime;
-	
-	private String difficultyLevel;
 	
 	@FXML
 	protected GridPane gridPane;
@@ -91,9 +74,6 @@ public class GameController {
 	@FXML
 	protected Line leftVLine;
 	
-	private final GameResultHandler gameResultHandler = new GameResultHandler();
-	//private final GameEngine gameEngine = new GameEngine();
-	
 	@FXML
 	protected void clearGridPane(GridPane gridPane) {
 		gridPane.getChildren().clear();
@@ -114,7 +94,8 @@ public class GameController {
 		return (int) (y / rowHeight);
 	}
 	
-	private double getCellFontSize() {
+	private double getCellFontSize(GameParams params) {
+		GridPane gridPane = params.getGridPane();
 		int numColumns = gridPane.getColumnConstraints().size();
 		double totalWidth = gridPane.getWidth();
 		
@@ -141,134 +122,48 @@ public class GameController {
 	}
 	
 	private ClickResult getMouseClickResult(MouseEvent event) {
-		
 		int clickedRow = getRowIndex(event.getY());
 		int clickedColumn = getColumnIndex(event.getX());
-		
-		// Возвращаем результат клика (индексы строки и столбца)
 		return new ClickResult(clickedRow, clickedColumn);
 	}
 	
 	@FXML
-	void mouseClick(MouseEvent event) {
+	private void mouseClick(MouseEvent event) {
 		
 		final ClickResult clickResult = getMouseClickResult(event);
 		
-		if (clickResult != null) {
-			
-			RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyLevels.getSelectedToggle();
-			
-			String difficultyLevel = selectedMenuItem.getText();
-			
-			GameParams params = new GameParams("",
-					null,
-					difficultyLevel,
-					null,
-					moveCounter,
-					playerMovesCounter,
-					computerMovesCounter,
-					stopGameTimer(),
-					anchorPane,
-					gridPane,
-					gameField,
-					bottomHLine,
-					rightVLine,
-					upHLine,
-					leftVLine);
-			
-			GameEngine gameEngine = new GameEngine();
-			
-			//gameEngine.magicOn(clickResult, params);
-			magicOn(clickResult, params);
-		}
-	}
-	
-	private void magicOn(ClickResult clickResult, GameParams params) {
-		// Увеличиваем счетчик ходов
-		int moveCounter = params.getMoveCounter() + 1;
-		params.setMoveCounter(moveCounter);
-		
-		// Проверяем, что в ячейке нет символа, перед добавлением нового текста
-		if (params.getGameField()[clickResult.row()][clickResult.col()] != Constants.EMPTY_SYMBOL) {
-			// Ячейка уже занята, игнорируем клик
-			return;
-		}
-		
-		// Пришел первый клик и теперь нужно вывести символ.
-		printSymbol(Constants.PLAYER_SYMBOL, clickResult);
-		
-		params.getGameField()[clickResult.row()][clickResult.col()] = Constants.PLAYER_SYMBOL;
-		params.setGameField(params.getGameField()); // Обновляем gameField в объекте params
-		
-		// Увеличиваем счетчик ходов и счетчик ходов игрока
-		int playerMovesCounter = params.getPlayerMovesCounter() + 1;
-		params.setPlayerMovesCounter(playerMovesCounter);
-		
-		// Записываем ход игрока
-		GameMove.addMove(moveCounter, "player", clickResult.row(), clickResult.col());
-		
-		// Обновляем состояние игры
-		updateGameState(params);
-	}
-	
-	
-	private void updateGameState(GameParams params) {
-		if (checkForWinOrDraw(params)) {
-			params.setGameWinner(checkForWin(params) ? "The player" : "It's a draw");
-			params.setWinningCells(GameEngine.winningCells);
-			endGame(params);
-		} else {
-			performComputerMove(params);
-			if (checkForWinOrDraw(params)) {
-				params.setGameWinner(checkForWin(params) ? "The computer" : "It's a draw");
-				params.setWinningCells(GameEngine.winningCells);
-				endGame(params);
-			}
-		}
-	}
-	
-	private void endGame(GameParams params) {
-		
-		// Проверка, есть ли победитель
-		boolean isWin = checkForWin(params);
-		String gameWinner = isWin ? params.getGameWinner() : "It's a draw";
-		
-		// Обновление значений через сеттеры
-		params.setGameWinner(gameWinner);
-		params.setWinningCells(isWin ? params.getWinningCells() : null);
-		params.setMoves(convertMovesToGameMovesList());
-		
-		// Передача обновленного объекта gameResultHandler
-		gameResultHandler.endGame(params);
+		magicOn(clickResult);
 		
 	}
 	
-	private void performComputerMove(GameParams params) {
-		int[] computerMove = switch (params.getDifficultyLevel()) {
-			case "EASY" -> easyMoveHandler.makeMove(params);
-			case "HARD" -> hardMoveHandler.makeMove(params);
-			case "AI" -> aiMoveHandler.makeMove(params);
-			default -> easyMoveHandler.makeMove(params);
-		};
+	private void magicOn(ClickResult clickResult) {
 		
-		printSymbol(Constants.COMPUTER_SYMBOL, computerMove);
+		RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyLevels.getSelectedToggle();
+		String difficultyLevel = selectedMenuItem.getText();
 		
-		// Обновляем gameField в params
-		char[][] updatedGameField = Arrays.copyOf(params.getGameField(), params.getGameField().length);
-		updatedGameField[computerMove[0]][computerMove[1]] = Constants.COMPUTER_SYMBOL;
-		params.setGameField(updatedGameField);
+		GameParams params = new GameParams("",
+				null,
+				difficultyLevel,
+				null,
+				moveCounter,
+				playerMovesCounter,
+				computerMovesCounter,
+				stopGameTimer(),
+				anchorPane,
+				gridPane,
+				gameField,
+				bottomHLine,
+				rightVLine,
+				upHLine,
+				leftVLine);
 		
-		// Увеличиваем счетчик ходов
-		params.setMoveCounter(params.getMoveCounter() + 1);
-		// Увеличиваем счетчик ходов компьютера
-		params.setComputerMovesCounter(params.getComputerMovesCounter() + 1);
-		
-		// Записываем ход компьютера
-		GameMove.addMove(params.getMoveCounter(), "computer", computerMove[0], computerMove[1]);
+		GameEngine gameEngine = new GameEngine();
+		gameEngine.magicOn(clickResult, params);
 	}
+	
 	
 	// Универсальный метод для вывода символа на поле
-	public void printSymbol(char symbol, Object move) {
+	public void printSymbol(char symbol, Object move, GameParams params) {
 		int row, col;
 		
 		// Определяем тип объекта и извлекаем координаты
@@ -282,8 +177,10 @@ public class GameController {
 			throw new IllegalArgumentException("Unsupported move type");
 		}
 		
+		GridPane gridPane = params.getGridPane();
+		
 		// Устанавливаем символ на поле
-		final Text text = setSymbol(symbol);
+		final Text text = setSymbol(symbol, params);
 		
 		// Устанавливаем позицию текста в GridPane
 		GridPane.setColumnIndex(text, col);
@@ -297,6 +194,7 @@ public class GameController {
 		final PauseTransition pause = getPauseTransition(text);
 		pause.play();
 	}
+	
 	
 	private static PauseTransition getPauseTransition(Text text) {
 		PauseTransition pause = new PauseTransition(Duration.millis(1));
@@ -312,11 +210,11 @@ public class GameController {
 		return pause;
 	}
 	
-	private Text setSymbol(char symbol) {
+	private Text setSymbol(char symbol, GameParams params) {
 		
 		// Создаем текстовый элемент для отображения символа
 		Text text = new Text(String.valueOf(symbol));
-		text.setFont(Font.font("Gill Sans MT", getCellFontSize()));
+		text.setFont(Font.font("Gill Sans MT", getCellFontSize(params)));
 		
 		// Выбираем цвет в зависимости от символа
 		Paint color =
@@ -327,23 +225,6 @@ public class GameController {
 		text.setOpacity(0);
 		
 		return text;
-	}
-	
-	private boolean checkForWinOrDraw(GameParams params) {
-		return checkForWin(params) || checkForDraw(params);
-	}
-	
-	
-	private List<GameMove> convertMovesToGameMovesList() {
-		List<GameMove> gameMovesList = new ArrayList<>();
-		for (Object[] move : GameMove.getMoves()) {
-			int moveNumber = (int) move[0];
-			String player = (String) move[1];
-			int row = (int) move[2];
-			int col = (int) move[3];
-			gameMovesList.add(new GameMove(moveNumber, player, row, col));
-		}
-		return gameMovesList;
 	}
 	
 	
