@@ -1,5 +1,7 @@
 package tiktaktoefx20.strategies;
 
+import tiktaktoefx20.model.GameParams;
+
 /**
  * Класс определяет интерфейс стратегии
  * <p>
@@ -7,6 +9,6 @@ package tiktaktoefx20.strategies;
  */
 
 public interface Strategic {
-
-  int[] makeMove(char[][] gameField, String selectedLevel);
+	
+	int[] makeMove(GameParams params);
 }
