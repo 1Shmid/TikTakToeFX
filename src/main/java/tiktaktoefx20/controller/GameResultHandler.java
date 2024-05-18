@@ -20,41 +20,43 @@ public class GameResultHandler {
 	@FXML
 	public void endGame(GameParams params) {
 		
+		gameWinner(params);
 		recordGameResult(params);
 		gameResultWindow.show(params);
 		
 	}
 	
-	private String gameWinner(GameParams params) {
-		if (GameEngine.checkForWin(params.gameField())) {
+	private void gameWinner(GameParams params) {
+		if (GameEngine.checkForWin(params.getGameField())) {
 			Constants.Winner winner =
-					params.gameWinner().equals("The player") ? Constants.Winner.PLAYER
+					"The player".equals(params.getGameWinner()) ? Constants.Winner.PLAYER
 							: Constants.Winner.COMPUTER;
 			
 			// Рисуем линию победы
-			GraphicsManager graphicsManager = new GraphicsManager();
-			graphicsManager.drawWinningLine(params.winningCells(), params.anchorPane(), winner,
-					params.gridPane());
+			if (params.getWinningCells() != null) {
+				GraphicsManager graphicsManager = new GraphicsManager();
+				graphicsManager.drawWinningLine(params.getWinningCells(), params.getAnchorPane(), winner,
+						params.getGridPane());
+			}
 			
-			return params.gameWinner() + " wins!";
-		} else if (GameEngine.checkForDraw(params.gameField())) {
-			return "It's a draw!!";
+		} else if (GameEngine.checkForDraw(params.getGameField())) {
 		} else {
-			return "";
 		}
 	}
 	
 	private void recordGameResult(GameParams params) {
 		// Записываем результат игры
-		GameRecorder gameRecorder = new GameRecorder(params.moves(),
-				params.moveCounter(),
-				params.playerMovesCounter(),
-				params.computerMovesCounter(),
-				params.gameWinner(),
-				params.gameTime(),
-				params.difficultyLevel());
+		GameRecorder gameRecorder = new GameRecorder(
+				params.getMoves(),
+				params.getMoveCounter(),
+				params.getPlayerMovesCounter(),
+				params.getComputerMovesCounter(),
+				params.getGameWinner(),
+				params.getGameTime(),
+				params.getDifficultyLevel()
+		);
 		
-		System.out.println("params.gameWinner(): " + params.gameWinner());
+		System.out.println("params.getGameWinner(): " + params.getGameWinner());
 		gameRecorder.recordGame();
 	}
 	
