@@ -81,9 +81,13 @@ public class GameResultWindow {
 	private void setupRootClickHandler(GameParams params, Parent root, Stage stage) {
 		root.setOnMouseClicked(mouseEvent -> {
 			updateWindowState(false);
-			newGameSetter.startNewGame(params.gridPane(), params.bottomHLine(), params.rightVLine(),
-					params.upHLine(),
-					params.leftVLine());
+			newGameSetter.startNewGame(
+					params.getGridPane(),
+					params.getBottomHLine(),
+					params.getRightVLine(),
+					params.getUpHLine(),
+					params.getLeftVLine()
+			);
 			stage.close();
 		});
 	}
@@ -94,17 +98,22 @@ public class GameResultWindow {
 		pause.setOnFinished(event -> {
 			// После завершения паузы, показываем диалоговое окно
 			Platform.runLater(stage::showAndWait);
-			newGameSetter.cleanGameResult(params.gameField(), params.anchorPane(), params.gridPane());
+			newGameSetter.cleanGameResult(
+					params.getGameField(),
+					params.getAnchorPane(),
+					params.getGridPane()
+			);
 		});
 		pause.play();
 	}
 	
 	private void setupStage(GameParams params, Stage stage) {
 		// Получаем размеры окна игры
-		Bounds gameBounds = params.anchorPane().localToScreen(params.anchorPane().getBoundsInLocal());
+		Bounds gameBounds = params.getAnchorPane()
+				.localToScreen(params.getAnchorPane().getBoundsInLocal());
 		
 		// Получаем размеры объекта MenuBar
-		double menuBarHeight = params.anchorPane().lookup("#menuBar").getBoundsInLocal().getHeight();
+		double menuBarHeight = params.getAnchorPane().lookup("#menuBar").getBoundsInLocal().getHeight();
 		
 		// Устанавливаем обработчик события на отображение окна
 		stage.setOnShown(event -> centerStage(stage, gameBounds, menuBarHeight));
@@ -123,13 +132,11 @@ public class GameResultWindow {
 		return stage;
 	}
 	
-	private static void setupWindow(GameParams params,
-			GameResultWindowController controller) {
+	private static void setupWindow(GameParams params, GameResultWindowController controller) {
 		// Устанавливаем символ победителя и результат игры
-		controller.setWinnerSymbol(params.gameWinner());
-		controller.setResultText(params.gameWinner());
+		controller.setWinnerSymbol(params.getGameWinner());
+		controller.setResultText(params.getGameWinner());
 	}
-	
 	
 	// Метод для центрирования окна относительно другого окна с учетом высоты MenuBar
 	private void centerStage(Stage stage, Bounds gameBounds, double menuBarHeight) {
@@ -181,6 +188,9 @@ public class GameResultWindow {
 		return new ParallelTransition(scaleTransition, fadeTransition);
 	}
 	
+	// ===================================== Эксперимент с внедрением слушателя ====================================================================
+	
+	
 	public GameResultWindow() {
 		support = new PropertyChangeSupport(this);
 	}
@@ -212,5 +222,7 @@ public class GameResultWindow {
 		this.isOpen = isOpen;
 		
 	}
+	// ===================================== Конец эксперимента с внедрением слушателя ====================================================================
+	
 	
 }
