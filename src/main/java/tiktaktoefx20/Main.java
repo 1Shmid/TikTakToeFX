@@ -17,30 +17,30 @@ import tiktaktoefx20.view.GameResultWindow;
 
 
 public class Main extends Application {
-
-  @Override
-  public void start(Stage stage) throws IOException {
-
-    GameResultWindow gameResultWindow = new GameResultWindow();
-
-    int gameId = SQLiteDBManager.getGameIdFromDatabase(); // Получаем номер игры из базы данных
-    String title = Constants.GAME_TITLE_PREFIX + gameId; // Формируем заголовок окна с номером игры
-
-    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("TTTFX.fxml"));
-    Parent root = fxmlLoader.load();
-    GameController controller = fxmlLoader.getController();
-    controller.setStage(); // Передача объекта Stage в контроллер
-
-    gameResultWindow.addPropertyChangeListener(controller);
-
-    Scene scene = new Scene(root, 600, 600);
-    stage.setTitle(title); // Устанавливаем заголовок окна с номером игры
-    stage.setScene(scene);
-    stage.show();
-  }
-
-
-  public static void main(String[] args) {
-    launch();
-  }
+	
+	@Override
+	public void start(Stage stage) throws IOException {
+		
+		GameResultWindow gameResultWindow = new GameResultWindow();
+		
+		int gameId = SQLiteDBManager.getGameIdFromDatabase(); // Получаем номер игры из базы данных
+		String title = Constants.GAME_TITLE_PREFIX + gameId; // Формируем заголовок окна с номером игры
+		
+		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("TTTFX.fxml"));
+		Parent root = fxmlLoader.load();
+		GameController controller = fxmlLoader.getController();
+		controller.setStage(); // Передача объекта Stage в контроллер
+		
+		//gameResultWindow.addPropertyChangeListener(controller);
+		
+		Scene scene = new Scene(root, 600, 600);
+		stage.setTitle(title); // Устанавливаем заголовок окна с номером игры
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	
+	public static void main(String[] args) {
+		launch();
+	}
 }
