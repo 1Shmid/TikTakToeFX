@@ -1,7 +1,7 @@
 package tiktaktoefx20.controller;
 
 import javafx.scene.Group;
-import tiktaktoefx20.model.GameEndParams;
+import tiktaktoefx20.model.GameParams;
 import tiktaktoefx20.model.GameEngine;
 import tiktaktoefx20.view.StatWindow;
 import tiktaktoefx20.constants.Constants;
@@ -45,7 +45,7 @@ public class GameController implements PropertyChangeListener {
 	private final Context hardMoveHandler = new Context(hardStrategy);
 	private final Context aiMoveHandler = new Context(aiStrategy);
 	
-	private ToggleGroup difficultyLevel;
+	private ToggleGroup difficultyLevels;
 	/*
 	ToggleGroup - Группа переключателей не является видимым элементом управления пользовательского интерфейса,
 	а представляет собой способ изменить поведение набора переключателей . Переключатели, принадлежащие к одной группе,
@@ -224,11 +224,11 @@ public class GameController implements PropertyChangeListener {
 			// Записываем ход игрока
 			GameMove.addMove(moveCounter, "player", clickResult.row(), clickResult.col());
 			
-			RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyLevel.getSelectedToggle();
-			String selectedDifficulty = selectedMenuItem.getText();
+			RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyLevels.getSelectedToggle();
+			String difficultyLevel = selectedMenuItem.getText();
 			
 			// Обновляем состояние игры
-			updateGameState(selectedDifficulty);
+			updateGameState(difficultyLevel);
 		}
 	}
 	
@@ -326,14 +326,14 @@ public class GameController implements PropertyChangeListener {
 	
 	}
 	
-	private void updateGameState(String selectedDifficulty) {
+	private void updateGameState(String difficultyLevel) {
 		
 		if (checkForWinOrDraw()) {
-			String winner = checkForWin(gameField) ? "The player" : "It's a draw";
-			endGame(new GameEndParams(
-					winner,
+			String gameWinner = checkForWin(gameField) ? "The player" : "It's a draw";
+			endGame(new GameParams(
+					gameWinner,
 					GameEngine.winningCells,
-					selectedDifficulty,
+					difficultyLevel,
 					convertMovesToGameMovesList(),
 					moveCounter,
 					playerMovesCounter,
@@ -348,12 +348,12 @@ public class GameController implements PropertyChangeListener {
 					leftVLine
 			));
 		} else {
-			performComputerMove(selectedDifficulty);
+			performComputerMove(difficultyLevel);
 			if (checkForWinOrDraw()) {
-				endGame(new GameEndParams(
+				endGame(new GameParams(
 						"The computer",
 						winningCells,
-						selectedDifficulty,
+						difficultyLevel,
 						convertMovesToGameMovesList(),
 						moveCounter,
 						playerMovesCounter,
@@ -371,14 +371,14 @@ public class GameController implements PropertyChangeListener {
 		}
 	}
 	
-	private void endGame(GameEndParams params) {
+	private void endGame(GameParams params) {
 		
-		String winnerSymbol = checkForWin(gameField) ? params.winningPlayer() : "It's a draw";
+		String gameWinner = checkForWin(gameField) ? params.gameWinner() : "It's a draw";
 		
-		gameResultHandler.endGame(new GameEndParams(
-				winnerSymbol,
+		gameResultHandler.endGame(new GameParams(
+				gameWinner,
 				winningCells,
-				params.selectedLevel(),
+				params.difficultyLevel(),
 				convertMovesToGameMovesList(),
 				params.moveCounter(),
 				params.playerMovesCounter(),
@@ -442,8 +442,8 @@ public class GameController implements PropertyChangeListener {
 	}
 	
 	private void initializeMenuBar() {
-		difficultyLevel = new ToggleGroup();
-		findAndInitializeDifficultyMenu(difficultyLevel);
+		difficultyLevels = new ToggleGroup();
+		findAndInitializeDifficultyMenu(difficultyLevels);
 		
 	}
 	
