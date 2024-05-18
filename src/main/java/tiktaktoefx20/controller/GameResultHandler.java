@@ -27,7 +27,7 @@ public class GameResultHandler {
 	}
 	
 	private void gameWinner(GameParams params) {
-		if (GameEngine.checkForWin(params.getGameField())) {
+		if (GameEngine.checkForWin(params)) {
 			Constants.Winner winner =
 					"The player".equals(params.getGameWinner()) ? Constants.Winner.PLAYER
 							: Constants.Winner.COMPUTER;
@@ -38,9 +38,6 @@ public class GameResultHandler {
 				graphicsManager.drawWinningLine(params.getWinningCells(), params.getAnchorPane(), winner,
 						params.getGridPane());
 			}
-			
-		} else if (GameEngine.checkForDraw(params.getGameField())) {
-		} else {
 		}
 	}
 	
@@ -56,7 +53,6 @@ public class GameResultHandler {
 				params.getDifficultyLevel()
 		);
 		
-		System.out.println("params.getGameWinner(): " + params.getGameWinner());
 		gameRecorder.recordGame();
 	}
 	
