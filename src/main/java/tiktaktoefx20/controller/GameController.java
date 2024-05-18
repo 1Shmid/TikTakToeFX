@@ -107,29 +107,9 @@ public class GameController implements PropertyChangeListener {
 	}
 	
 	
-	private Text setSymbol(char symbol, int clickedRow, int clickedColumn) {
-		// Создаем текстовый элемент для отображения символа
-		Text text = new Text(String.valueOf(symbol));
-		text.setFont(Font.font("Gill Sans MT", getCellFontSize()));
-		// Выбираем цвет в зависимости от символа
-		Paint color =
-				(symbol == Constants.PLAYER_SYMBOL) ? Paint.valueOf(XColor) : Paint.valueOf(OColor);
-		text.setFill(color);
-		
-		// Устанавливаем позицию текста в GridPane
-		GridPane.setColumnIndex(text, clickedColumn);
-		GridPane.setRowIndex(text, clickedRow);
-		GridPane.setHalignment(text, javafx.geometry.HPos.CENTER);
-		
-		// Устанавливаем альфа-канал на 0 (текст полностью прозрачен)
-		text.setOpacity(0);
-		
-		return text;
-	}
-	
 	private void updateGameField(int row, int col) {
 		
-		final Text text = setSymbol(Constants.COMPUTER_SYMBOL, row, col);
+		final Text text = setSymbol(Constants.COMPUTER_SYMBOL);
 		
 		gridPane.getChildren().add(text);
 		
@@ -231,15 +211,7 @@ public class GameController implements PropertyChangeListener {
 		
 		// Пришел первый клик и теперь нужно вывести символ.
 		
-		char symbol = Constants.PLAYER_SYMBOL;
-		
-		final Text text = setSymbol(symbol, clickResult.row, clickResult.col);
-		
-		// Добавляем текстовый элемент в GridPane
-		gridPane.getChildren().add(text);
-		
-		final PauseTransition pause = getPauseTransition(text);
-		pause.play();
+		printSymbol(Constants.PLAYER_SYMBOL, clickResult);
 		
 		gameField[clickResult.row()][clickResult.col()] = Constants.PLAYER_SYMBOL;
 		
@@ -254,26 +226,8 @@ public class GameController implements PropertyChangeListener {
 		// Обновляем состояние игры
 		updateGameState(difficultyLevel);
 		
-		// Проверяем, что в ячейке нет символа, перед обработкой клика
-//		if (gameField[clickResult.row()][clickResult.col()] == Constants.EMPTY_SYMBOL) {
-//			// Обновляем поле игры
-//			gameField[clickResult.row()][clickResult.col()] = Constants.PLAYER_SYMBOL;
-//
-//			// Увеличиваем счетчик ходов
-//			moveCounter++;
-//
-//			playerMovesCounter++;
-//
-//			// Записываем ход игрока
-//			GameMove.addMove(moveCounter, "player", clickResult.row(), clickResult.col());
-//
-//			RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyLevels.getSelectedToggle();
-//			String difficultyLevel = selectedMenuItem.getText();
-//
-//			// Обновляем состояние игры
-//			updateGameState(difficultyLevel);
-//		}
 	}
+	
 	
 	protected void initializeLines() {
 		
@@ -448,7 +402,9 @@ public class GameController implements PropertyChangeListener {
 					selectedLevel); // По умолчанию используем случайную стратегию
 		};
 		
-		updateGameField(computerMove[0], computerMove[1]); // Вывод символа О на поле
+		printSymbol(Constants.COMPUTER_SYMBOL, computerMove);
+		
+		gameField[computerMove[0]][computerMove[1]] = Constants.COMPUTER_SYMBOL;
 		
 		// Увеличиваем счетчик ходов
 		moveCounter++;
@@ -457,6 +413,54 @@ public class GameController implements PropertyChangeListener {
 		// Записываем ход компьютера
 		GameMove.addMove(moveCounter, "computer", computerMove[0],
 				computerMove[1]); // Записываем ход компьютера
+	}
+	
+	// Универсальный метод для вывода символа на поле
+	private void printSymbol(char symbol, Object move) {
+		int row, col;
+		
+		// Определяем тип объекта и извлекаем координаты
+		if (move instanceof int[] coordinates) {
+			row = coordinates[0];
+			col = coordinates[1];
+		} else if (move instanceof ClickResult clickResult) {
+			row = clickResult.row();
+			col = clickResult.col();
+		} else {
+			throw new IllegalArgumentException("Unsupported move type");
+		}
+		
+		// Устанавливаем символ на поле
+		final Text text = setSymbol(symbol);
+		
+		// Устанавливаем позицию текста в GridPane
+		GridPane.setColumnIndex(text, col);
+		GridPane.setRowIndex(text, row);
+		GridPane.setHalignment(text, javafx.geometry.HPos.CENTER);
+		
+		// Добавляем текстовый элемент в GridPane
+		gridPane.getChildren().add(text);
+		
+		// Пауза для анимации
+		final PauseTransition pause = getPauseTransition(text);
+		pause.play();
+	}
+	
+	private Text setSymbol(char symbol) {
+		
+		// Создаем текстовый элемент для отображения символа
+		Text text = new Text(String.valueOf(symbol));
+		text.setFont(Font.font("Gill Sans MT", getCellFontSize()));
+		
+		// Выбираем цвет в зависимости от символа
+		Paint color =
+				(symbol == Constants.PLAYER_SYMBOL) ? Paint.valueOf(XColor) : Paint.valueOf(OColor);
+		text.setFill(color);
+		
+		// Устанавливаем альфа-канал на 0 (текст полностью прозрачен)
+		text.setOpacity(0);
+		
+		return text;
 	}
 	
 	private boolean checkForWinOrDraw() {
