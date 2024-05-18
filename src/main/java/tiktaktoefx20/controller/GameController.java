@@ -107,27 +107,13 @@ public class GameController implements PropertyChangeListener {
 	}
 	
 	
-	private void updateGameField(int row, int col) {
-		
-		final Text text = setSymbol(Constants.COMPUTER_SYMBOL);
-		
-		gridPane.getChildren().add(text);
-		
-		final PauseTransition pause = getPauseTransition(text);
-		
-		pause.play();
-		
-		gameField[row][col] = Constants.COMPUTER_SYMBOL;
-		
-	}
-	
 	private static PauseTransition getPauseTransition(Text text) {
 		PauseTransition pause = new PauseTransition(Duration.millis(1));
 		
 		// Устанавливаем действие, которое будет выполнено после паузы
 		pause.setOnFinished(e -> {
 			// Добавляем анимацию появления после паузы
-			FadeTransition ft = new FadeTransition(Duration.millis(200), text);
+			FadeTransition ft = new FadeTransition(Duration.millis(400), text);
 			ft.setFromValue(0); // Начальное значение альфа-канала (прозрачность)
 			ft.setToValue(1); // Конечное значение альфа-канала (полная видимость)
 			ft.play();
@@ -180,9 +166,12 @@ public class GameController implements PropertyChangeListener {
 		return new ClickResult(clickedRow, clickedColumn);
 	}
 	
+	private record ClickResult(int row, int col) {
+	
+	}
+	
 	
 	private void magicOn(ClickResult clickResult) {
-		
 		RadioMenuItem selectedMenuItem = (RadioMenuItem) difficultyLevels.getSelectedToggle();
 		difficultyLevel = selectedMenuItem.getText();
 		
@@ -203,29 +192,153 @@ public class GameController implements PropertyChangeListener {
 				leftVLine
 		);
 		
+		// Увеличиваем счетчик ходов
+		moveCounter++;
+		params.setMoveCounter(moveCounter);
+		
 		// Проверяем, что в ячейке нет символа, перед добавлением нового текста
-		if (gameField[clickResult.row][clickResult.col] != Constants.EMPTY_SYMBOL) {
+		if (gameField[clickResult.row()][clickResult.col()] != Constants.EMPTY_SYMBOL) {
 			// Ячейка уже занята, игнорируем клик
 			return; // Возвращаем null, чтобы показать, что клик игнорируется
 		}
 		
 		// Пришел первый клик и теперь нужно вывести символ.
-		
 		printSymbol(Constants.PLAYER_SYMBOL, clickResult);
 		
 		gameField[clickResult.row()][clickResult.col()] = Constants.PLAYER_SYMBOL;
+		params.setGameField(gameField); // Обновляем gameField в объекте params
 		
 		// Увеличиваем счетчик ходов
 		moveCounter++;
+		params.setMoveCounter(moveCounter);
 		
 		playerMovesCounter++;
+		params.setPlayerMovesCounter(playerMovesCounter);
 		
 		// Записываем ход игрока
 		GameMove.addMove(moveCounter, "player", clickResult.row(), clickResult.col());
 		
 		// Обновляем состояние игры
-		updateGameState(difficultyLevel);
+		updateGameState(params);
+	}
+	
+	private void updateGameState(GameParams params) {
+		if (checkForWinOrDraw()) {
+			params.setGameWinner(checkForWin(params.getGameField()) ? "The player" : "It's a draw");
+			params.setWinningCells(GameEngine.winningCells);
+			endGame(params);
+		} else {
+			performComputerMove(params);
+			if (checkForWinOrDraw()) {
+				params.setGameWinner(checkForWin(params.getGameField()) ? "The computer" : "It's a draw");
+				params.setWinningCells(GameEngine.winningCells);
+				endGame(params);
+			}
+		}
+	}
+	
+	private void endGame(GameParams params) {
 		
+		// Проверка, есть ли победитель
+		boolean isWin = checkForWin(params.getGameField());
+		String gameWinner = isWin ? params.getGameWinner() : "It's a draw";
+		
+		// Обновление значений через сеттеры
+		params.setGameWinner(gameWinner);
+		params.setWinningCells(isWin ? params.getWinningCells() : null);
+		params.setMoves(convertMovesToGameMovesList());
+		
+		// Передача обновленного объекта gameResultHandler
+		gameResultHandler.endGame(params);
+		
+	}
+	
+	private void performComputerMove(GameParams params) {
+		int[] computerMove = switch (params.getDifficultyLevel()) {
+			case "EASY" -> easyMoveHandler.makeMove(params.getGameField(), params.getDifficultyLevel());
+			case "HARD" -> hardMoveHandler.makeMove(params.getGameField(), params.getDifficultyLevel());
+			case "AI" -> aiMoveHandler.makeMove(params.getGameField(), params.getDifficultyLevel());
+			default -> easyMoveHandler.makeMove(params.getGameField(), params.getDifficultyLevel());
+		};
+		
+		printSymbol(Constants.COMPUTER_SYMBOL, computerMove);
+		
+		// Обновляем gameField в params
+		char[][] updatedGameField = Arrays.copyOf(params.getGameField(), params.getGameField().length);
+		updatedGameField[computerMove[0]][computerMove[1]] = Constants.COMPUTER_SYMBOL;
+		params.setGameField(updatedGameField);
+		
+		// Увеличиваем счетчик ходов
+		params.setMoveCounter(params.getMoveCounter() + 1);
+		// Увеличиваем счетчик ходов компьютера
+		params.setComputerMovesCounter(params.getComputerMovesCounter() + 1);
+		
+		// Записываем ход компьютера
+		GameMove.addMove(params.getMoveCounter(), "computer", computerMove[0], computerMove[1]);
+	}
+	
+	// Универсальный метод для вывода символа на поле
+	private void printSymbol(char symbol, Object move) {
+		int row, col;
+		
+		// Определяем тип объекта и извлекаем координаты
+		if (move instanceof int[] coordinates) {
+			row = coordinates[0];
+			col = coordinates[1];
+		} else if (move instanceof ClickResult clickResult) {
+			row = clickResult.row();
+			col = clickResult.col();
+		} else {
+			throw new IllegalArgumentException("Unsupported move type");
+		}
+		
+		// Устанавливаем символ на поле
+		final Text text = setSymbol(symbol);
+		
+		// Устанавливаем позицию текста в GridPane
+		GridPane.setColumnIndex(text, col);
+		GridPane.setRowIndex(text, row);
+		GridPane.setHalignment(text, javafx.geometry.HPos.CENTER);
+		
+		// Добавляем текстовый элемент в GridPane
+		gridPane.getChildren().add(text);
+		
+		// Пауза для анимации
+		final PauseTransition pause = getPauseTransition(text);
+		pause.play();
+	}
+	
+	private Text setSymbol(char symbol) {
+		
+		// Создаем текстовый элемент для отображения символа
+		Text text = new Text(String.valueOf(symbol));
+		text.setFont(Font.font("Gill Sans MT", getCellFontSize()));
+		
+		// Выбираем цвет в зависимости от символа
+		Paint color =
+				(symbol == Constants.PLAYER_SYMBOL) ? Paint.valueOf(XColor) : Paint.valueOf(OColor);
+		text.setFill(color);
+		
+		// Устанавливаем альфа-канал на 0 (текст полностью прозрачен)
+		text.setOpacity(0);
+		
+		return text;
+	}
+	
+	private boolean checkForWinOrDraw() {
+		return checkForWin(gameField) || checkForDraw(gameField);
+	}
+	
+	private List<GameMove> convertMovesToGameMovesList() {
+		List<GameMove> gameMovesList = new ArrayList<>();
+		for (Object[] move : GameMove.getMoves()) {
+			int moveNumber = (int) move[0];
+			String player = (String) move[1];
+			int row = (int) move[2];
+			int col = (int) move[3];
+			gameMovesList.add(new GameMove(moveNumber, player, row, col));
+		}
+		return gameMovesList;
 	}
 	
 	
@@ -319,165 +432,6 @@ public class GameController implements PropertyChangeListener {
 		endAnimation.play();
 	}
 	
-	private record ClickResult(int row, int col) {
-	
-	}
-	
-	private void updateGameState(String difficultyLevel) {
-		
-		if (checkForWinOrDraw()) {
-			String gameWinner = checkForWin(gameField) ? "The player" : "It's a draw";
-			endGame(new GameParams(
-					gameWinner,
-					GameEngine.winningCells,
-					difficultyLevel,
-					convertMovesToGameMovesList(),
-					moveCounter,
-					playerMovesCounter,
-					computerMovesCounter,
-					stopGameTimer(),
-					anchorPane,
-					gridPane,
-					gameField,
-					bottomHLine,
-					rightVLine,
-					upHLine,
-					leftVLine
-			));
-		} else {
-			
-			performComputerMove(difficultyLevel);
-			
-			if (checkForWinOrDraw()) {
-				endGame(new GameParams(
-						"The computer",
-						winningCells,
-						difficultyLevel,
-						convertMovesToGameMovesList(),
-						moveCounter,
-						playerMovesCounter,
-						computerMovesCounter,
-						stopGameTimer(),
-						anchorPane,
-						gridPane,
-						gameField,
-						bottomHLine,
-						rightVLine,
-						upHLine,
-						leftVLine
-				));
-			}
-		}
-	}
-	
-	private void endGame(GameParams params) {
-		
-		String gameWinner = checkForWin(gameField) ? params.gameWinner() : "It's a draw";
-		
-		gameResultHandler.endGame(new GameParams(
-				gameWinner,
-				winningCells,
-				params.difficultyLevel(),
-				convertMovesToGameMovesList(),
-				params.moveCounter(),
-				params.playerMovesCounter(),
-				params.computerMovesCounter(),
-				params.gameTime(),
-				params.anchorPane(),
-				params.gridPane(),
-				gameField,
-				params.bottomHLine(),
-				params.rightVLine(),
-				params.upHLine(),
-				params.leftVLine()
-		));
-	}
-	
-	private void performComputerMove(String selectedLevel) {
-		int[] computerMove = switch (selectedLevel) {
-			case "EASY" -> easyMoveHandler.makeMove(gameField, selectedLevel);
-			case "HARD" -> hardMoveHandler.makeMove(gameField, selectedLevel);
-			case "AI" -> aiMoveHandler.makeMove(gameField, selectedLevel);
-			default -> easyMoveHandler.makeMove(gameField,
-					selectedLevel); // По умолчанию используем случайную стратегию
-		};
-		
-		printSymbol(Constants.COMPUTER_SYMBOL, computerMove);
-		
-		gameField[computerMove[0]][computerMove[1]] = Constants.COMPUTER_SYMBOL;
-		
-		// Увеличиваем счетчик ходов
-		moveCounter++;
-		computerMovesCounter++;
-		
-		// Записываем ход компьютера
-		GameMove.addMove(moveCounter, "computer", computerMove[0],
-				computerMove[1]); // Записываем ход компьютера
-	}
-	
-	// Универсальный метод для вывода символа на поле
-	private void printSymbol(char symbol, Object move) {
-		int row, col;
-		
-		// Определяем тип объекта и извлекаем координаты
-		if (move instanceof int[] coordinates) {
-			row = coordinates[0];
-			col = coordinates[1];
-		} else if (move instanceof ClickResult clickResult) {
-			row = clickResult.row();
-			col = clickResult.col();
-		} else {
-			throw new IllegalArgumentException("Unsupported move type");
-		}
-		
-		// Устанавливаем символ на поле
-		final Text text = setSymbol(symbol);
-		
-		// Устанавливаем позицию текста в GridPane
-		GridPane.setColumnIndex(text, col);
-		GridPane.setRowIndex(text, row);
-		GridPane.setHalignment(text, javafx.geometry.HPos.CENTER);
-		
-		// Добавляем текстовый элемент в GridPane
-		gridPane.getChildren().add(text);
-		
-		// Пауза для анимации
-		final PauseTransition pause = getPauseTransition(text);
-		pause.play();
-	}
-	
-	private Text setSymbol(char symbol) {
-		
-		// Создаем текстовый элемент для отображения символа
-		Text text = new Text(String.valueOf(symbol));
-		text.setFont(Font.font("Gill Sans MT", getCellFontSize()));
-		
-		// Выбираем цвет в зависимости от символа
-		Paint color =
-				(symbol == Constants.PLAYER_SYMBOL) ? Paint.valueOf(XColor) : Paint.valueOf(OColor);
-		text.setFill(color);
-		
-		// Устанавливаем альфа-канал на 0 (текст полностью прозрачен)
-		text.setOpacity(0);
-		
-		return text;
-	}
-	
-	private boolean checkForWinOrDraw() {
-		return checkForWin(gameField) || checkForDraw(gameField);
-	}
-	
-	private List<GameMove> convertMovesToGameMovesList() {
-		List<GameMove> gameMovesList = new ArrayList<>();
-		for (Object[] move : GameMove.getMoves()) {
-			int moveNumber = (int) move[0];
-			String player = (String) move[1];
-			int row = (int) move[2];
-			int col = (int) move[3];
-			gameMovesList.add(new GameMove(moveNumber, player, row, col));
-		}
-		return gameMovesList;
-	}
 	
 	private void initializeLevelInfoLine() {
 		// Вычисляем сумму wrappingWidth для обеих строк
