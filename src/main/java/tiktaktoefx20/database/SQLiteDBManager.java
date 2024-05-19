@@ -80,9 +80,9 @@ public class SQLiteDBManager {
 	}
 	
 	
-	private static String serializeGameState(List<GameMove> moves) {
+	private static String serializeGameState(List<GameMoveRecorder> moves) {
 		StringBuilder serializedState = new StringBuilder();
-		for (GameMove move : moves) {
+		for (GameMoveRecorder move : moves) {
 			serializedState.append(move.player());
 			serializedState.append(move.row());
 			serializedState.append(move.col());
@@ -90,7 +90,7 @@ public class SQLiteDBManager {
 		return serializedState.toString();
 	}
 	
-	public static void recordGame(List<GameMove> moves, int totalMoves, int playerMoves,
+	public static void recordGame(List<GameMoveRecorder> moves, int totalMoves, int playerMoves,
 			int computerMoves, String result, int duration, String level) {
 		createTables();
 		
@@ -100,7 +100,7 @@ public class SQLiteDBManager {
 			
 			conn.setAutoCommit(false);
 			
-			for (GameMove move : moves) {
+			for (GameMoveRecorder move : moves) {
 				recordMove(conn, move.moveNumber(), move.player(), move.row(), move.col());
 			}
 			

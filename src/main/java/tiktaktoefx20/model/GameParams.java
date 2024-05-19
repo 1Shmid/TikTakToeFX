@@ -17,7 +17,7 @@ public class GameParams {
 	private String gameWinner;
 	private List<int[]> winningCells;
 	private String difficultyLevel;
-	private List<GameMove> moves;
+	private List<GameMoveRecorder> moves;
 	private int moveCounter;
 	private int playerMovesCounter;
 	private int computerMovesCounter;
@@ -33,7 +33,7 @@ public class GameParams {
 	public GameParams(String gameWinner,
 			List<int[]> winningCells,
 			String difficultyLevel,
-			List<GameMove> moves,
+			List<GameMoveRecorder> moves,
 			int moveCounter,
 			int playerMovesCounter,
 			int computerMovesCounter,
@@ -88,12 +88,12 @@ public class GameParams {
 		this.difficultyLevel = difficultyLevel;
 	}
 	
-	public List<GameMove> getMoves() {
+	public List<GameMoveRecorder> getMoves() {
 		return moves;
 	}
 	
 	
-	public void setMoves(List<GameMove> moves) {
+	public void setMoves(List<GameMoveRecorder> moves) {
 		this.moves = moves;
 	}
 	

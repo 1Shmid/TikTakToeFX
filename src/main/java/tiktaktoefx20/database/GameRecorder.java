@@ -10,7 +10,7 @@ import java.util.*;
 
 public class GameRecorder {
 	
-	private final List<GameMove> moves;
+	private final List<GameMoveRecorder> moves;
 	private final int totalMoves;
 	private final int playerMoves;
 	private final int computerMoves;
@@ -18,7 +18,8 @@ public class GameRecorder {
 	private final int duration;
 	private final String level;
 	
-	public GameRecorder(List<GameMove> moves, int totalMoves, int playerMoves, int computerMoves,
+	public GameRecorder(List<GameMoveRecorder> moves, int totalMoves, int playerMoves,
+			int computerMoves,
 			String gameWinner, int duration, String level) {
 		this.moves = moves;
 		this.totalMoves = totalMoves;
